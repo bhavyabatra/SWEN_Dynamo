@@ -27,9 +27,9 @@ namespace SWEN_Dynamo.Controllers
                 Item = new Dictionary<string, AttributeValue>()
       {
           { "USID", new AttributeValue { N = Convert.ToString(model.USID)  }},
-          { "Email", new AttributeValue { S = Convert.ToString(model.Email) }},
-          { "Datecreated", new AttributeValue { S = "Convert.ToString(model.Datecreated)" }},
-          { "Datemodified", new AttributeValue { S = "Convert.ToString(model.Datemodified)" }},
+          { "Email", new AttributeValue { S = "Convert.ToString(model.Email)" }},
+          { "Datecreated", new AttributeValue { S = Convert.ToString(model.Datecreated) }},
+          { "Datemodified", new AttributeValue { S = Convert.ToString(model.Datemodified) }},
           { "FirstName", new AttributeValue { S = "model.Firstname" }},
           { "LastName", new AttributeValue { S = "model.Lastname" }},
           { "Password", new AttributeValue { S = "model.Password" }},
