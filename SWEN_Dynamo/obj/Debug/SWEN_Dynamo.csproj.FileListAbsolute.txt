@@ -83,3 +83,4 @@ c:\users\bbatra\documents\visual studio 2015\Projects\SWEN_Dynamo\SWEN_Dynamo\bi
 c:\users\bbatra\documents\visual studio 2015\Projects\SWEN_Dynamo\SWEN_Dynamo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 c:\users\bbatra\documents\visual studio 2015\Projects\SWEN_Dynamo\SWEN_Dynamo\obj\Debug\SWEN_Dynamo.dll
 c:\users\bbatra\documents\visual studio 2015\Projects\SWEN_Dynamo\SWEN_Dynamo\obj\Debug\SWEN_Dynamo.pdb
+C:\Users\bbatra\documents\visual studio 2015\Projects\SWEN_Dynamo\SWEN_Dynamo\obj\Debug\SWEN_Dynamo.csprojResolveAssemblyReference.cache

@@ -15,10 +15,20 @@ namespace SWEN_Dynamo.Controllers
 {
     public class UsersController : Controller
     {
-        
-        // GET: Users
+        //string Em;
+        //// GET: Users
+        //[HttpPost]
+        //public string checks(UserModel models)
+        //{
+
+        //    Em = models.Firstname;
+        //    return Em;
+        //}
+
+
         public ActionResult Index(UserModel model)
         {
+           //checks(model);    
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             string tablename = "User";
             var request = new PutItemRequest
@@ -27,18 +37,18 @@ namespace SWEN_Dynamo.Controllers
                 Item = new Dictionary<string, AttributeValue>()
       {
           { "USID", new AttributeValue { N = Convert.ToString(model.USID)  }},
-          { "Email", new AttributeValue { S = "Convert.ToString(model.Email)" }},
+          { "Email", new AttributeValue { S = model.Email }},
           { "Datecreated", new AttributeValue { S = Convert.ToString(model.Datecreated) }},
           { "Datemodified", new AttributeValue { S = Convert.ToString(model.Datemodified) }},
-          { "FirstName", new AttributeValue { S = "model.Firstname" }},
-          { "LastName", new AttributeValue { S = "model.Lastname" }},
-          { "Password", new AttributeValue { S = "model.Password" }},
-          { "Vcode", new AttributeValue { S = "model.Vcode" }},
+          { "FirstName", new AttributeValue { S = model.Firstname }},
+          { "LastName", new AttributeValue { S = model.Lastname }},
+          { "Password", new AttributeValue { S = model.Password }},
+          { "Vcode", new AttributeValue { S = model.Vcode }},
           { "RID", new AttributeValue { N = Convert.ToString(model.RID) }},
           { "RA", new AttributeValue { N = Convert.ToString(model.RA) }},
           { "FA", new AttributeValue { N = Convert.ToString(model.FA) }},
           { "SA", new AttributeValue { N = Convert.ToString(model.SA) }},
-          { "Region", new AttributeValue { S = "model.Region" }},
+          { "Region", new AttributeValue { S = model.Region }},
           { "Phone", new AttributeValue { N = Convert.ToString(model.Phone) }},
       }
             };
