@@ -5,19 +5,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
+using Amazon.DynamoDBv2.DataModel;
 
 namespace SWEN_Dynamo.Models
 {
     public class UserModel
     {
-
+        [DynamoDBHashKey]
         public int USID { get; set; }
+
         public int RID { get; set; }
+
         public int SA { get; set; } //SurveyAdmin
+
         public int RA { get; set; } //ReportAdmin
+
         public int FA { get; set; } //FeedbackAdmin
-        public double Phone { get; set; }
+
+        
+        [StringLength(10, MinimumLength = 10, ErrorMessage =  "Invalid phone number, Do not enter country code if you are doing so")]
+        [Required(ErrorMessage = "Phone is required")]
+        [Phone]
+        public string Phone { get; set; } = "0000000000";
+
         public DateTime Datecreated { get; set; }
+
         public DateTime Datemodified { get; set; }
      
         [Required(ErrorMessage = "First Name is required")]
@@ -34,6 +46,7 @@ namespace SWEN_Dynamo.Models
         public string Email { get; set; } = "Default@s.com";
 
         [StringLength(75, MinimumLength = 2, ErrorMessage = "Specify Region (Between 2-50 characters)")]
+        [Required(ErrorMessage = "Region is required")]
         public string Region { get; set; } = "Default";
 
         [StringLength(15, MinimumLength = 8, ErrorMessage = "Password should be between 8 to 15 characters")]

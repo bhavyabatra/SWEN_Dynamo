@@ -15,23 +15,15 @@ namespace SWEN_Dynamo.Controllers
 {
     public class UsersController : Controller
     {
-        //string Em;
-        //// GET: Users
-        //[HttpPost]
-        //public string checks(UserModel models)
-        //{
-
-        //    Em = models.Firstname;
-        //    return Em;
-        //}
+   
 
 
         public ActionResult Index(UserModel model)
         {
-           //checks(model);    
+           
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             string tablename = "User";
-            var request = new PutItemRequest
+        var request = new PutItemRequest
             {
                 TableName = tablename,
                 Item = new Dictionary<string, AttributeValue>()
