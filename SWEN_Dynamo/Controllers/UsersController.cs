@@ -21,32 +21,11 @@ namespace SWEN_Dynamo.Controllers
         {
 
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+          
             string tablename = "User";
-            var verify = new GetItemRequest
-            {
-                TableName = tablename,
-                Key = new Dictionary<string, AttributeValue>()
-        {
-          { "USID", new AttributeValue { N = Convert.ToString(model.USID) } }
-        },
-
-                ProjectionExpression = "Email, Datecreated, Datecreated, Datemodified,FirstName,LastName,Password,Vcode,RID,RA,FA,SA,#R ,Phone",
-                ConsistentRead = true
-            } ;
-            var check = client.GetItem(verify);
-            if (check != null)
-            {
-                return View();
-            }
-
-            else
-            {
-                var request = new PutItemRequest
+                   var request = new PutItemRequest
                 {
                     TableName = tablename,
-                    //    Key = new Dictionary<string, AttributeValue>()
-                    //{ { "USID", new AttributeValue { N = Convert.ToString(model.USID)  } } },
-
                     Item = new Dictionary<string, AttributeValue>()
       {
           { "USID", new AttributeValue { N = Convert.ToString(model.USID) } },
@@ -69,7 +48,7 @@ namespace SWEN_Dynamo.Controllers
                 return View();
 
             }
-        } } }
+        } } 
         
     
 

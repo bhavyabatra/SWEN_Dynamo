@@ -11,7 +11,7 @@ namespace SWEN_Dynamo.Models
 {
     public class UserModel
     {
-        [DynamoDBHashKey]
+      //  [DynamoDBHashKey]
         public int USID { get; set; }
 
         public int RID { get; set; }
