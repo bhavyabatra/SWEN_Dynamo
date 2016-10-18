@@ -199,6 +199,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -271,6 +272,12 @@
     <Content Include="Views\Users\UsersDetails.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\TestWarning.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\OutreachAdminIndex.cshtml" />
+    <Content Include="Views\Login\NationalLevelIndex.cshtml" />
+    <Content Include="Views\Login\RegionalLevelIndex.cshtml" />
+    <Content Include="Views\Login\ChapterLevelIndex.cshtml" />
+    <Content Include="Views\Login\VolunteerIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
