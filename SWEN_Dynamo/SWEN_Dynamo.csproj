@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Helper.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -273,11 +274,10 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\TestWarning.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Login\OutreachAdminIndex.cshtml" />
-    <Content Include="Views\Login\NationalLevelIndex.cshtml" />
-    <Content Include="Views\Login\RegionalLevelIndex.cshtml" />
-    <Content Include="Views\Login\ChapterLevelIndex.cshtml" />
-    <Content Include="Views\Login\VolunteerIndex.cshtml" />
+    <Content Include="Views\Login\NationalLevelMember.cshtml" />
+    <Content Include="Views\Login\RegionalLevelMember.cshtml" />
+    <Content Include="Views\Login\ChapterLevelMember.cshtml" />
+    <Content Include="Views\Login\SWEVolunteer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

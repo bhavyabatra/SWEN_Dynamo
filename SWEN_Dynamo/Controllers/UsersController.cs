@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SWEN_Dynamo.App_Start;
 using System.Web.Mvc;
 using SWEN_Dynamo.Models;
 using Amazon.DynamoDBv2;
+using Amazon.KeyManagementService;
 using Amazon.DynamoDBv2.Model;
 using Amazon.MachineLearning.Model;
 using Amazon.DynamoDBv2.DocumentModel;
@@ -17,9 +20,21 @@ namespace SWEN_Dynamo.Controllers
 {
     public class UsersController : Controller
     {
+            
+
         public ActionResult Index(UserModel model)
         {
+            // string keyId = "arn:aws:dynamodb:us-west-2:964019329379:table/User";
+            // String pass = model.Password;
+            // MemoryStream plainpass = new MemoryStream();
+            //// plainpass
+            // EncryptionRequest req = new EncryptionRequest();          
 
+            var keyNew = Helper.GeneratePassword(10);
+            var pass = Helper.EncodePassword(model.Password, keyNew);
+            model.Password = pass;
+            model.Vcode = keyNew;
+            
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
           
             string tablename = "User";
@@ -34,8 +49,8 @@ namespace SWEN_Dynamo.Controllers
           { "Datemodified", new AttributeValue { S = Convert.ToString(model.Datemodified) }},
           { "FirstName", new AttributeValue { S = model.Firstname }},
           { "LastName", new AttributeValue { S = model.Lastname }},
-          { "Password", new AttributeValue { S = model.Password }},
-          { "Vcode", new AttributeValue { S = model.Vcode }},
+          { "Password", new AttributeValue { S = pass }},
+          { "Vcode", new AttributeValue { S = keyNew }},
           { "RID", new AttributeValue { N = Convert.ToString(model.RID) }},
           { "RA", new AttributeValue { N = Convert.ToString(model.RA) }},
           { "FA", new AttributeValue { N = Convert.ToString(model.FA) }},
