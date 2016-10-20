@@ -278,6 +278,7 @@
     <Content Include="Views\Login\RegionalLevelMember.cshtml" />
     <Content Include="Views\Login\ChapterLevelMember.cshtml" />
     <Content Include="Views\Login\SWEVolunteer.cshtml" />
+    <Content Include="Views\Login\OutreachAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
