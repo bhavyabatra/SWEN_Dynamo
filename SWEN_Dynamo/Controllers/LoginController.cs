@@ -9,6 +9,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using SWEN_Dynamo.App_Start;
 using Amazon.DynamoDBv2.Model;
+using Amazon.DynamoDBv2.DataModel;
 
 namespace SWEN_Dynamo.Controllers
 {
@@ -21,37 +22,63 @@ namespace SWEN_Dynamo.Controllers
         //}
         public ActionResult Index(LoginModel model)
         {
-
-
-
-            //UserModel models = new UserModel();
-            //AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-            //string tableName = "User";
-            //model.USID = models.USID;
-            //var request = new GetItemRequest
+            //if (!ModelState.IsValid)
             //{
-            //    TableName = tableName,
-            //    Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(models.USID) } } },
-            //};
-            //Table table = Table.LoadTable(client, "User");
-            //var res = client.GetItem(request);
+            //    return View(model);
+            //}
 
-            //// Check the response.
-            //var result = Convert.ToBoolean(res.GetItemResult);
+           AmazonDynamoDBClient client = new AmazonDynamoDBClient();
 
-            //switch(result)
-            //{
-            //case (result != null) : 
+           // Table table = new Table("Login");
+            Table table = Table.LoadTable(client, "Login");
+            Document document = table.GetItem(model.USID, model.Email);
+            if (document != null)
+            {
 
-          
-            
                 return View("OutreachAdmin");
-            
+            }
+                //DynamoDBContext context = new DynamoDBContext(client);
+
+
+                //string Id = Convert.ToString(model.USID); //Partition key 
+                //string mail = Co
+                //DateTime twoWeeksAgoDate = DateTime.UtcNow.Subtract(new TimeSpan(14, 0, 0, 0)); // Date to compare.
+                //IEnumerable<"Login"> latestReplies = context.Query<Login>(Id, QueryOperator.GreaterThan, twoWeeksAgoDate);
+                //Table table = Table.LoadTable(client, "Login");
+                // string xyz = table.GetItem(model.USID);
+                // string yzx = table.GetItem(model.Email);
+                // if (xyz != null && yzx != null)
+
+                // {
+                //     return View("OutreachAdmin");
+                // }
+                //UserModel models = new UserModel();
+                //AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+                //string tableName = "User";
+                //model.USID = models.USID;
+                //var request = new GetItemRequest
+                //{
+                //    TableName = tableName,
+                //    Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(models.USID) } } },
+                //};
+                //Table table = Table.LoadTable(client, "User");
+                //var res = client.GetItem(request);
+
+                //// Check the response.
+                //var result = Convert.ToBoolean(res.GetItemResult);
+
+                //switch(result)
+                //{
+                //case (result != null) : 
+                return View();
+
+
+
             //}
 
 
             //table.GetItem(models.USID);
-            
+
             //if (result != null)
             //{
             //    //var getuser = (from s in User where s.USID == USID select s).FirstOrDefault();
@@ -75,14 +102,14 @@ namespace SWEN_Dynamo.Controllers
 
 
 
-               
+
             //}
             //else 
             //{
             //        return View("Lockout");
             //    }
 
-            
+
 
         }
 
