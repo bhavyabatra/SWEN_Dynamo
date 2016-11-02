@@ -31,10 +31,17 @@ namespace SWEN_Dynamo.Controllers
 
            // Table table = new Table("Login");
             Table table = Table.LoadTable(client, "Login");
-            Document document = table.GetItem(model.USID, model.Email);
+            //GetItemOperationConfig config = new GetItemOperationConfig()
+            //{
+            //    AttributesToGet = new List<string>() { model.Password },
+            //};
+            Document document = table.GetItem(model.USID, model.Email); //Document document = table.GetItem(model.USID, model.Email, config);
+            string Checkpassword = model.Password; 
             if (document != null)
             {
 
+               
+              //  table.GetItem(model.USID, model.Email, config);
                 return View("OutreachAdmin");
             }
                 //DynamoDBContext context = new DynamoDBContext(client);
