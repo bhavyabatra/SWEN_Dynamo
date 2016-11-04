@@ -20,30 +20,70 @@ namespace SWEN_Dynamo.Controllers
         //{
         //    return View("Index");
         //}
+        //[HttpPost]
+        //[AllowAnonymous]
         public ActionResult Index(LoginModel model)
         {
             //if (!ModelState.IsValid)
             //{
             //    return View(model);
             //}
-
+          // UserModel mod = new UserModel();
            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+           // Table table = new Table("Logins");
+            Table table = Table.LoadTable(client, "Logins");
+           
 
-           // Table table = new Table("Login");
-            Table table = Table.LoadTable(client, "Login");
-            //GetItemOperationConfig config = new GetItemOperationConfig()
-            //{
-            //    AttributesToGet = new List<string>() { model.Password },
-            //};
-            Document document = table.GetItem(model.USID, model.Email); //Document document = table.GetItem(model.USID, model.Email, config);
-            string Checkpassword = model.Password; 
+            GetItemOperationConfig config = new GetItemOperationConfig()
+            {
+                AttributesToGet = new List<string>() { "Password" },
+            };
+
+            //var value = config[Attribute];
+            Document document = table.GetItem(model.Email, config); //Document document = table.GetItem(model.USID, model.Email, config);
+            string zz = model.Password;                                                        //string yy = document["Email"];
+                                                                    // string xyz = document["Password"];
+
             if (document != null)
             {
-
-               
-              //  table.GetItem(model.USID, model.Email, config);
-                return View("OutreachAdmin");
+                Document docs = table.GetItem(model.Email, config);
+                string yy = docs["Password"];
+                if (yy == zz )
+                {
+                    return View("OutreachAdmin");
+                }
             }
+            //string Checkpassword = model.Password;
+            //foreach (var attribute in document.GetAttributeNames())
+            //{
+            //    string stringValue = null;
+            //    var value = document[attribute];
+            //    if (value == "Password")
+            //        stringValue = value.AsPrimitive().Value.ToString();
+            //            if(stringValue == model.Password)
+            //    {
+            //        return View("OutreachAdmin");
+            //    }
+            //}
+            //    if (document != null)
+
+            //{
+            //    //Table tab = Table.LoadTable(client, "User");
+            //    //ScanFilter sc = new ScanFilter();
+            //    //sc.AddCondition("RID", ScanOperator.Equal, "2");
+            //    //Search se = tab.Scan(sc);
+            //    //List<Document> docl = new List<Document>();
+            //    //docl = se.GetNextSet();
+            //    //if (docl != null)
+            //    //GetItemOperationConfig config = new GetItemOperationConfig()
+            //    //{
+            //    //    AttributesToGet = new List<string>() { model.Password },
+            //    //};
+            //    {
+            //        //  table.GetItem(model.USID, model.Email, config);
+            //        return View("OutreachAdmin");
+            //    }
+            //}
                 //DynamoDBContext context = new DynamoDBContext(client);
 
 

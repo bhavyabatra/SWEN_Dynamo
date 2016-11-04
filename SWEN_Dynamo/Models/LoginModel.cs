@@ -18,6 +18,6 @@ namespace SWEN_Dynamo.Models
         public int RID { get; set; }
 
         [DynamoDBRangeKey]
-        public string Email { get; set; } = "Default@s.com";
+        public string Email { get; set; } = "default@ttu.edu";
     }
 }
