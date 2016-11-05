@@ -24,31 +24,31 @@ namespace SWEN_Dynamo.Controllers
         //[AllowAnonymous]
         public ActionResult Index(LoginModel model)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(model);
-            //}
-          // UserModel mod = new UserModel();
-           AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+          //  var VcodeKey = Helper.GeneratePassword(10);
+           
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
            // Table table = new Table("Logins");
             Table table = Table.LoadTable(client, "Logins");
-           
-
             GetItemOperationConfig config = new GetItemOperationConfig()
             {
-                AttributesToGet = new List<string>() { "Password" },
+                AttributesToGet = new List<string>() { "Password","USID","RID","Vcode","Phone" },
             };
 
             //var value = config[Attribute];
             Document document = table.GetItem(model.Email, config); //Document document = table.GetItem(model.USID, model.Email, config);
-            string zz = model.Password;                                                        //string yy = document["Email"];
+           // string StringUserPasswordEncoded = Convert.ToString(UserPasswordEncoded);                                                        //string yy = document["Email"];
                                                                     // string xyz = document["Password"];
 
             if (document != null)
             {
                 Document docs = table.GetItem(model.Email, config);
-                string yy = docs["Password"];
-                if (yy == zz )
+                string PasswordFromDynamoDB = docs["Password"];
+                string VcodeKey = docs["Vcode"];
+                var UserPasswordEncoded = Helper.EncodePassword(model.Password, VcodeKey);
+                //model.Password = UserPasswordEncoded;
+                //model.Vcode = VcodeKey;
+
+                if (PasswordFromDynamoDB == UserPasswordEncoded)
                 {
                     return View("OutreachAdmin");
                 }

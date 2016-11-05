@@ -32,8 +32,8 @@ namespace SWEN_Dynamo.Controllers
 
             var keyNew = Helper.GeneratePassword(10);
             var pass = Helper.EncodePassword(model.Password, keyNew);
-            model.Password = pass;
-            model.Vcode = keyNew;
+            //model.Password = pass;
+            //model.Vcode = keyNew;
             
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
           
