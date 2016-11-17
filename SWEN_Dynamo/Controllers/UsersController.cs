@@ -71,40 +71,24 @@ namespace SWEN_Dynamo.Controllers
         public ActionResult UsersList()
         {
             UserModel usermodelobject = new UserModel();
-           // usermodelobject.USID = 0;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-            // Table table = new Table("Logins");
             Table table = Table.LoadTable(client, "User");
             ScanFilter scanFilter = new ScanFilter();
             scanFilter.AddCondition("USID", ScanOperator.GreaterThan, 0);
-            //Search search = table.Scan(scanFilter);
             ScanOperationConfig config = new ScanOperationConfig()
             {
                 Filter = scanFilter,
                 Select = SelectValues.SpecificAttributes,
-                AttributesToGet = new List<string> {  "RID" }
+                AttributesToGet = new List<string> { "USID", "RID", "FirstName", "LastName", "Email", "RA", "SA", "FA", "Phone", "Datecreated", "Datemodified", "Region" }
             };
             Search search = table.Scan(config);
-            //static List< UserIDS > = new List<>();
-            //GetItemOperationConfig config = new GetItemOperationConfig()
-            //{
-            //    AttributesToGet = new List<string>() { "RID" },
-            //};
-            //Document document = table.GetItem(usermodelobject.USID, config);
-            //if (document != null)
-            //{
-            //    Document docs = table.GetItem(usermodelobject.USID, config);
-            //    {
-            //        people.Add(new UserModel() { USID = usermodelobject.USID, RID = Convert.ToInt32(docs["RID"])  });
-            //    }
-            //}
             List<Document> documentList = new List<Document>();
             do
             {
                 documentList = search.GetNextSet();
                 foreach (var document in documentList)
                 {
-                    people.Add(new UserModel() { USID = usermodelobject.USID, RID = Convert.ToInt32(document["RID"]) });
+                    people.Add(new UserModel() { USID =  Convert.ToInt32(document["USID"]), RID = Convert.ToInt32(document["RID"]), Email = document["Email"], Datecreated = Convert.ToDateTime(document["Datecreated"]), Datemodified = Convert.ToDateTime(document["Datemodified"]), Firstname = document["FirstName"], Lastname = document["LastName"], Phone = document["Phone"], Region = document["Region"], RA = Convert.ToInt32(document["RA"]), FA = Convert.ToInt32(document["FA"]), SA = Convert.ToInt32(document["SA"]) });
                 }
             } while (!search.IsDone);
             return View(people);

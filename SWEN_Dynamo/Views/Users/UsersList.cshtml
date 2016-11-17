@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.USID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Firstname)
         </th>
         <th>
@@ -23,10 +26,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Region)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.USID)
-        </th>
-        <th>
+         <th>
             @Html.DisplayNameFor(model => model.RID)
         </th>
         <th>
@@ -60,6 +60,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.USID)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Firstname)
         </td>
         <td>
@@ -71,10 +74,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Region)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.USID)
-        </td>
-        <td>
+         <td>
             @Html.DisplayFor(modelItem => item.RID)
         </td>
         <td>
