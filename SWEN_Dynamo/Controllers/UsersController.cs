@@ -34,6 +34,8 @@ namespace SWEN_Dynamo.Controllers
             var pass = Helper.EncodePassword(model.Password, keyNew);
             model.Password = pass;
             model.Vcode = keyNew;
+            model.Datecreated = System.DateTime.Now;
+            model.Datemodified = System.DateTime.Now; 
             
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
           
@@ -68,23 +70,43 @@ namespace SWEN_Dynamo.Controllers
         static List<UserModel> people = new List<UserModel>();
         public ActionResult UsersList()
         {
-            UserModel xx = new UserModel();
-            xx.USID = 155;
+            UserModel usermodelobject = new UserModel();
+           // usermodelobject.USID = 0;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             // Table table = new Table("Logins");
             Table table = Table.LoadTable(client, "User");
-            GetItemOperationConfig config = new GetItemOperationConfig()
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("USID", ScanOperator.GreaterThan, 0);
+            //Search search = table.Scan(scanFilter);
+            ScanOperationConfig config = new ScanOperationConfig()
             {
-                AttributesToGet = new List<string>() { "RID" },
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> {  "RID" }
             };
-            Document document = table.GetItem(xx.USID, config);
-            if (document != null)
+            Search search = table.Scan(config);
+            //static List< UserIDS > = new List<>();
+            //GetItemOperationConfig config = new GetItemOperationConfig()
+            //{
+            //    AttributesToGet = new List<string>() { "RID" },
+            //};
+            //Document document = table.GetItem(usermodelobject.USID, config);
+            //if (document != null)
+            //{
+            //    Document docs = table.GetItem(usermodelobject.USID, config);
+            //    {
+            //        people.Add(new UserModel() { USID = usermodelobject.USID, RID = Convert.ToInt32(docs["RID"])  });
+            //    }
+            //}
+            List<Document> documentList = new List<Document>();
+            do
             {
-                Document docs = table.GetItem(xx.USID, config);
+                documentList = search.GetNextSet();
+                foreach (var document in documentList)
                 {
-                    people.Add(new UserModel() { USID = xx.USID, RID = Convert.ToInt32(docs["RID"]) });
+                    people.Add(new UserModel() { USID = usermodelobject.USID, RID = Convert.ToInt32(document["RID"]) });
                 }
-            }
+            } while (!search.IsDone);
             return View(people);
         }
     }

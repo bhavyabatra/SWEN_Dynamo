@@ -28,10 +28,10 @@ namespace SWEN_Dynamo.Models
         [Phone]
         public string Phone { get; set; } = "0000000000";
 
-        public DateTime Datecreated { get; set; }
+        public DateTime Datecreated { get; set; } 
 
-        public DateTime Datemodified { get; set; }
-     
+        public DateTime Datemodified { get; set; } 
+
         [Required(ErrorMessage = "First Name is required")]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
         public string Firstname { get; set; } = "Default";
