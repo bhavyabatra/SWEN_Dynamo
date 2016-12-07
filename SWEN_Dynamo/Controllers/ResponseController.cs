@@ -25,9 +25,13 @@ namespace SWEN_Dynamo.Controllers
             Table table = Table.LoadTable(client, "SurveyCatalog");
             //Table tab = Table.LoadTable(client, "SurveyCatalog");
             ScanFilter scanFilter = new ScanFilter();
-            //Here we can write code to fetch the survey id
-            scanFilter.AddCondition("SuriveyID", ScanOperator.Equal, "99");
+            //Copy action will copy survey from Survey catalog to Response Table and key response token which will be unique. and surveyID and Email ID will be maintained corresponding to that
+            
+            scanFilter.AddCondition("SuriveyID", ScanOperator.Equal, "99");//Here we can write code to fetch the survey id
 
+            //Create a scan query to check number of objectives and questions 
+            // Create a function in utility class for returning objectives and questions strings and return strings for . 
+            // Maintain a list of response token in json or somewhere to block re launching of surveys. SO Befor launching survey is not listed then no query. 
             ScanOperationConfig config = new ScanOperationConfig()
             {
                 Filter = scanFilter,
@@ -38,6 +42,7 @@ namespace SWEN_Dynamo.Controllers
             List<Document> documentList = new List<Document>();
             do
             {
+                // Fetch the number value from objective in doc list. Map number value to local value and iterate the loop for that number of objectives
                 documentList = search.GetNextSet();
                 foreach (var document in documentList)
                 {
