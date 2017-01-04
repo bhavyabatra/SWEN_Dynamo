@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SWEN_Dynamo.App_Start.Helper">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAABAQAAAAQAAgAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>App_Start\Helper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWEN_Dynamo.App_Start.SWEN_DynamoUtilityClass">
+    <Position X="2.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\SWEN_DynamoUtilityClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

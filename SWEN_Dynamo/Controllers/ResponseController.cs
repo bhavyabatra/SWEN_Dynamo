@@ -48,8 +48,9 @@ namespace SWEN_Dynamo.Controllers
                 {
                     sc.SurveyID = Convert.ToInt32(document["SuriveyID"]);
                     sc.Email = document["Email"];
-                    sc.O1 = document["Objective1"];
-                    sc.Q1 = document["Question1"];
+                    sc.O1 = document["O1"];
+                    sc.O2 = document["O2"];
+                   // sc.O3 = document["O3"];
                     
                     //s.Add(new ResponseModel() { SurveyID = Convert.ToInt32(document["SuriveyID"]), O1 = document["Objective1"], Email = document["Email"], Q1 = document["Question1"], O1_Q1_A = document["AIDVal"] });
                 }
@@ -60,7 +61,7 @@ namespace SWEN_Dynamo.Controllers
             {
                 TableName = tablename,
                 Key = new Dictionary<string, AttributeValue>() { { "SuriveyID", new AttributeValue { S = "99" } },
-                    { "Email", new AttributeValue { S = "hi@hi.com" } } },
+                    { "Email", new AttributeValue { S = "bhavyabatra88@gmail.com" } } },
                 ExpressionAttributeNames = new Dictionary<string, string>()
     {
         {"#A", "AIDVal1"},
