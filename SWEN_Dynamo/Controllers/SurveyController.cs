@@ -12,14 +12,14 @@ namespace SWEN_Dynamo.Controllers
     public class SurveyController : Controller
     {
         // GET: Survey
-
+        public string tada;
         public string Storestring(string storethisstring)
         {
             string x;
-            string y;
+           
             x = storethisstring;
-            y = x;
-            return y;
+            tada = x;
+            return tada;
         }
         public ActionResult SurveyStart(SurveyModel model)
         {
@@ -50,7 +50,7 @@ namespace SWEN_Dynamo.Controllers
         public ActionResult StudentSurvey(StudentSurveyModel mod) 
         {
 
-            //string id = Storestring(); 
+            string id = tada; 
             return View();
         }
     }
