@@ -282,7 +282,7 @@ namespace SWEN_Dynamo.Controllers
                     det.Datecreated = Convert.ToDateTime(document["Datecreated"]);
                 }
             } while (!search.IsDone);
-            return View(det);
+            
 
             if (action == "Back to List")
             {

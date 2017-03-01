@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SWEN_Dynamo.Models
 {
-    public class StudentSurveyModel
+    public class StudentSurveyModel : SurveyModel
     {
         [Display(Name = "What are yor doing")]
         public bool Objective1 { get; set; }
@@ -17,11 +17,16 @@ namespace SWEN_Dynamo.Models
         [Display(Name = "Question for objective 2")]
         public bool Question2 { get; set; } = false;
 
-        public string Objective2 { get; set; } = "What you wanna do ? ";
-        public string Objective3 { get; set; } = "Shall We Start ?";
-  
-        public int OID { get; set;  }
-        public int QID { get; set; } 
-            
+        [Display(Name = "Where are you living ?")]
+        public bool Objective2 { get; set; } = false;
+
+        [Display(Name = "Where were you born ?")]
+        public bool Objective3 { get; set; } = false;
+
+        public int OID { get; set; } = 0;
+
+        public int QID { get; set; } = 0;
+
+        string id { get; set; } = "xx";
      }
 }

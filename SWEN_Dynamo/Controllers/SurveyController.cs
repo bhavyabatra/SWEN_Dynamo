@@ -12,10 +12,19 @@ namespace SWEN_Dynamo.Controllers
     public class SurveyController : Controller
     {
         // GET: Survey
+
+        public string Storestring(string storethisstring)
+        {
+            string x;
+            string y;
+            x = storethisstring;
+            y = x;
+            return y;
+        }
         public ActionResult SurveyStart(SurveyModel model)
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-
+            string x = Storestring(model.SurveyID);
             string tablename = "SurveyCatalog";
             var request = new PutItemRequest
             {
@@ -25,15 +34,23 @@ namespace SWEN_Dynamo.Controllers
           { "SurveyID", new AttributeValue { S = model.SurveyID } },
           { "USID", new AttributeValue { N = Convert.ToString(model.CreatedBy) }},
           { "SurveyType", new AttributeValue { S = Convert.ToString(model.SurveyType) }},
-                           }
+     }
+                
             };
             client.PutItem(request);
+
+            if(model.SurveyType.Equals("Student"))
+            {
+                return View("StudentSurvey" );
+            }
             return View();
       
         }
 
-        public ActionResult StudentSurvey(SurveyModel model)
+        public ActionResult StudentSurvey(StudentSurveyModel mod) 
         {
+
+            //string id = Storestring(); 
             return View();
         }
     }
