@@ -11,14 +11,7 @@ namespace SWEN_Dynamo.Controllers
 {
     public class SurveyController : Controller
     {
-        // GET: Survey
-        public string tada;
-        public void Storestring(string storethisstring)
-        {
-            string x = storethisstring;
-            tada = x;
-       }
-        public ActionResult SurveyStart(SurveyModel model)
+       public ActionResult SurveyStart(SurveyModel model)
         {
            // AmazonDynamoDBClient client = new AmazonDynamoDBClient();
           
@@ -51,9 +44,10 @@ namespace SWEN_Dynamo.Controllers
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             string tablename = "SurveyCatalog";
             //string x = "Null";
-            Storestring(model.SurveyID);
-            TempData["ID"] = tada;
-            string y = Convert.ToString(model.SurveyType);
+            //Storestring(model.SurveyID);
+            TempData["ID"] = model.SurveyID;
+            TempData["Type"] = model.SurveyType;
+            string str = Convert.ToString(model.SurveyType);
             var request = new PutItemRequest
             {
 
@@ -64,23 +58,38 @@ namespace SWEN_Dynamo.Controllers
           { "USID", new AttributeValue { N = Convert.ToString(model.CreatedBy) }},
           { "SurveyType", new AttributeValue { S = Convert.ToString(model.SurveyType) }},
      }
-                     
-        };
-       
+
+            };
+
             client.PutItem(request);
-            //if(y== "StudentSurvey")
-            //}
-            //{
-            return RedirectToAction("StudentSurvey");
-           // return View();
+            if (str == "Student")
+            {
+                return RedirectToAction("StudentSurvey");
+            }
+            else if (str == "Parent")
+            {
+                return RedirectToAction("ParentSurvey");
+            }
+            else
+            {
+                return View();
+            }
         }
 
 
         public ActionResult StudentSurvey(StudentSurveyModel mod)
         {
             
-           
-            mod.id = Convert.ToString(TempData["ID"]);
+            mod.SurveyID = Convert.ToString(TempData["ID"]);
+            mod.SurveyofType = Convert.ToString(TempData["Type"]); 
+            return View(mod);
+        }
+
+        public ActionResult ParentSurvey(ParentSurveyModel mod)
+        {
+
+            mod.SurveyID = Convert.ToString(TempData["ID"]);
+            mod.SurveyofType = Convert.ToString(TempData["Type"]);
             return View(mod);
         }
     }

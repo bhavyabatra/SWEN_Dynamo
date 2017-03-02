@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SWEN_Dynamo.Models
 {
-    public class StudentSurveyModel : SurveyModel
+    public class StudentSurveyModel 
     {
         [Display(Name = "What are yor doing")]
         public bool Objective1 { get; set; }
@@ -27,6 +27,34 @@ namespace SWEN_Dynamo.Models
 
         public int QID { get; set; } = 0;
 
-        public string id { get; set; } = "xx";
+        public string SurveyID { get; set; } = "Null";
+
+        public string SurveyofType { get; set; } = "NUll";
      }
+
+    public class ParentSurveyModel
+    {
+        [Display(Name = "You are a parent.")]
+        public bool O1 { get; set; }
+
+        [Display(Name = "Are You interested in SWE ?")]
+        public bool O1_Q1 { get; set; } = false;
+
+        [Display(Name = "Are You interested in Surveys ?")]
+        public bool O1_Q2 { get; set; } = false;
+
+        [Display(Name = "How many Children ?")]
+        public bool Objective2 { get; set; } = false;
+
+        [Display(Name = "Age of children ?")]
+        public bool Objective3 { get; set; } = false;
+
+        public int OID { get; set; } = 0;
+
+        public int QID { get; set; } = 0;
+
+        public string SurveyID { get; set; } = "Null";
+
+        public string SurveyofType { get; set; } = "NUll";
+    }
 }

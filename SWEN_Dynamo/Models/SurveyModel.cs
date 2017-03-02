@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SWEN_Dynamo.Models
 {
-    public class SurveyModel
+    public class SurveyModel 
     {
         public string SurveyID { get; set; } = "Was";
 

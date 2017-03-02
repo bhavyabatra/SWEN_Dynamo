@@ -14,15 +14,24 @@
         <h4>You are working on Student Survey</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SurveyID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="text-left">
-                    @Html.DisplayTextFor(model => model.id)
-                    @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+                    @Html.DisplayTextFor(model => model.SurveyID)
+                    @Html.ValidationMessageFor(model => model.SurveyID, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.SurveyofType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="text-left">
+                    @Html.DisplayTextFor(model => model.SurveyofType)
+                    @Html.ValidationMessageFor(model => model.SurveyofType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
