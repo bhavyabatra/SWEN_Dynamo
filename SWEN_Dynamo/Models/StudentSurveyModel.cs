@@ -27,6 +27,6 @@ namespace SWEN_Dynamo.Models
 
         public int QID { get; set; } = 0;
 
-        string id { get; set; } = "xx";
+        public string id { get; set; } = "xx";
      }
 }
