@@ -15,7 +15,11 @@ namespace SWEN_Dynamo.Models
 
         public int CreatedBy { get; set; } = 000000;
 
-        
+        public string CustomQuestion1 { get; set; } = "Null";
+
+        public string CustomQuestion2 { get; set; } = "Null";
+
+
     }
 
     public enum SurveyType

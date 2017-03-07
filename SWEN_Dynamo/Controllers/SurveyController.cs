@@ -15,28 +15,7 @@ namespace SWEN_Dynamo.Controllers
     {
        public ActionResult SurveyStart(SurveyModel model)
         {
-           // AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-          
-         //   string tablename = "SurveyCatalog";
             string y = Convert.ToString(model.SurveyType);
-           // string z = "Null";
-     //       var request = new PutItemRequest
-     //       {
-     //           TableName = tablename,
-     //           Item = new Dictionary<string, AttributeValue>()
-     // {
-     //     { "SurveyID", new AttributeValue { S = model.SurveyID } },
-     //     { "USID", new AttributeValue { N = Convert.ToString(model.CreatedBy) }},
-     //     { "SurveyType", new AttributeValue { S = Convert.ToString(model.SurveyType) }},
-     //}
-               
-     //       };
-     //       //switch(y)
-     //       //{
-     //       //    case "Survey": client.PutItem(request);
-     //       //        return View("StudentSurvey");
-     //       //    }
-     //       client.PutItem(request);
             return View(model);
       
         }
@@ -63,7 +42,9 @@ namespace SWEN_Dynamo.Controllers
           { "SurveyType", new AttributeValue { S = Convert.ToString(model.SurveyType) }},
                     {"O1", new AttributeValue { S = "false" } },
                     {"O2", new AttributeValue { S = "false" } },
-                    {"O3", new AttributeValue { S = "false" } }
+                    {"O3", new AttributeValue { S = "false" } },
+                    {"CQ1", new AttributeValue { S = model.CustomQuestion1} },
+                    {"CQ2", new AttributeValue { S = model.CustomQuestion2} }
      }
 
             };
@@ -90,7 +71,7 @@ namespace SWEN_Dynamo.Controllers
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
              Table table1= Table.LoadTable(client, "SurveyCatalog");
             //Table table2 = Table.LoadTable(client, "Objectives");
-            // Table table3 = Table.LoadTable(client, "Questions");
+            //Table table3 = Table.LoadTable(client, "Questions");
             mod.SurveyID = Convert.ToString(TempData["ID"]);
             mod.EventName = Convert.ToString(TempData["EventName"]);
             mod.SurveyofType = Convert.ToString(TempData["Type"]);
@@ -117,6 +98,8 @@ namespace SWEN_Dynamo.Controllers
                      mod.Objective1 = Convert.ToBoolean(document["O1"]);
                      mod.Objective2 = Convert.ToBoolean(document["O2"]);
                      mod.Objective3 = Convert.ToBoolean(document["O3"]);
+                     mod.CustomQuestion1 = document["CQ1"];
+                     mod.CustomQuestion2 = document["CQ2"];
 
                 }
             } while (!search.IsDone) ;
@@ -129,7 +112,6 @@ namespace SWEN_Dynamo.Controllers
         }
 
 
-       // start from here...............
         [HttpPost, ActionName("StudentSurvey")]
         public ActionResult StudentSurveyConfirmed(StudentSurveyModel mod)
         {
@@ -187,11 +169,28 @@ namespace SWEN_Dynamo.Controllers
                                 ////    client.UpdateItem(request);
                                 ////}
                 }
-                if (mod.Objective2 == true || mod.Objective1 == false)
+                if (mod.Objective2 == true || mod.Objective2 == false)
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O2");
                 }
-                TempData["RedirectID"] = mod.SurveyID;
+                if (mod.CustomQuestion1 != null )
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion1, "CQ1");
+                }
+                if (mod.CustomQuestion1 == null )
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ1");
+                }
+                 if (mod.CustomQuestion2 != null || mod.CustomQuestion2 == "" )
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion2, "CQ2");
+                    }
+                if (mod.CustomQuestion2 == null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ2");
+                }
+
+            TempData["RedirectID"] = mod.SurveyID;
                 TempData["RedirectType"] = mod.SurveyofType;
                 TempData["RedirectEventName"] = mod.EventName;
             
