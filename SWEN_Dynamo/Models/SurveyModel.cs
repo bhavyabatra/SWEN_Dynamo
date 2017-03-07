@@ -9,6 +9,8 @@ namespace SWEN_Dynamo.Models
     {
         public string SurveyID { get; set; } = "Was";
 
+        public string EventName { get; set; } = "Was";
+
         public SurveyType SurveyType { get; set; } 
 
         public int CreatedBy { get; set; } = 000000;

@@ -9,7 +9,7 @@ namespace SWEN_Dynamo.Models
     public class StudentSurveyModel 
     {
         [Display(Name = "What are yor doing")]
-        public bool Objective1 { get; set; }
+        public bool Objective1 { get; set; } = false;
 
         [Display(Name = "Question for objective 1")]
         public bool Question1 { get; set; } = false;
@@ -30,7 +30,9 @@ namespace SWEN_Dynamo.Models
         public string SurveyID { get; set; } = "Null";
 
         public string SurveyofType { get; set; } = "NUll";
-     }
+
+        public string EventName { get; set; } = "Null";
+    }
 
     public class ParentSurveyModel
     {
