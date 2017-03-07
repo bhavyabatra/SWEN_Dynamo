@@ -169,3 +169,4 @@ D:\SWEN_Dynamo\SWEN_Dynamo\bin\Microsoft.Owin.Security.Twitter.xml
 D:\SWEN_Dynamo\SWEN_Dynamo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\SWEN_Dynamo\SWEN_Dynamo\obj\Debug\SWEN_Dynamo.dll
 D:\SWEN_Dynamo\SWEN_Dynamo\obj\Debug\SWEN_Dynamo.pdb
+D:\SWEN_Dynamo\SWEN_Dynamo\obj\Debug\SWEN_Dynamo.csprojResolveAssemblyReference.cache

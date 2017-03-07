@@ -91,10 +91,10 @@ namespace SWEN_Dynamo.Controllers
              Table table1= Table.LoadTable(client, "SurveyCatalog");
             //Table table2 = Table.LoadTable(client, "Objectives");
             // Table table3 = Table.LoadTable(client, "Questions");
-
             mod.SurveyID = Convert.ToString(TempData["ID"]);
-            mod.SurveyofType = Convert.ToString(TempData["Type"]);
             mod.EventName = Convert.ToString(TempData["EventName"]);
+            mod.SurveyofType = Convert.ToString(TempData["Type"]);
+
             ScanFilter scanFilter = new ScanFilter();
             scanFilter.AddCondition("SurveyID", ScanOperator.Equal, mod.SurveyID);
             //scanFilter.AddCondition("SurveyType", ScanOperator.Equal,mod.SurveyofType);
@@ -113,7 +113,7 @@ namespace SWEN_Dynamo.Controllers
                 documentList = search.GetNextSet();
                 foreach (var document in documentList)
                 {
-
+                    
                      mod.Objective1 = Convert.ToBoolean(document["O1"]);
                      mod.Objective2 = Convert.ToBoolean(document["O2"]);
                      mod.Objective3 = Convert.ToBoolean(document["O3"]);
@@ -121,52 +121,8 @@ namespace SWEN_Dynamo.Controllers
                 }
             } while (!search.IsDone) ;
             TempData["NewID"] = mod.SurveyID;
-
-            // var request = new UpdateItemRequest
-            //{
-            //    TableName = tablename,
-            //    Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = mod.SurveyID } }, { "SurveyID", new AttributeValue { N = "0" } }
-            //                     },
-            //    ExpressionAttributeNames = new Dictionary<string, string>()
-            //    {
-            //        {"#O1", "O1"},
-
-            //    },
-            //    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
-            //    {
-            //        {":O1",new AttributeValue { BOOL = mod.Objective1 }},
-
-
-            //         },
-            //    UpdateExpression = "SET #O1 = :O1"
-            //};
-
-
-            //var request = new UpdateItemRequest
-            //{
-            //    TableName = tablename,
-            //    Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = mod.SurveyID } }, { "SurveyID", new AttributeValue { N = "0" } }
-            //                 },
-            //    ExpressionAttributeNames = new Dictionary<string, string>()
-            //{
-            //    {"#O1", "O1"},
-
-            //},
-            //    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
-            //{
-            //    {":O1",new AttributeValue { BOOL = mod.Objective1 }},
-
-
-            //     },
-            //    UpdateExpression = "SET #O1 = :O1"
-            //};
-            //var res = client.UpdateItem(request);
-            //if (res != null)
-            //{
-            //    client.UpdateItem(request);
-            //}
-
-
+            TempData["NewSurveyType"] = mod.SurveyofType;
+            TempData["NewEventName"] = mod.EventName;
 
 
             return View(mod);
@@ -177,136 +133,68 @@ namespace SWEN_Dynamo.Controllers
         [HttpPost, ActionName("StudentSurvey")]
         public ActionResult StudentSurveyConfirmed(StudentSurveyModel mod)
         {
-               mod.SurveyID = Convert.ToString(TempData["NewID"]);
-            //    mod.SurveyofType = "Student"; //Convert.ToString(TempData["Type"]);
-            //                                  //  mod.EventName = Convert.ToString(TempData["EventName"]);
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-            Table table1 = Table.LoadTable(client, "SurveyCatalog");
-            //    //Table table2 = Table.LoadTable(client, "Objectives");
-            //    // Table table3 = Table.LoadTable(client, "Questions");
-            //    //mod.Objective1 = true;
-            //    //mod.Objective2 = true;
-            ScanFilter scanFilter = new ScanFilter();
-            scanFilter.AddCondition("SurveyID", ScanOperator.Equal, mod.SurveyID);
-           // scanFilter.AddCondition("SurveyType", ScanOperator.Equal, mod.SurveyofType);
-            string tablename = "SurveyCatalog";
-            if (mod.Objective1 == true)
+           
+                if (TempData["NewID"] != null)
+                {
+                    mod.SurveyID = Convert.ToString(TempData["NewID"]);
+                    mod.SurveyofType = Convert.ToString(TempData["NewSurveyType"]);
+                    mod.EventName = Convert.ToString(TempData["NewEventName"]);
+                }
+                else
+                {
+                    mod.SurveyID = Convert.ToString(TempData["RedirectID"]);
+                    mod.SurveyofType = Convert.ToString(TempData["RedirectType"]);
+                    mod.EventName = Convert.ToString(TempData["RedirectEventName"]);
+                }
+                
+                //    mod.SurveyofType = "Student"; //Convert.ToString(TempData["Type"]);
+                //                                  //  mod.EventName = Convert.ToString(TempData["EventName"]);
+                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+                Table table1 = Table.LoadTable(client, "SurveyCatalog");
+                //    //Table table2 = Table.LoadTable(client, "Objectives");
+                //    // Table table3 = Table.LoadTable(client, "Questions");
+                //    //mod.Objective1 = true;
+                //    //mod.Objective2 = true;
+                ScanFilter scanFilter = new ScanFilter();
+                scanFilter.AddCondition("SurveyID", ScanOperator.Equal, mod.SurveyID);
+                // scanFilter.AddCondition("SurveyType", ScanOperator.Equal, mod.SurveyofType);
+                string tablename = "SurveyCatalog";
+                if (mod.Objective1 == true || mod.Objective1 == false)
 
-            {
-                SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective1), "O1");
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective1), "O1");
+                                //// Function call above is responsible for following task 
+                                ////var request = new UpdateItemRequest
+                                ////{
 
-                //var request = new UpdateItemRequest
-                //{
+                                ////    TableName = tablename,
+                                ////    Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = mod.SurveyID } }
+                                ////                 },
+                                ////    ExpressionAttributeNames = new Dictionary<string, string>()
+                                ////{
+                                ////    {"#O1", "O1"},
 
-                //    TableName = tablename,
-                //    Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = mod.SurveyID } }
-                //                 },
-                //    ExpressionAttributeNames = new Dictionary<string, string>()
-                //{
-                //    {"#O1", "O1"},
-
-                //},
-                //    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
-                //{
-                //    {":O1",new AttributeValue { S = Convert.ToString(mod.Objective1) }},
-                //     },
-                //    UpdateExpression = "SET #O1 = :O1"
-                //};
-                //var res = client.UpdateItem(request);
-                //if (res != null)
-                //{
-                //    client.UpdateItem(request);
-                //}
-            }
-            if (mod.Objective2 == true)
-            {
-                SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O2");
-
-
-            }
-            //ScanOperationConfig config = new ScanOperationConfig()
-            //{
-            //    Filter = scanFilter,
-            //    Select = SelectValues.AllAttributes,
-            //};
-            //Search search = table1.Scan(config);
-            //List<Document> documentList = new List<Document>();
-            //do
-            //{
-            //    // Fetch the number value from objective in doc list. Map number value to local value and iterate the loop for that number of objectives
-
-            //    documentList = search.GetNextSet();
-            //    if (documentList != null)
-            //    {
-            //        foreach (var document in documentList)
-            //        {
-
-            //        }
-            //    }
-            //} while (!search.IsDone);
-            //    return View(mod);
-            //}
-            //        mod.SurveyID = Convert.ToString(TempData["ID"]);
-            //        mod.SurveyofType = Convert.ToString(TempData["Type"]);
-            //        mod.EventName = Convert.ToString(TempData["EventName"]);
-            //        AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-
-            //        Table table1 = Table.LoadTable(client, "SurveyCatalog");
-            //        //Table table2 = Table.LoadTable(client, "Objectives");
-            //        // Table table3 = Table.LoadTable(client, "Questions");
-            //        //mod.Objective1 = true;
-            //        //mod.Objective2 = true;
-
-            //        ScanFilter scanFilter = new ScanFilter();
-            //        scanFilter.AddCondition("SurveyID", ScanOperator.Equal, mod.SurveyID);
-            //        scanFilter.AddCondition("SurveyType", ScanOperator.Equal, mod.SurveyofType);
-            //        ScanOperationConfig config = new ScanOperationConfig()
-            //        {
-            //            Filter = scanFilter,
-            //            Select = SelectValues.AllAttributes,
-            //        };
-            //        Search search = table1.Scan(config);
-            //        List<Document> documentList = new List<Document>();
-
-            //        //    ScanFilter sf = new ScanFilter();
-            //        string tablename = "SurveyCatalog";
-
-            //        var request = new UpdateItemRequest
-            //        {
-            //            TableName = tablename,
-            //            Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = mod.SurveyID } }, {"USID", new AttributeValue { S = "0" } }
-            //                 },
-            //            ExpressionAttributeNames = new Dictionary<string, string>()
-            //{
-            //    {"#O1", "O1"}, 
-
-            //},
-            //            ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
-            //{
-            //    {":O1",new AttributeValue { BOOL = mod.Objective1}},
-
-
-            //     },
-            //            UpdateExpression = "SET #O1 = :O1"
-            //        };
-            //        //do
-            //        //{
-            //            //    // Fetch the number value from objective in doc list. Map number value to local value and iterate the loop for that number of objectives
-
-            //            //documentList = search.GetNextSet();
-            //            //if (documentList != null)
-            //            //{
-            //            //    foreach (var document in documentList)
-            //            //    {
-
-            //                    var res = client.UpdateItem(request);
-            //                    if (res != null)
-            //                    {
-            //                        client.UpdateItem(request);
-            //                    }
-            //        //        }
-            //        //    }
-            //        //} while (!search.IsDone);
+                                ////},
+                                ////    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+                                ////{
+                                ////    {":O1",new AttributeValue { S = Convert.ToString(mod.Objective1) }},
+                                ////     },
+                                ////    UpdateExpression = "SET #O1 = :O1"
+                                ////};
+                                ////var res = client.UpdateItem(request);
+                                ////if (res != null)
+                                ////{
+                                ////    client.UpdateItem(request);
+                                ////}
+                }
+                if (mod.Objective2 == true || mod.Objective1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O2");
+                }
+                TempData["RedirectID"] = mod.SurveyID;
+                TempData["RedirectType"] = mod.SurveyofType;
+                TempData["RedirectEventName"] = mod.EventName;
+            
             return View(mod);
         }
 
