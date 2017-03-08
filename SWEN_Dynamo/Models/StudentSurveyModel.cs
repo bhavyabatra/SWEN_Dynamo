@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SWEN_Dynamo.Models
 {
-    public class StudentSurveyModel 
+    public class StudentSurveyModel
     {
         [Display(Name = "What are yor doing")]
         public bool Objective1 { get; set; } = false;
@@ -62,5 +62,31 @@ namespace SWEN_Dynamo.Models
         public string SurveyID { get; set; } = "Null";
 
         public string SurveyofType { get; set; } = "NUll";
+    }
+
+    public class DeploySurveyStart
+    {
+        public string SurveyID { get; set; } = "ABC";
+
+        [Display(Name = "Email Address")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string ResponseToken { get; set; } = "abc@abc.com";
+
+        public string SurveyType { get; set; } = "None";
+
+        //    public DeploySurveyStart()
+        //    {
+        //        emailids = new List<Emails>();
+        //    }
+
+        //    public List<Emails> emailids { get; set; }
+        //}
+
+        //public class Emails
+        //{
+        //  //  [EmailAddress]
+        //    public string email { get; set; }
+        //}
+
     }
 }
