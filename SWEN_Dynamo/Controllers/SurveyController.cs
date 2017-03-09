@@ -41,6 +41,8 @@ namespace SWEN_Dynamo.Controllers
                     { "USID", new AttributeValue { N = Convert.ToString(model.CreatedBy) }},
                     { "SurveyType", new AttributeValue { S = Convert.ToString(model.SurveyType) }},
                     {"O1", new AttributeValue { S = "false" } },
+                    {"O1_Q1", new AttributeValue { S = "false" } },
+                    {"O1_Q2", new AttributeValue { S = "false" } },
                     {"O2", new AttributeValue { S = "false" } },
                     {"O3", new AttributeValue { S = "false" } },
                     {"CQ1", new AttributeValue { S = model.CustomQuestion1} },
@@ -96,6 +98,8 @@ namespace SWEN_Dynamo.Controllers
                 {
                     
                      mod.Objective1 = Convert.ToBoolean(document["O1"]);
+                     mod.O1_Q1 = Convert.ToBoolean(document["O1_Q1"]);
+                     mod.O1_Q2 = Convert.ToBoolean(document["O1_Q2"]);
                      mod.Objective2 = Convert.ToBoolean(document["O2"]);
                      mod.Objective3 = Convert.ToBoolean(document["O3"]);
                      mod.CustomQuestion1 = document["CQ1"];
@@ -170,9 +174,17 @@ namespace SWEN_Dynamo.Controllers
                     ////    client.UpdateItem(request);
                     ////}
                 }
+                if (mod.O1_Q1 == true || mod.O1_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q1), "O2");
+                }
+                if (mod.O1_Q2 == true || mod.O1_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q2), "O1_Q1");
+                }
                 if (mod.Objective2 == true || mod.Objective2 == false)
                 {
-                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O2");
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O1_Q2");
                 }
                 if (mod.CustomQuestion1 != null)
                 {
@@ -231,6 +243,15 @@ namespace SWEN_Dynamo.Controllers
 
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective1), "O1");
+                }
+
+                if (mod.O1_Q2 == true || mod.O1_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q2), "O1_Q1");
+                }
+                if (mod.Objective2 == true || mod.Objective2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O1_Q2");
                 }
                 if (mod.Objective2 == true || mod.Objective2 == false)
                 {

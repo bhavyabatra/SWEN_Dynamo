@@ -12,10 +12,10 @@ namespace SWEN_Dynamo.Models
         public bool Objective1 { get; set; } = false;
 
         [Display(Name = "Question for objective 1")]
-        public bool Question1 { get; set; } = false;
+        public bool O1_Q1 { get; set; } = false;
 
         [Display(Name = "Question for objective 2")]
-        public bool Question2 { get; set; } = false;
+        public bool O1_Q2 { get; set; } = false;
 
         [Display(Name = "Where are you living ?")]
         public bool Objective2 { get; set; } = false;
