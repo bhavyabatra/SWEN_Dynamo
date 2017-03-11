@@ -1,5 +1,6 @@
 ﻿@model SWEN_Dynamo.Models.DeploySurveyStart
 
+
 @{
     ViewBag.Title = "DeploySurveyStart";
 }
@@ -24,46 +25,85 @@
                 </div>
                 </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.ResponseToken, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResponseToken0, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResponseToken, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResponseToken, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ResponseToken0, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken0, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ResponseToken1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ResponseToken1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken1, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ResponseToken, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResponseToken2, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResponseToken, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResponseToken, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ResponseToken2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken2, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ResponseToken, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResponseToken3, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResponseToken, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResponseToken, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ResponseToken3, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken3, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ResponseToken, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResponseToken4, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResponseToken, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResponseToken, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ResponseToken4, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken4, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ResponseToken, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResponseToken5, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResponseToken, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResponseToken, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ResponseToken5, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken5, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
- 
+       <div class="form-group">
+            @Html.LabelFor(model => model.ResponseToken6, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ResponseToken6, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken6, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ResponseToken7, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ResponseToken7, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken7, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ResponseToken8, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ResponseToken8, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken8, "", new { @class = "text-danger" })
+            </div>
+        </div>
+      
+        <div class="form-group">
+            @Html.LabelFor(model => model.ResponseToken9, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ResponseToken9, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponseToken9, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Deploy" class="btn btn-default"  />

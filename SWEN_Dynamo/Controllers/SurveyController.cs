@@ -176,15 +176,15 @@ namespace SWEN_Dynamo.Controllers
                 }
                 if (mod.O1_Q1 == true || mod.O1_Q1 == false)
                 {
-                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q1), "O2");
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q1), "O1_Q1");
                 }
                 if (mod.O1_Q2 == true || mod.O1_Q2 == false)
                 {
-                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q2), "O1_Q1");
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q2), "O1_Q2");
                 }
                 if (mod.Objective2 == true || mod.Objective2 == false)
                 {
-                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O1_Q2");
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O2");
                 }
                 if (mod.CustomQuestion1 != null)
                 {
@@ -316,19 +316,19 @@ namespace SWEN_Dynamo.Controllers
         public ActionResult DeploySurveyStartConfirmed(DeploySurveyStart mod)
         {
             mod.SurveyID = Convert.ToString(TempData["SurveyDeployID"]);
-            SWEN_DynamoUtilityClass.DeploymentStepFinal(mod.SurveyID, mod.ResponseToken);
-
-
+           string[] RT = new string[10] { mod.ResponseToken0, mod.ResponseToken1, mod.ResponseToken2, mod.ResponseToken3, mod.ResponseToken4, mod.ResponseToken5, mod.ResponseToken6, mod.ResponseToken7, mod.ResponseToken8, mod.ResponseToken9 };
+           for (int i = 0; i < 10; i++)
+           {
+                if (!string.IsNullOrWhiteSpace(RT[i]))
+                {
+                    SWEN_DynamoUtilityClass.DeploymentStepFinal(mod.SurveyID, RT[i]);
+                }
+            }
             return View(mod);
 
-            //var em = new List<Emails>();
-            //if (mod.emailids != null)
-            //{
-            //    foreach ( var e in em)
-            //    {
-            //        em.Add("Hello");
-            //    }
-            //}
-        }
+      }
     }
 }
+
+
+
