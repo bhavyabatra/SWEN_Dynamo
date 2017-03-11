@@ -315,19 +315,9 @@ namespace SWEN_Dynamo.Controllers
         [HttpPost, ActionName("DeploySurveyStart")]
         public ActionResult DeploySurveyStartConfirmed(DeploySurveyStart mod)
         {
-            string tablename = "Respondent";
             mod.SurveyID = Convert.ToString(TempData["SurveyDeployID"]);
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-           var request = new PutItemRequest
-            {
-                TableName = tablename,
-                Item = new Dictionary<string, AttributeValue>()
-      {
-          { "SurveyID", new AttributeValue { S = mod.SurveyID } },
-          { "ResponseToken", new AttributeValue { S = mod.ResponseToken } }
-      }
-            };
-            client.PutItem(request);
+            SWEN_DynamoUtilityClass.DeploymentStepFinal(mod.SurveyID, mod.ResponseToken);
+
 
             return View(mod);
 
