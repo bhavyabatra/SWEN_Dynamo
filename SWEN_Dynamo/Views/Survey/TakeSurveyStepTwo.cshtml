@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SWEN_Dynamo.Models.TakeSurveyStepTwo>
+
+@{
+    ViewBag.Title = "TakeSurveyStepTwo";
+}
+
+<h2>TakeSurveyStepTwo</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ResponseToken)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.TakeSurveyID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ResponseToken)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.TakeSurveyID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

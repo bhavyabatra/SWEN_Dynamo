@@ -13,11 +13,11 @@ namespace SWEN_Dynamo.Controllers
 {
     public class SurveyController : Controller
     {
-       public ActionResult SurveyStart(SurveyModel model)
+        public ActionResult SurveyStart(SurveyModel model)
         {
             string y = Convert.ToString(model.SurveyType);
             return View(model);
-      
+
         }
         [HttpPost, ActionName("SurveyStart")]
         public ActionResult SurveyStartConfirmed(SurveyModel model)
@@ -69,9 +69,9 @@ namespace SWEN_Dynamo.Controllers
 
         public ActionResult StudentSurvey(StudentSurveyModel mod)
         {
-          
+
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-             Table table1= Table.LoadTable(client, "SurveyCatalog");
+            Table table1 = Table.LoadTable(client, "SurveyCatalog");
             //Table table2 = Table.LoadTable(client, "Objectives");
             //Table table3 = Table.LoadTable(client, "Questions");
             mod.SurveyID = Convert.ToString(TempData["ID"]);
@@ -96,14 +96,14 @@ namespace SWEN_Dynamo.Controllers
                 documentList = search.GetNextSet();
                 foreach (var document in documentList)
                 {
-                    
-                     mod.Objective1 = Convert.ToBoolean(document["O1"]);
-                     mod.O1_Q1 = Convert.ToBoolean(document["O1_Q1"]);
-                     mod.O1_Q2 = Convert.ToBoolean(document["O1_Q2"]);
-                     mod.Objective2 = Convert.ToBoolean(document["O2"]);
-                     mod.Objective3 = Convert.ToBoolean(document["O3"]);
-                     mod.CustomQuestion1 = document["CQ1"];
-                     mod.CustomQuestion2 = document["CQ2"];
+
+                    mod.Objective1 = Convert.ToBoolean(document["O1"]);
+                    mod.O1_Q1 = Convert.ToBoolean(document["O1_Q1"]);
+                    mod.O1_Q2 = Convert.ToBoolean(document["O1_Q2"]);
+                    mod.Objective2 = Convert.ToBoolean(document["O2"]);
+                    mod.Objective3 = Convert.ToBoolean(document["O3"]);
+                    mod.CustomQuestion1 = document["CQ1"];
+                    mod.CustomQuestion2 = document["CQ2"];
 
                 }
             } while (!search.IsDone) ;
@@ -119,7 +119,7 @@ namespace SWEN_Dynamo.Controllers
         [HttpPost, ActionName("StudentSurvey")]
         public ActionResult StudentSurveyConfirmed(StudentSurveyModel mod, string SaveSurvey, string DeploySurvey)
         {
-            if(!string.IsNullOrWhiteSpace(SaveSurvey))
+            if (!string.IsNullOrWhiteSpace(SaveSurvey))
             {
                 if (TempData["NewID"] != null)
                 {
@@ -281,10 +281,10 @@ namespace SWEN_Dynamo.Controllers
                 TempData["RedirectID"] = mod.SurveyID;
                 TempData["RedirectType"] = mod.SurveyofType;
                 TempData["RedirectEventName"] = mod.EventName;
-                return RedirectToAction ("DeploySurveyStart");
+                return RedirectToAction("DeploySurveyStart");
             }
 
-                return View(mod);
+            return View(mod);
         }
 
         public ActionResult ParentSurvey(ParentSurveyModel mod)
@@ -316,9 +316,9 @@ namespace SWEN_Dynamo.Controllers
         public ActionResult DeploySurveyStartConfirmed(DeploySurveyStart mod)
         {
             mod.SurveyID = Convert.ToString(TempData["SurveyDeployID"]);
-           string[] RT = new string[10] { mod.ResponseToken0, mod.ResponseToken1, mod.ResponseToken2, mod.ResponseToken3, mod.ResponseToken4, mod.ResponseToken5, mod.ResponseToken6, mod.ResponseToken7, mod.ResponseToken8, mod.ResponseToken9 };
-           for (int i = 0; i < 10; i++)
-           {
+            string[] RT = new string[10] { mod.ResponseToken0, mod.ResponseToken1, mod.ResponseToken2, mod.ResponseToken3, mod.ResponseToken4, mod.ResponseToken5, mod.ResponseToken6, mod.ResponseToken7, mod.ResponseToken8, mod.ResponseToken9 };
+            for (int i = 0; i < 10; i++)
+            {
                 if (!string.IsNullOrWhiteSpace(RT[i]))
                 {
                     SWEN_DynamoUtilityClass.DeploymentStepFinal(mod.SurveyID, RT[i]);
@@ -326,7 +326,53 @@ namespace SWEN_Dynamo.Controllers
             }
             return View(mod);
 
-      }
+        }
+
+        public ActionResult TakeSurvey(TakeSurvey mod)
+        {
+            TempData["ResponseToken"] = mod.ResponseToken;
+
+            return View(mod);
+        }
+        [HttpPost, ActionName("TakeSurvey")]
+        public ActionResult TakeSurveyStart(TakeSurvey mod)
+        {
+            TempData["ResponseToken"] = mod.ResponseToken;
+
+            return RedirectToAction("TakeSurveyStepTwo");
+        }
+        public ActionResult TakeSurveyStepTwo(TakeSurveyStepTwo mod)
+        {
+            mod.ResponseToken = Convert.ToString(TempData["ResponseToken"]);
+            List<TakeSurveyStepTwo> TakeSurveylist = new List<TakeSurveyStepTwo>();
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            {
+                Dictionary<string, AttributeValue> lastKeyEvaluated = null;
+                do
+                {
+                    var request = new ScanRequest
+                    {
+                        TableName = "Respondent",
+                        ExclusiveStartKey = lastKeyEvaluated,
+                        ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
+                    {":Responsevalue", new AttributeValue { S = mod.ResponseToken    }}
+                },
+                        FilterExpression = "ResponseToken = :Responsevalue",
+                        ProjectionExpression = "SurveyID"
+                    };
+                    var response = client.Scan(request);
+                    foreach (Dictionary<string, AttributeValue> item in response.Items)
+                    {
+                        // Console.WriteLine("\nScanThreadTableUsePaging - printing.....");
+                        TakeSurveylist.Add(new TakeSurveyStepTwo() { TakeSurveyID = (item["SurveyID"].S) });
+                    }
+                    lastKeyEvaluated = response.LastEvaluatedKey;
+                } while (lastKeyEvaluated != null && lastKeyEvaluated.Count != 0);
+                return View(TakeSurveylist);
+            }
+
+
+        }
     }
 }
 
