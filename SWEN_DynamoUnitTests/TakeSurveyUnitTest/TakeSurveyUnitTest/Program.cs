@@ -18,36 +18,49 @@ namespace TakeSurveyUnitTest
 
         static void Main(string[] args)
         {
-            var m = new List<Program>();
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-             {
-                Dictionary<string, AttributeValue> lastKeyEvaluated = null;
-                do
+            string tablename = "Respondent";
+            string check = "CQ";
+            Table table1 = Table.LoadTable(client, "Respondent");
+            Program mod = new Program();
+            Dictionary<string, AttributeValue> key = new Dictionary<string, AttributeValue>
+{
+    { "SurveyID", new AttributeValue { S = "444@4.com" } },
+    { "ResponseToken", new AttributeValue { S = "Test Four" } }
+};
+            GetItemRequest request = new GetItemRequest
+            {
+                TableName = "Respondent",
+                Key = key,
+            };
+  
+     
+            var item = table1.GetItem("Test Four", "444@4.com");
+            //var result = client.GetItem(request);
+         //   var item = result.Item;
+           
+            List<Program> tm = new List<Program>();
+            // Issue request
+            // foreach (var kvp in itme.)
+            {
+                if (item.Contains("O1_Q3"))
                 {
-                  var request = new ScanRequest
-                    {
-                        TableName = "Respondent",
-                        ExclusiveStartKey = lastKeyEvaluated,
-                        ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-                    {":val", new AttributeValue { S = "444@4.com"    }}
-                },
-                        FilterExpression = "ResponseToken = :val",
-                        ProjectionExpression = "SurveyID"
-                    };
-                   var response = client.Scan(request);
-                   foreach (Dictionary<string, AttributeValue> item in response.Items)
-                    {
-                       // Console.WriteLine("\nScanThreadTableUsePaging - printing.....");
-                        m.Add( new Program() { Items = (item["SurveyID"].S) });
-                    }
-                    lastKeyEvaluated = response.LastEvaluatedKey;
-                } while (lastKeyEvaluated != null && lastKeyEvaluated.Count != 0);
-                foreach (Program n in m)
-                {
-                    Console.WriteLine(n.Items);
+                    tm.Add(new Program { Items = item["ResponseToken"] });
+                    tm.Add(new Program { Items = item["CQ1"] });
+                    tm.Add(new Program { Items = item["O1_Q1"] });
+                    tm.Add(new Program { Items = item["O1_Q2"] });
                 }
-                  Console.ReadLine();
+                else
+                {
+                    Console.WriteLine("Does not exist");
+                }
+            }
+            foreach (var x in tm)
+            {
+                Console.WriteLine(x.Items);
+            }
+                Console.ReadLine();
             }
         }
     }
-}
+

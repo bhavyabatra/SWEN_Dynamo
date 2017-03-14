@@ -206,6 +206,7 @@
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -218,6 +219,7 @@
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\StudentSurveyModel.cs" />
     <Compile Include="Models\SurveyModel.cs" />
+    <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -296,6 +298,7 @@
     <Content Include="Views\Survey\DeploySurveyStart.cshtml" />
     <Content Include="Views\Survey\TakeSurvey.cshtml" />
     <Content Include="Views\Survey\TakeSurveyStepTwo.cshtml" />
+    <Content Include="Views\Test\TestView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
