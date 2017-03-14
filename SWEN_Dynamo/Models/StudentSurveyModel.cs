@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SWEN_Dynamo.Models
 {
@@ -108,9 +109,9 @@ namespace SWEN_Dynamo.Models
 
     public class TakeSurvey
     {
-
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+      
+      //  [HiddenInput(DisplayValue = false)]
+       [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string ResponseToken { get; set; }
 
    }
