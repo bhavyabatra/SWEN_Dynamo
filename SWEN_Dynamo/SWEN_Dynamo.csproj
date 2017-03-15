@@ -299,6 +299,7 @@
     <Content Include="Views\Survey\TakeSurvey.cshtml" />
     <Content Include="Views\Survey\TakeSurveyStepTwo.cshtml" />
     <Content Include="Views\Test\TestView.cshtml" />
+    <Content Include="Views\Test\TestCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

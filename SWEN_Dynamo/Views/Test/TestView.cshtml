@@ -1,4 +1,8 @@
-﻿@model IEnumerable<SWEN_Dynamo.Models.TestModel>
+﻿@using SWEN_Dynamo.Models
+@model IEnumerable<TestModel>
+
+
+  
 
 @{
     ViewBag.Title = "TestView";
@@ -9,25 +13,47 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.test)
         </th>
+        <th>
+        @Html.DisplayNameFor(model => model.Answer)
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.test)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+          @Html.DropDownListFor(modelItem => item.Answer, item.AnswerOptions);
+        </td>
+        <td>
+          
         </td>
     </tr>
 }
-
+  
 </table>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" name="SaveSurvey" value="Save Survey" class="btn btn-default" />
+        <input type="submit" name="DeploySurvey" value="Save and Deploy Survey" class="btn btn-default" />
+    </div>
+</div>
+}
+@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+@Html.ActionLink("Delete", "Delete", new { /* id=item.Primary,"Key */ })
+
