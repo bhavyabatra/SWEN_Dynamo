@@ -17,11 +17,16 @@ namespace SWEN_Dynamo.Controllers
         {
             List<SelectListItem> listSelectListItems = new List<SelectListItem>() {
 
-                new SelectListItem() {Value="1", Text="Strong Agree" },
-                new SelectListItem() {Value="2", Text="Agree" }
+                 new SelectListItem() {Value="1", Text="Strong Agree" },
+                new SelectListItem() {Value="2", Text="Agree" },
+                new SelectListItem() {Value="3", Text="This" },
+                new SelectListItem() {Value="4", Text="That" }
+
             };
             List<TestModel> tm = new List<TestModel>();
-            tm.Add(new TestModel() { AnswerOptions = listSelectListItems });
+            string x;
+            tm.Add(new TestModel() { AnswerOptions = listSelectListItems});
+           // TempData["ans"] = mod.Answer;
 
             //.......................
             //AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -63,27 +68,38 @@ namespace SWEN_Dynamo.Controllers
         }
 
         [HttpPost, ActionName("TestView")]
-        public ActionResult TestViewConfirm(TestModel mod, string SaveSurvey, string Answer)
+        public ActionResult TestViewConfirm(TestModel mod, string SaveSurvey)
         {
 
             List<TestModel> tm = new List<TestModel>();
             if (!string.IsNullOrWhiteSpace(SaveSurvey))
             {
-                {
-                List<SelectListItem> listSelectListItems = new List<SelectListItem>() {
+                //    List<SelectListItem> listSelectListItems = new List<SelectListItem>() {
 
-                new SelectListItem() {Value="1", Text="Strong Agree" },
-                new SelectListItem() {Value="2", Text="Agree" }
-            };
+                //    new SelectListItem() {Value="1", Text="Strong Agree" },
+                //    new SelectListItem() {Value="2", Text="Agree" },
+                //    new SelectListItem() {Value="3", Text="This" },
+                //    new SelectListItem() {Value="4", Text="That" }
+                //};
+                //foreach (var item in listSelectListItems )
+                //{
+                //    if(item.Selected == true)
+                //    {
 
-                tm.Add(new TestModel() { ans = Convert.ToString(Answer) });
+                //    }
 
+                //}
               
-                    if (Answer == "Strong Agree")
-                    {
-                        return View("TestCheck");
-                    }
-                }
+                   //TempData["we"] = m.Answers;
+                   // x = Convert.ToString(TempData["we"]);
+             
+          //    TempData["we"] = mod.Answers;
+
+                    //if (x == "Strong Agree")
+                    //{
+                    //    return View("TestCheck");
+                    //}
+
                 //  Console.WriteLine(mod.Answer);
             }
             return View(tm);

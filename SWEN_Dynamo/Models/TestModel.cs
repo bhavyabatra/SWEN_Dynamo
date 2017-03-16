@@ -10,14 +10,16 @@ namespace SWEN_Dynamo.Models
     {
         public string test { get; set; } = "Strongly Agree";
 
-        public string Answer { get; set; }
+     //   public string Answer { get; set; }
         public IEnumerable<SelectListItem> AnswerOptions { get; set; }
         public string ans { get; set; } = "Agree";
+
+        public string Answers;
     }
 
     // public List<TestModel> tm = new List<TestModel>();
 
-    // public IEnumerable<SelectListItem> Answers { get; set; }
+  
 
 }
     
