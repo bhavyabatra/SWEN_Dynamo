@@ -1,5 +1,4 @@
-﻿@using SWEN_Dynamo.Models
-@model dynamic
+﻿@model SWEN_Dynamo.Models.TestModel
 
 
   
@@ -21,28 +20,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.test)
+            @Html.DisplayNameFor(model => model.q)
         </th>
         <th>
-        @Html.DisplayNameFor(model => model.Answers)
+        @Html.DisplayNameFor(model => model.q)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.test)
-        </td>
-        <td>
-          @Html.DropDownListFor(modelItem => item.Answers, item.AnswerOptions);
-        </td>
-        <td>
-          
-        </td>
-    </tr>
-}
+        @foreach ( var item in Model.q )
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quest)
+                </td>
+
+                <td>
+                    @Html.DropDownListFor(model => model.answer, Model.AnswerOptions);
+                </td>
+            </tr>
+  
+
+        }
   
 </table>
 
