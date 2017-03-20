@@ -1,8 +1,5 @@
 ﻿@model SWEN_Dynamo.Models.TestModel
 
-
-  
-
 @{
     ViewBag.Title = "TestView";
 }
@@ -20,23 +17,24 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.q)
+            @Html.DisplayNameFor(model => model.question)
         </th>
         <th>
-        @Html.DisplayNameFor(model => model.q)
+        @Html.DisplayNameFor(model => model.answer)
         </th>
         <th></th>
     </tr>
 
-        @foreach ( var item in Model.q )
+        @foreach ( var item in Model.question)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.quest)
+                    @Html.DisplayFor(mk => item)
                 </td>
-
-                <td>
-                    @Html.DropDownListFor(model => model.answer, Model.AnswerOptions);
+               
+                <td >
+                    
+                    @Html.DropDownListFor(model => model.answer,Model.AnswerOptions, "- Please", new { @class = "form-control" })
                 </td>
             </tr>
   

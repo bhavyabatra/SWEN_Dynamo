@@ -8,19 +8,25 @@ namespace SWEN_Dynamo.Models
 {
     public class TestModel
     {
-        public List<ques> q = new List<ques>();
-       // public List<Test> tq ;
-       // public string questions { get; set; }
+        public List<string> question = new List<string>();
+        public List<catchall> ca = new List<catchall>();
+        public IEnumerable<SelectListItem> AnswerOptions { get; set; }
+        public List<string> answer { get; set; }
+        public TestModel tm;
+        //       public List<TestModel> ans;
+        // public List<Test> tq ;
+        // public string questions { get; set; }
 
         //public SelectList answeroptions { get; set; }
 
-        public string answer { get; set; } = "null";
-     //   public string Answer { get; set; }
-        public IEnumerable<SelectListItem> AnswerOptions { get; set; }
+
+        //   public string Answer { get; set; }
+        // public IEnumerable<SelectListItem> AnswerOptions { get; set; }
+        //    public List<string> answer { get; set; } 
         //public TestModel()
         //{
         //    AnswerOptions = new List<SelectListItem>();
-       
+
         //}
         //public string ans { get; set; } = "Agree";
 
@@ -43,7 +49,16 @@ namespace SWEN_Dynamo.Models
 
 }
     
-public class ques
+//public class ques
+//{
+//    public string quest { get; set; }
+   
+//}
+
+public class catchall
+
 {
-    public string quest { get; set; } = "Wu";
+    public string qs { get; set; } 
+    public string ans { get; set; }
+   
 }
