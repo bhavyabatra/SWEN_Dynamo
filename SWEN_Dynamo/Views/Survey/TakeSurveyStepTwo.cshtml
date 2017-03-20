@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.EventName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Open Survey", "TakeSurveyFinal", new {  id=item.TakeSurveyID  }) |
+            @Html.ActionLink("Edit Last Saved Survey", "EditTakeSurveyFinal", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Submit Survey", "SubmitTakeSurveyFinal", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }

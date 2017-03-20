@@ -341,9 +341,10 @@ namespace SWEN_Dynamo.Controllers
 
             return RedirectToAction("TakeSurveyStepTwo");
         }
-        public ActionResult TakeSurveyStepTwo(TakeSurveyStepTwo mod)
+        public ActionResult TakeSurveyStepTwo(TakeSurveyStepTwo mod, string action)
         {
             mod.ResponseToken = Convert.ToString(TempData["ResponseToken"]);
+            TempData["FinalResponseToken"] = mod.ResponseToken;
             List<TakeSurveyStepTwo> TakeSurveylist = new List<TakeSurveyStepTwo>();
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             {
@@ -365,16 +366,30 @@ namespace SWEN_Dynamo.Controllers
                     {
                         // Console.WriteLine("\nScanThreadTableUsePaging - printing.....");
                         TakeSurveylist.Add(new TakeSurveyStepTwo() { TakeSurveyID = (item["SurveyID"].S) });
+                      
                     }
                     lastKeyEvaluated = response.LastEvaluatedKey;
                 } while (lastKeyEvaluated != null && lastKeyEvaluated.Count != 0);
+              
                 return View(TakeSurveylist);
             }
 
 
         }
-        public ActionResult TakeSurveyFinal(TakeSurveyFinalModel FinalTakeSurveyObject)
+        //[HttpPost, ActionName("TakeSurveyStepTwo")]
+        //public ActionResult TakeSurveyStepTwoPost(TakeSurveyStepTwo mod, string action)
+        //{
+        //    if (action == "Open Survey")
+        //    {
+        //        return RedirectToAction("SurveyStart");
+        //    }
+        //    return View(mod);
+        //}
+        public ActionResult TakeSurveyFinal(string id, TakeSurveyFinalModel FinalTakeSurveyObject)
         {
+            string FinalResponseToken = Convert.ToString(TempData["FinalResponseToken"]);
+            TempData["FinalPostID"] = id;
+            TempData["FinalPostResponseToken"] = FinalResponseToken;
             FinalTakeSurveyObject.AnswerOptions = new List<SelectListItem>
                 {
                     new SelectListItem() { Value = "Ok", Text = "Ok" },
@@ -388,7 +403,7 @@ namespace SWEN_Dynamo.Controllers
             Table table1 = Table.LoadTable(client, "Respondent");
 
 
-            var item = table1.GetItem("Test Four", "444@44.com");
+            var item = table1.GetItem(id, FinalResponseToken);
             TempData["Item"] = item;
 
             foreach (var inserttoqlist in item)
@@ -414,6 +429,8 @@ namespace SWEN_Dynamo.Controllers
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Document it = (Document)TempData["Item"];
+            string FinalPostID = Convert.ToString(TempData["FinalPostID"]);
+            string FinalPostResponseToken = Convert.ToString(TempData["FinalPostResponseToken"]);
 
             string tablename = "Respondent";
             if (!string.IsNullOrWhiteSpace(SaveSurvey))
@@ -444,7 +461,7 @@ namespace SWEN_Dynamo.Controllers
                     {
                         if (itts.Value == itt.qs)
                         {
-                            SWEN_DynamoUtilityClass.ParticipantUpdateRespondent("Test Four", "444@44.com", itts.Key, itt.ans);
+                            SWEN_DynamoUtilityClass.ParticipantUpdateRespondent(FinalPostID, FinalPostResponseToken, itts.Key, itt.ans);
                             var x = itts.Key;
                         }
                     }
@@ -460,7 +477,7 @@ namespace SWEN_Dynamo.Controllers
                     {
                         if (itts.Value == CustomItem.cques)
                         {
-                            SWEN_DynamoUtilityClass.ParticipantUpdateRespondent("Test Four", "444@44.com", itts.Key, CustomItem.canswer);
+                            SWEN_DynamoUtilityClass.ParticipantUpdateRespondent(FinalPostID, FinalPostResponseToken, itts.Key, CustomItem.canswer);
                             var x = itts.Key;
                         }
                     }
