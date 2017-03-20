@@ -1,0 +1,78 @@
+﻿@model SWEN_Dynamo.Models.TakeSurveyFinalModel
+
+@{
+    ViewBag.Title = "TakeSurveyFinal";
+}
+<h2>TakeSurveyFinal</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.answer)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.question)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(mk => item)
+                </td>
+
+                <td>
+
+                    @Html.DropDownListFor(model => model.answer, Model.AnswerOptions, "Please select your answer", new { @class = "form-control" })
+                </td>
+            </tr>
+
+
+        }
+        @foreach (var item in Model.customquestion)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(mk => item)
+                </td>
+
+                <td>
+
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.customanswer, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.customanswer, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.customanswer, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+
+        }
+
+
+    </table>
+
+    <div class="form-group">
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" name="SaveSurvey" value="Save Survey" class="btn btn-default" />
+            <input type="submit" name="DeploySurvey" value="Save and Deploy Survey" class="btn btn-default" />
+        </div>
+    </div>
+}
+@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+@Html.ActionLink("Delete", "Delete", new { /* id=item.Primary,"Key */ })
+

@@ -1,4 +1,4 @@
-﻿@model SWEN_Dynamo.Models.TestModel
+﻿@*@model SWEN_Dynamo.Models.TakeSurveyFinalTestModel
 
 @{
     ViewBag.Title = "TestView";
@@ -8,9 +8,9 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -39,8 +39,8 @@
             </tr>
   
 
-        }
-    @foreach (var item in Model.customquestion)
+        }*@
+    @*@foreach (var item in Model.customquestion)
     {
         <tr>
             <td>
@@ -49,21 +49,21 @@
 
             <td>
 
-                <div class="form-group">
+                <div class="form-group">*@
                     @*@Html.LabelFor(model => model.customanswer, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <div class="col-md-10">
+                    @*<div class="col-md-10">
                         @Html.TextAreaFor(model => model.customanswer, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.customanswer, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </td>
-        </tr>
+        </tr>*@
 
 
-    }
+    @*}*@
   
 
-</table>
+@*</table>
 
 <div class="form-group">
 
@@ -72,8 +72,8 @@
         <input type="submit" name="DeploySurvey" value="Save and Deploy Survey" class="btn btn-default" />
     </div>
 </div>
-}
-@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+}*@
+@*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-@Html.ActionLink("Delete", "Delete", new { /* id=item.Primary,"Key */ })
+@Html.ActionLink("Delete", "Delete", new { /* id=item.Primary,"Key */ })*@
 

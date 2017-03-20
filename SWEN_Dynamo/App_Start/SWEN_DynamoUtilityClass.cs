@@ -149,7 +149,6 @@ namespace SWEN_Dynamo.App_Start
             DeploymentStepSecond(FinalSurveyID, FinalResponseToken);
             DeploymentStepSixth(FinalSurveyID, FinalResponseToken);
         }
-
         public static void ParticipantUpdateRespondent(string SurveyID, string ResToken, string keytoupdate, string answervalue)
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -177,5 +176,6 @@ namespace SWEN_Dynamo.App_Start
                             client.UpdateItem(request);
                         }
                     }
+        
     }
 }
