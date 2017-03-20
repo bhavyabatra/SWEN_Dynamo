@@ -34,12 +34,33 @@
                
                 <td >
                     
-                    @Html.DropDownListFor(model => model.answer,Model.AnswerOptions, "- Please", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.answer,Model.AnswerOptions, "Please select your answer", new { @class = "form-control" })
                 </td>
             </tr>
   
 
         }
+    @foreach (var item in Model.customquestion)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(mk => item)
+            </td>
+
+            <td>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.customanswer, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.customanswer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.customanswer, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+
+    }
   
 </table>
 
