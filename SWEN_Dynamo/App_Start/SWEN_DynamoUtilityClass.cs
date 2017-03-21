@@ -176,6 +176,35 @@ namespace SWEN_Dynamo.App_Start
                             client.UpdateItem(request);
                         }
                     }
+        public static void SetSurveyCompleteFlag(string SurveyID, string ResToken, string answervalue)
+        {
+             {
+                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+
+                var request = new UpdateItemRequest
+                {
+                    TableName = "Respondent",
+                    Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = SurveyID } }, {"ResponseToken", new AttributeValue{ S = ResToken } }
+                     },
+                    ExpressionAttributeNames = new Dictionary<string, string>()
+
+                 {
+                    { "#FN", "SurveyComplete"}
+                    },
+                    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+    {
+        {":FN",new AttributeValue { S = answervalue }},
+         },
+                    UpdateExpression = "SET #FN = :FN"
+
+                };
+                var res = client.UpdateItem(request);
+                if (res != null)
+                {
+                    client.UpdateItem(request);
+                }
+            }
+        }
         
     }
 }

@@ -425,7 +425,7 @@ namespace SWEN_Dynamo.Controllers
         }
 
         [HttpPost, ActionName("TakeSurveyFinal")]
-        public ActionResult TakeSurveyFinalConfirm(TakeSurveyFinalModel mod, string SaveSurvey)
+        public ActionResult TakeSurveyFinalConfirm(TakeSurveyFinalModel mod, string SaveSurvey, string SubmitSurvey)
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Document it = (Document)TempData["Item"];
@@ -486,8 +486,11 @@ namespace SWEN_Dynamo.Controllers
 
 
             }
+            if (!string.IsNullOrWhiteSpace(SaveSurvey))
+            {
 
-            return View(mod);
+            }
+                return View(mod);
         }
     }
 }
