@@ -364,16 +364,15 @@ namespace SWEN_Dynamo.Controllers
                     var response = client.Scan(request);
                     foreach (Dictionary<string, AttributeValue> item in response.Items)
                     {
-                        // Console.WriteLine("\nScanThreadTableUsePaging - printing.....");
+                       
                         
                         if (item.ContainsKey("SurveyComplete") && (item["SurveyComplete"].S == "True" || item["SurveyComplete"].S == "true"))
                        { 
                        
                                 TakeSurveylist.Add(new TakeSurveyStepTwo() { TakeSurveyID = (item["SurveyID"].S), SurveyStatus = "Submitted" });
                           
-                        
-                        }
-                        if (!item.ContainsKey("SurveyComplete") || item["SurveyComplete"].S != "True" || item["SurveyComplete"].S != "true")
+                       }
+                       else 
                         {
                             TakeSurveylist.Add(new TakeSurveyStepTwo() { TakeSurveyID = (item["SurveyID"].S), SurveyStatus = "Pending" });
                         }

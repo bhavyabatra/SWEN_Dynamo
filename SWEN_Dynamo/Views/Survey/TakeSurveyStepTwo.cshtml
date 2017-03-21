@@ -43,9 +43,9 @@
        @if (item.SurveyStatus != "Submitted")
        {
         <td>
-            @Html.ActionLink("Open Survey", "TakeSurveyFinal", new { id = item.TakeSurveyID }) |
-            @Html.ActionLink("Edit Last Saved Survey", "EditTakeSurveyFinal", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Submit Survey", "SubmitTakeSurveyFinal", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Open New Survey and Submit", "TakeSurveyFinal", new { id = item.TakeSurveyID }) |
+            @Html.ActionLink("Open Last Saved Survey and Submit", "EditTakeSurveyFinal", new { /* id=item.PrimaryKey */ })
+        
         </td>
        }
 </tr>
