@@ -124,10 +124,13 @@ namespace SWEN_Dynamo.Models
         [Display(Name = "Survey ID")]
         public string TakeSurveyID { get; set; }
 
-        [Display(Name = "Survey Name")]
+        [Display(Name = "Survey Conducted For Event ")]
         public string EventName { get; set; }
 
-        
+        [Display(Name = "Your Survey Status")]
+        public string SurveyStatus { get; set; }
+
+
 
     }
 
@@ -158,4 +161,6 @@ namespace SWEN_Dynamo.Models
         public string canswer { get; set; }
 
     }
+
+   
 }
