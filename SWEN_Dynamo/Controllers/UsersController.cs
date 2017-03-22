@@ -24,11 +24,15 @@ namespace SWEN_Dynamo.Controllers
 
         public ActionResult Create(UserModel model)
         {
-            // string keyId = "arn:aws:dynamodb:us-west-2:964019329379:table/User";
-            // String pass = model.Password;
-            // MemoryStream plainpass = new MemoryStream();
-            //// plainpass
-            // EncryptionRequest req = new EncryptionRequest();          
+            
+    
+            return View();
+
+        }
+        [HttpPost, ActionName("Create")]
+        public ActionResult CreateConfirmed(UserModel model)
+        {
+                    
 
             var keyNew = Helper.GeneratePassword(10);
             var pass = Helper.EncodePassword(model.Password, keyNew);
@@ -62,7 +66,7 @@ namespace SWEN_Dynamo.Controllers
                     }
             };
             client.PutItem(request);
-            return View();
+            return View(model);
 
         }
 
@@ -125,53 +129,18 @@ namespace SWEN_Dynamo.Controllers
                 Table table = Table.LoadTable(client, "User");
                 ScanFilter scanFilter = new ScanFilter();
                 string tablename = "User";
-                mod.Datemodified = System.DateTime.Now;
-                var key = Helper.GeneratePassword(10);
-                var passw = Helper.EncodePassword(mod.Password, key);
-                mod.Password = passw;
-                mod.Vcode = key;
-                var request = new UpdateItemRequest
-                {
-                    TableName = tablename,
-                    Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(id) } }
-                     },
-                    ExpressionAttributeNames = new Dictionary<string, string>()
-    {
-        {"#FN", "FirstName"}, { "#LN","LastName"}, {"#EM", "Email"}, { "#RI","RID"}, {"#RA", "RA"}, { "#FA","FA"}, {"#SA", "SA"}, { "#RE","Region"},{"#PH", "Phone"}, {"#DM","Datemodified" }, {"#PA","Password" }, {"#VC", "Vcode" }
-
-    },
-                    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
-    {
-        {":FN",new AttributeValue { S = mod.Firstname}},
-        { ":LN",new AttributeValue {S=mod.Lastname } },
-        {":EM",new AttributeValue { S = mod.Email}},
-        { ":PH",new AttributeValue {N = Convert.ToString(mod.Phone) } },
-        {":RE",new AttributeValue { S = mod.Region}},
-        { ":RI",new AttributeValue {N = Convert.ToString(mod.RID) } },
-          {":FA",new AttributeValue { N = Convert.ToString(mod.FA)}},
-        { ":SA",new AttributeValue {N = Convert.ToString(mod.SA) } },
-        {":RA",new AttributeValue { N = Convert.ToString( mod.RA)}},
-         {":DM",new AttributeValue { S = Convert.ToString(mod.Datemodified)}},
-         {":PA", new AttributeValue { S = passw} },
-         {":VC", new AttributeValue { S = key} },
-
-         },
-                    UpdateExpression = "SET #FN = :FN, #LN = :LN, #RA = :RA, #PH = :PH, #RE = :RE, #SA = :SA, #FA = :FA, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC"
-                };
-
-
                 scanFilter.AddCondition("USID", ScanOperator.Equal, id);
                 ScanOperationConfig config = new ScanOperationConfig()
                 {
                     Filter = scanFilter,
                     Select = SelectValues.AllAttributes,
-                    //AttributesToGet = new List<string> { "SuriveyID", "Email", "Objective1", "Question1" }
+                   
                 };
                 Search search = table.Scan(config);
                 List<Document> documentList = new List<Document>();
                 do
                 {
-                    //    // Fetch the number value from objective in doc list. Map number value to local value and iterate the loop for that number of objectives
+                    
 
                     documentList = search.GetNextSet();
                     if (documentList != null)
@@ -191,14 +160,9 @@ namespace SWEN_Dynamo.Controllers
                             mod.SA = Convert.ToInt32(document["SA"]);
                             mod.RA = Convert.ToInt32(document["RA"]);
                             mod.Phone = document["Phone"];
-                            mod.Password = document["Password"];
+                            mod.Password = null ;
 
-                            var res = client.UpdateItem(request);
-                            if (res != null)
-                            {
-                                client.UpdateItem(request);
-                            }
-
+                        
                         }
                     }
 
@@ -208,6 +172,123 @@ namespace SWEN_Dynamo.Controllers
             return View(mod);
         }
 
+        [HttpPost, ActionName("Edit")]
+        public ActionResult EditConfirmed(int? id, UserModel mod)
+        {
+
+
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "User");
+            ScanFilter scanFilter = new ScanFilter();
+            string tablename = "User";
+            mod.Datemodified = System.DateTime.Now;
+            scanFilter.AddCondition("USID", ScanOperator.Equal, id);
+            ScanOperationConfig config = new ScanOperationConfig()
+
+            {
+                Filter = scanFilter,
+                Select = SelectValues.AllAttributes,
+                //AttributesToGet = new List<string> { "SuriveyID", "Email", "Objective1", "Question1" }
+            };
+            Search search = table.Scan(config);
+            List<Document> documentList = new List<Document>();
+            do
+            {
+
+
+                documentList = search.GetNextSet();
+                if (documentList != null)
+                {
+                    foreach (var document in documentList)
+                    {
+                        TempData["VCodeKeyFromDB"] = document["Vcode"];
+                        TempData["PasswordFromDB"] = document["Password"];
+                    }
+                }
+            } while (!search.IsDone);
+
+            string VCodeKeyFromDB = Convert.ToString(TempData["VCodeKeyFromDB"]);
+            string PasswordFromDB = Convert.ToString(TempData["PasswordFromDB"]);
+           
+                                                                        
+            if (mod.Password == null )                                 
+            {
+               mod.Vcode = VCodeKeyFromDB;                              
+                mod.Password = PasswordFromDB;                         
+              
+            }
+            else                                
+            {
+                var TransactPass = mod.Password;
+                mod.Password = Helper.EncodePassword(TransactPass, VCodeKeyFromDB);
+                if (Convert.ToString(mod.Password) == Convert.ToString(PasswordFromDB))
+                {
+                    mod.Vcode = VCodeKeyFromDB;
+                    mod.Password = PasswordFromDB;
+                }
+                else
+                {
+                    mod.Vcode = Helper.GeneratePassword(10);
+                    mod.Password = Helper.EncodePassword(mod.Password, mod.Vcode);
+                }
+            }
+                                                                               
+                                                                               
+            var request = new UpdateItemRequest
+            {
+                TableName = tablename,
+                Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(id) } }
+                     },
+                ExpressionAttributeNames = new Dictionary<string, string>()
+    {
+        {"#FN", "FirstName"},
+        { "#LN","LastName"},
+        { "#EM", "Email"},
+        { "#RI","RID"},
+        { "#RA", "RA"},
+        { "#FA","FA"},
+        { "#SA", "SA"},
+        { "#RE","Region"},
+         { "#PH", "Phone"},
+        { "#DM","Datemodified" },
+        { "#PA","Password" },
+        { "#VC", "Vcode" }
+
+    },
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+    {
+        {":FN",new AttributeValue { S = mod.Firstname}},
+        { ":LN",new AttributeValue {S=mod.Lastname } },
+        {":EM",new AttributeValue { S = mod.Email}},
+        { ":PH",new AttributeValue {N = Convert.ToString(mod.Phone) } },
+        {":RE",new AttributeValue { S = mod.Region}},
+        { ":RI",new AttributeValue {N = Convert.ToString(mod.RID) } },
+          {":FA",new AttributeValue { N = Convert.ToString(mod.FA)}},
+        { ":SA",new AttributeValue {N = Convert.ToString(mod.SA) } },
+        {":RA",new AttributeValue { N = Convert.ToString( mod.RA)}},
+         {":DM",new AttributeValue { S = Convert.ToString(mod.Datemodified)}},
+         {":PA", new AttributeValue { S = mod.Password} },
+         {":VC", new AttributeValue { S = mod.Vcode} },
+
+         },
+                UpdateExpression = "SET #FN = :FN, #LN = :LN, #RA = :RA, #PH = :PH, #RE = :RE, #SA = :SA, #FA = :FA, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC"
+            };
+
+
+                     
+
+
+                        var res = client.UpdateItem(request);
+                        if (res != null)
+                        {
+                            client.UpdateItem(request);
+                        }
+
+    
+
+
+            return View(mod);
+        }
 
         public ActionResult Details(int? id)
         {

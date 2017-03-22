@@ -24,14 +24,15 @@ namespace SWEN_Dynamo.App_Start
             }
             public static string GeneratePassword(int length) //length of salt    
             {
-                const string allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
+                const string allowedChars = "abCD725hijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
                 var randNum = new Random();
                 var chars = new char[length];
-                var allowedCharCount = allowedChars.Length;
+                var allowedCharCount = Convert.ToInt32( allowedChars.Length);
 
                 for (var i = 0; i <= length - 1; i++)
                 {
-                    chars[i] = allowedChars[Convert.ToInt32((allowedChars.Length) * randNum.NextDouble())];
+                var x = randNum.NextDouble();
+                    chars[i] = allowedChars[Convert.ToInt32(((allowedChars.Length) * x)/10)];
                 }
                 return new string(chars);
             }
