@@ -1,6 +1,7 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,6 +9,7 @@ namespace SWEN_Dynamo.Models
 {
     public class LoginModel
     {
+        
         [DynamoDBHashKey]
         public int USID { get; set; }
 
@@ -19,5 +21,10 @@ namespace SWEN_Dynamo.Models
 
         [DynamoDBRangeKey]
         public string Email { get; set; } = "default@ttu.edu";
+
+        [Display(Name = "Enter Your USID or Email")]
+        public string CheckWithUSIDandEmail { get; set;  } = "default@ttu.edu";
+ 
+        public bool LoginActive { get; set; } = false;
     }
 }
