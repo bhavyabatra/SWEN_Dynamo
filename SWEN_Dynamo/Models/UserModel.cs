@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Security;
 using Amazon.DynamoDBv2.DataModel;
+using System.Web.Mvc;
 
 namespace SWEN_Dynamo.Models
 {
@@ -45,9 +46,9 @@ namespace SWEN_Dynamo.Models
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; } = "Default@s.com";
 
-        [StringLength(75, MinimumLength = 2, ErrorMessage = "Specify Region (Between 2-50 characters)")]
+        
         [Required(ErrorMessage = "Region is required")]
-        public string Region { get; set; } = "Default";
+        public string Region { get; set; }
 
         [StringLength(15, MinimumLength = 8, ErrorMessage = "Password should be between 8 to 15 characters")]
         [Required(ErrorMessage = "Password is required")]
@@ -57,6 +58,7 @@ namespace SWEN_Dynamo.Models
 
         public string Vcode { get; set; } = "01001010";
 
+        public IEnumerable<SelectListItem> RolesOptions { get; set; }
 
     }
 }

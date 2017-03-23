@@ -24,15 +24,31 @@ namespace SWEN_Dynamo.Controllers
 
         public ActionResult Create(UserModel model)
         {
-            
-    
-            return View();
+
+            model.RolesOptions = new List<SelectListItem>
+                {
+                 new SelectListItem() { Value = "1", Text = "Outreach Admin" },
+                new SelectListItem() { Value = "2", Text = "National SWE Comittee Member" },
+                new SelectListItem() { Value = "3", Text = "Regional SWE Comittee Member" },
+                new SelectListItem() { Value = "4", Text = "Chapter SWE Comittee Member" },
+                new SelectListItem() { Value = "5", Text = "SWE Member Volunteer", Selected = true }
+
+            };
+            return View(model);
 
         }
         [HttpPost, ActionName("Create")]
         public ActionResult CreateConfirmed(UserModel model)
         {
-                    
+            model.RolesOptions = new List<SelectListItem>
+                {
+                 new SelectListItem() { Value = "1", Text = "Outreach Admin" },
+                new SelectListItem() { Value = "2", Text = "National SWE Comittee Member" },
+                new SelectListItem() { Value = "3", Text = "Regional SWE Comittee Member" },
+                new SelectListItem() { Value = "4", Text = "Chapter SWE Comittee Member" },
+                new SelectListItem() { Value = "5", Text = "SWE Member Volunteer" }
+
+            };
 
             var keyNew = Helper.GeneratePassword(10);
             var pass = Helper.EncodePassword(model.Password, keyNew);
@@ -129,6 +145,15 @@ namespace SWEN_Dynamo.Controllers
                 Table table = Table.LoadTable(client, "User");
                 ScanFilter scanFilter = new ScanFilter();
                 string tablename = "User";
+                mod.RolesOptions = new List<SelectListItem>
+                {
+                 new SelectListItem() { Value = "1", Text = "Outreach Admin" },
+                new SelectListItem() { Value = "2", Text = "National SWE Comittee Member" },
+                new SelectListItem() { Value = "3", Text = "Regional SWE Comittee Member" },
+                new SelectListItem() { Value = "4", Text = "Chapter SWE Comittee Member" },
+                new SelectListItem() { Value = "5", Text = "SWE Member Volunteer", Selected = true }
+
+            };
                 scanFilter.AddCondition("USID", ScanOperator.Equal, id);
                 ScanOperationConfig config = new ScanOperationConfig()
                 {

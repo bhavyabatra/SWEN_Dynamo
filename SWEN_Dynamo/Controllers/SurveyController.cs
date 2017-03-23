@@ -402,10 +402,10 @@ namespace SWEN_Dynamo.Controllers
             TempData["FinalPostResponseToken"] = FinalResponseToken;
             FinalTakeSurveyObject.AnswerOptions = new List<SelectListItem>
                 {
-                    new SelectListItem() { Value = "Ok", Text = "Ok" },
-                new SelectListItem() { Value = "Cool", Text = "Cool" },
-                new SelectListItem() { Value = "This", Text = "This" },
-                new SelectListItem() { Value = "That", Text = "That" }
+                    new SelectListItem() { Value = "Strongly Agree", Text = "Strongly Agree" },
+                new SelectListItem() { Value = "Agree", Text = "Agree" },
+                new SelectListItem() { Value = "Disagree", Text = "Disagree" },
+                new SelectListItem() { Value = "Strongly Disagree", Text = "Strongly Disagree" }
 
             };
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -456,10 +456,10 @@ namespace SWEN_Dynamo.Controllers
             {
                 mod.AnswerOptions = new List<SelectListItem>
                 {
-                new SelectListItem() { Value = "Ok", Text = "Ok" },
-                new SelectListItem() { Value = "Cool", Text = "Cool" },
-                new SelectListItem() { Value = "This", Text = "This" },
-                new SelectListItem() { Value = "That", Text = "That" }
+                 new SelectListItem() { Value = "Strongly Agree", Text = "Strongly Agree" },
+                new SelectListItem() { Value = "Agree", Text = "Agree" },
+                new SelectListItem() { Value = "Disagree", Text = "Disagree" },
+                new SelectListItem() { Value = "Strongly Disagree", Text = "Strongly Disagree" }
 
             };
 
