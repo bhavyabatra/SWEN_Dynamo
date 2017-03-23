@@ -139,21 +139,12 @@ namespace SWEN_Dynamo.Controllers
 
         public ActionResult Edit(int? id, UserModel mod)
         {
-            if (ModelState.IsValid)
-            {
+          
                 AmazonDynamoDBClient client = new AmazonDynamoDBClient();
                 Table table = Table.LoadTable(client, "User");
                 ScanFilter scanFilter = new ScanFilter();
                 string tablename = "User";
-                mod.RolesOptions = new List<SelectListItem>
-                {
-                 new SelectListItem() { Value = "1", Text = "Outreach Admin" },
-                new SelectListItem() { Value = "2", Text = "National SWE Comittee Member" },
-                new SelectListItem() { Value = "3", Text = "Regional SWE Comittee Member" },
-                new SelectListItem() { Value = "4", Text = "Chapter SWE Comittee Member" },
-                new SelectListItem() { Value = "5", Text = "SWE Member Volunteer", Selected = true }
-
-            };
+             
                 scanFilter.AddCondition("USID", ScanOperator.Equal, id);
                 ScanOperationConfig config = new ScanOperationConfig()
                 {
@@ -179,28 +170,47 @@ namespace SWEN_Dynamo.Controllers
                             mod.Email = document["Email"];
                             mod.Datemodified = Convert.ToDateTime(document["Datemodified"]);
                             mod.Datecreated = Convert.ToDateTime(document["Datecreated"]);
-                            mod.Region = document["Region"];
+                            mod.Region =  document["Region"];
                             mod.RID = Convert.ToInt32(document["RID"]);
                             mod.FA = Convert.ToInt32(document["FA"]);
                             mod.SA = Convert.ToInt32(document["SA"]);
                             mod.RA = Convert.ToInt32(document["RA"]);
                             mod.Phone = document["Phone"];
                             mod.Password = null ;
-
+                          //  mod.SelectedRole = Convert.ToString(mod.RID);
                         
                         }
                     }
+               
+                mod.RolesOptions = new List<SelectListItem>
+                {
+                   
+                 new SelectListItem() {Value = "1", Text = "Outreach Admin" },
+                new SelectListItem() { Value = "2", Text = "National SWE Comittee Member" },
+                new SelectListItem() { Value = "3", Text = "Regional SWE Comittee Member" },
+                new SelectListItem() { Value = "4", Text = "Chapter SWE Comittee Member" },
+                new SelectListItem() { Value = "5", Text = "SWE Member Volunteer", Selected = true }
 
-                } while (!search.IsDone);
-
-            }
+            };
+            
+            } while (!search.IsDone);
+                
+     
             return View(mod);
         }
 
         [HttpPost, ActionName("Edit")]
         public ActionResult EditConfirmed(int? id, UserModel mod)
         {
+            mod.RolesOptions = new List<SelectListItem>
+                {
+                 new SelectListItem() { Value = "1", Text = "Outreach Admin" },
+                new SelectListItem() { Value = "2", Text = "National SWE Comittee Member" },
+                new SelectListItem() { Value = "3", Text = "Regional SWE Comittee Member" },
+                new SelectListItem() { Value = "4", Text = "Chapter SWE Comittee Member" },
+                new SelectListItem() { Value = "5", Text = "SWE Member Volunteer", Selected = true }
 
+            };
 
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Table table = Table.LoadTable(client, "User");
@@ -208,6 +218,7 @@ namespace SWEN_Dynamo.Controllers
             string tablename = "User";
             mod.Datemodified = System.DateTime.Now;
             scanFilter.AddCondition("USID", ScanOperator.Equal, id);
+
             ScanOperationConfig config = new ScanOperationConfig()
 
             {

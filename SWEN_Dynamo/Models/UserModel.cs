@@ -15,6 +15,7 @@ namespace SWEN_Dynamo.Models
         [DynamoDBHashKey]
         public int USID { get; set; }
 
+        [Display(Name = "SWE Membership Role")]
         public int RID { get; set; }
 
         public int SA { get; set; } //SurveyAdmin
@@ -59,6 +60,8 @@ namespace SWEN_Dynamo.Models
         public string Vcode { get; set; } = "01001010";
 
         public IEnumerable<SelectListItem> RolesOptions { get; set; }
+
+       // public string SelectedRole { get; set; }
 
     }
 }
