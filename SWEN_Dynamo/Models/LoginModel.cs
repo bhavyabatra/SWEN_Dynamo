@@ -13,17 +13,17 @@ namespace SWEN_Dynamo.Models
         [DynamoDBHashKey]
         public int USID { get; set; }
 
-        public string Password { get; set; } = "P@33w0rd";
+        public string Password { get; set; } 
 
-        public string Vcode { get; set; } = "01001010";
+        public string Vcode { get; set; } 
 
         public int RID { get; set; }
 
         [DynamoDBRangeKey]
-        public string Email { get; set; } = "default@ttu.edu";
+        public string Email { get; set; } 
 
         [Display(Name = "Enter Your USID or Email")]
-        public string CheckWithUSIDandEmail { get; set;  } = "default@ttu.edu";
+          public string CheckWithUSIDandEmail { get; set;  } 
  
         public bool LoginActive { get; set; } = false;
     }

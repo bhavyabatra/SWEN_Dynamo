@@ -15,76 +15,152 @@ namespace SWEN_Dynamo.Controllers
 {
     public class LoginController : Controller
     {
-       
         public ActionResult Index(LoginModel model)
         {
-         
-           
+            return View();
+        }
+        [HttpPost, ActionName("Index")]
+        public ActionResult IndexConfirmed(LoginModel model)
+        {
+
+            var CheckWithUSIDandEmail = model.CheckWithUSIDandEmail;
+            var PasswordFromUser = model.Password;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Table table = Table.LoadTable(client, "User");
             ScanFilter firstscanFilter = new ScanFilter();
             ScanFilter secondscanFilter = new ScanFilter();
-            firstscanFilter.AddCondition("USID", ScanOperator.Equal, model.CheckWithUSIDandEmail);
-            secondscanFilter.AddCondition("Email", ScanOperator.Equal, model.CheckWithUSIDandEmail);
-            ScanOperationConfig firstconfig = new ScanOperationConfig()
+            bool x;
+
+
+            // int x = (Convert.ToInt32(CheckWithUSIDandEmail) );
+            if (!CheckWithUSIDandEmail.Contains("@"))
             {
-                Filter = firstscanFilter,
-                Select = SelectValues.AllAttributes,
-            };
+                firstscanFilter.AddCondition("USID", ScanOperator.Equal, Convert.ToInt32(CheckWithUSIDandEmail));
+                x = true;
+                ScanOperationConfig firstconfig = new ScanOperationConfig()
+                {
+                    Filter = firstscanFilter,
+                    Select = SelectValues.AllAttributes,
+                };
+                Search firstsearch = table.Scan(firstconfig);
+                List<Document> firstdocumentList = new List<Document>();
+                do
+                {
+                    firstdocumentList = firstsearch.GetNextSet();
+
+                    var CountFromFirstList = firstdocumentList.Count();
+
+                    if (CountFromFirstList > 0)
+                    {
+                        // var x = CountFromFirstList;
+                        foreach (var FirstListElement in firstdocumentList)
+                        {
+                            TempData["USID"] = FirstListElement["USID"];
+                            TempData["PasswordFromDB"] = FirstListElement["Password"];
+                            TempData["VCodeFromDB"] = FirstListElement["Vcode"];
+                            TempData["RIDFromDB"] = FirstListElement["RID"];
+                        }
+                    }
+
+
+                } while (!firstsearch.IsDone);
+            }
+            else if (CheckWithUSIDandEmail.Contains("@"))
+            {
+                secondscanFilter.AddCondition("Email", ScanOperator.Equal, Convert.ToString(CheckWithUSIDandEmail));
+                x = false;
             ScanOperationConfig secondconfig = new ScanOperationConfig()
-            {
-                Filter = secondscanFilter,
-                Select = SelectValues.AllAttributes,
-            };
-            Search firstsearch = table.Scan(firstconfig);
-            Search secondsearch = table.Scan(secondconfig);
-            if(firstsearch.  !secondsearch.Equals(null))
-            {
-                var x = "First Search Failed";
-                var y = "Second Search Succeed";
-            }
-            if (!firstsearch.Equals(null) && secondsearch.Equals(null))
-            {
-                var x = "Second Search Failed";
-                var y = "First Search Succeed";
-            }
-            GetItemOperationConfig config = new GetItemOperationConfig()
-            {
-                AttributesToGet = new List<string>() { "Password", "USID", "RID", "Vcode", "Phone" },
-            };
-            //string             
-            //Document document = table.GetItem(model.CheckWithUSIDandEmail, config); 
+                {
+                    Filter = secondscanFilter,
+                    Select = SelectValues.AllAttributes,
+                };
 
-            //if (document != null)
-            //{
-            //    Document docs = table.GetItem(model.Email, config);
-            //    string PasswordFromDynamoDB = docs["Password"];
-            //    string UserRID = docs["RID"];
-            //    string VcodeKey = docs["Vcode"];
-            //     var UserPasswordEncoded = Helper.EncodePassword(model.Password, VcodeKey);
-            //     if (PasswordFromDynamoDB == UserPasswordEncoded && UserRID=="1")
-            //    {
-            //        return View("OutreachAdmin");
-            //    }
-            //     else if (PasswordFromDynamoDB == UserPasswordEncoded && UserRID == "2")
-            //    {
-            //        return View("NationalLevelMember");
-            //    }
-            //    else if (PasswordFromDynamoDB == UserPasswordEncoded && UserRID == "3")
-            //    {
-            //        return View("RegionalLevelMember");
-            //    }
-            //    else if (PasswordFromDynamoDB == UserPasswordEncoded && UserRID == "4")
-            //    {
-            //        return View("ChapterLevelMember");
-            //    }
-            //    else if (PasswordFromDynamoDB == UserPasswordEncoded && UserRID == "5")
-            //    {
-            //        return View("SWEVolunteer");
-            //    }
-            //}
+                Search secondsearch = table.Scan(secondconfig);
+               
+                List<Document> seconddocumentList = new List<Document>();
 
-            return View();
+
+                do
+                {             
+                    seconddocumentList = secondsearch.GetNextSet();
+                 
+                    var CountFromSecondList = seconddocumentList.Count();
+                  
+                   
+                        //var x = CountFromSecondList;
+                        foreach (var SecondListElement in seconddocumentList)
+                        {
+                            TempData["Email"] = SecondListElement["Email"];
+                            TempData["PasswordFromDB"] = SecondListElement["Password"];
+                            TempData["VCodeFromDB"] = SecondListElement["Vcode"];
+                            TempData["RIDFromDB"] = SecondListElement["RID"];
+                        }
+                 
+             
+
+                } while ( !secondsearch.IsDone);
+            }
+            if (TempData["USID"] != null)
+            {
+                string USID = Convert.ToString(TempData["USID"]);
+                string Password = Convert.ToString(TempData["PasswordFromDB"]);
+                var VCode = TempData["VCodeFromDB"];
+                string RID = Convert.ToString(TempData["RIDFromDB"]);
+                var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
+
+                if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1")
+                {
+                    return View("OutreachAdmin");
+                }
+                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2")
+                {
+                    return View("NationalLevelMember");
+                }
+                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3")
+                {
+                    return View("RegionalLevelMember");
+                }
+                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4")
+                {
+                    return View("ChapterLevelMember");
+                }
+                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5")
+                {
+                    return View("SWEVolunteer");
+                }
+            }
+            else
+            {
+                string Email = Convert.ToString(TempData["Email"]);
+                string Password = Convert.ToString(TempData["PasswordFromDB"]);
+                var VCode = TempData["VCodeFromDB"];
+                string RID = Convert.ToString(TempData["RIDFromDB"]);
+                var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
+
+                if( Email == Convert.ToString( model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1")
+                {
+                    return View("OutreachAdmin");
+                }
+                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2")
+                {
+                    return View("NationalLevelMember");
+                }
+                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3")
+                {
+                    return View("RegionalLevelMember");
+                }
+                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4")
+                {
+                    return View("ChapterLevelMember");
+                }
+                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5")
+                {
+                    return View("SWEVolunteer");
+                }
+            }
+           
+
+           return View();
 
 
         }
