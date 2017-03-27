@@ -20,10 +20,10 @@ namespace SWEN_Dynamo.Models
         public int RID { get; set; }
 
         [DynamoDBRangeKey]
-        public string Email { get; set; } 
+        public string Email { get; set; }
 
         [Display(Name = "Enter Your USID or Email")]
-          public string CheckWithUSIDandEmail { get; set;  } 
+        public string CheckWithUSIDandEmail { get; set; } 
  
         public bool LoginActive { get; set; } = false;
     }

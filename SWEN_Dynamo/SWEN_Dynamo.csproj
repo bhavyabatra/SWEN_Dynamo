@@ -203,6 +203,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageFeedbackController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ManageFeedbacks.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\QuestionsModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
@@ -302,6 +304,7 @@
     <Content Include="Views\Test\TestCheck.cshtml" />
     <Content Include="Views\Survey\TakeSurveyFinal.cshtml" />
     <Content Include="Views\Survey\SurveySubmissionAck.cshtml" />
+    <Content Include="Views\ManageFeedback\FeedbackFirst.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

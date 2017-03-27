@@ -1,7 +1,26 @@
-﻿
+﻿@model SWEN_Dynamo.Models.LoginModel
 @{
     ViewBag.Title = "OutreachAdmin";
 }
 
 <h2>OutreachAdmin</h2>
 
+  
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.ActionLink("Users Administration", "UsersList", "Users")
+        </div>
+        <div class="col-md-10">
+            @Html.ActionLink("Surveys Administration", "UsersList")
+        </div>
+      
+        <div class="col-md-10">
+            @Html.ActionLink("Manage Feedbacks", "FeedbackFirst", "ManageFeedback", new { id = Model.USID }, null)
+        </div>
+      
+              <div class="col-md-10">
+            @Html.ActionLink("Inforgrahics", "UsersList", "Users")
+        </div>
+    </div>
+    </div>

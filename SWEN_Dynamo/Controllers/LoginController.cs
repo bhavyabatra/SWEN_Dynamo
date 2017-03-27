@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using SWEN_Dynamo.App_Start;
 using Amazon.DynamoDBv2.Model;
 using Amazon.DynamoDBv2.DataModel;
+using System.Web.Helpers;
 
 namespace SWEN_Dynamo.Controllers
 {
@@ -22,7 +22,7 @@ namespace SWEN_Dynamo.Controllers
         [HttpPost, ActionName("Index")]
         public ActionResult IndexConfirmed(LoginModel model)
         {
-
+           
             var CheckWithUSIDandEmail = model.CheckWithUSIDandEmail;
             var PasswordFromUser = model.Password;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -69,36 +69,36 @@ namespace SWEN_Dynamo.Controllers
             {
                 secondscanFilter.AddCondition("Email", ScanOperator.Equal, Convert.ToString(CheckWithUSIDandEmail));
                 x = false;
-            ScanOperationConfig secondconfig = new ScanOperationConfig()
+                ScanOperationConfig secondconfig = new ScanOperationConfig()
                 {
                     Filter = secondscanFilter,
                     Select = SelectValues.AllAttributes,
                 };
 
                 Search secondsearch = table.Scan(secondconfig);
-               
+
                 List<Document> seconddocumentList = new List<Document>();
 
 
                 do
-                {             
+                {
                     seconddocumentList = secondsearch.GetNextSet();
-                 
-                    var CountFromSecondList = seconddocumentList.Count();
-                  
-                   
-                        //var x = CountFromSecondList;
-                        foreach (var SecondListElement in seconddocumentList)
-                        {
-                            TempData["Email"] = SecondListElement["Email"];
-                            TempData["PasswordFromDB"] = SecondListElement["Password"];
-                            TempData["VCodeFromDB"] = SecondListElement["Vcode"];
-                            TempData["RIDFromDB"] = SecondListElement["RID"];
-                        }
-                 
-             
 
-                } while ( !secondsearch.IsDone);
+                    var CountFromSecondList = seconddocumentList.Count();
+
+
+                    //var x = CountFromSecondList;
+                    foreach (var SecondListElement in seconddocumentList)
+                    {
+                        TempData["Email"] = SecondListElement["Email"];
+                        TempData["PasswordFromDB"] = SecondListElement["Password"];
+                        TempData["VCodeFromDB"] = SecondListElement["Vcode"];
+                        TempData["RIDFromDB"] = SecondListElement["RID"];
+                    }
+
+
+
+                } while (!secondsearch.IsDone);
             }
             if (TempData["USID"] != null)
             {
@@ -110,7 +110,8 @@ namespace SWEN_Dynamo.Controllers
 
                 if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1")
                 {
-                    return View("OutreachAdmin");
+                    model.USID = Convert.ToInt32(USID);
+                    return View("OutreachAdmin", model);
                 }
                 else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2")
                 {
@@ -137,9 +138,10 @@ namespace SWEN_Dynamo.Controllers
                 string RID = Convert.ToString(TempData["RIDFromDB"]);
                 var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
 
-                if( Email == Convert.ToString( model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1")
+                if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1")
                 {
-                    return View("OutreachAdmin");
+                    model.USID = Convert.ToInt32(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                    return View("OutreachAdmin",model);
                 }
                 else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2")
                 {
@@ -158,16 +160,18 @@ namespace SWEN_Dynamo.Controllers
                     return View("SWEVolunteer");
                 }
             }
-           
 
-           return View();
+
+            return View(model);
 
 
         }
 
-        public ActionResult SWEVolunteer()
+        public ActionResult OutreachAdmin(LoginModel m,string action)
         {
-            return View("Lockout");
+            
+            return View("OutreachAdmin");
+
         }
     }
 }

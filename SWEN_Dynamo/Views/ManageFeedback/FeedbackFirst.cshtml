@@ -1,0 +1,90 @@
+﻿@model SWEN_Dynamo.Models.ManageFeedbacks
+
+@{
+    ViewBag.Title = "FeedbackFirst";
+}
+
+<h2>Welcome @Html.DisplayFor(model => model.UserName)</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div>
+            <h4>ManageFeedbacks</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.USID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.USID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EmailID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EmailID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FeedbackID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FeedbackID)
+                </dd>
+            </dl>
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>*@
+            <div class="col-md-10", onclick="">
+                @Html.CheckBoxFor(model => model.CheckToOnlineTable, new { htmlAttributes = new { @class = "form-control" },  })
+            </div>
+            <h5> You Following Online Surveys have some responses. You may choose associated Survey from the following. </h5>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SurveyID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SurveyType)
+                    </th>
+                </tr>
+                @foreach (var item in Model.FLS)
+                {
+                    <tr>
+                        <td>
+                            @Html.RadioButtonFor(modelItem => modelItem.XYZ, item.SurveyID)
+                            @Html.DisplayFor(modelItem => item.SurveyID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SurveyType)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" name="Proceed" value="Proceed With Feedback" class="btn btn-default" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

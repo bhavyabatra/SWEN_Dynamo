@@ -13,6 +13,7 @@ namespace SWEN_Dynamo.App_Start
 {
     public static class SWEN_DynamoUtilityClass
     {
+        public static int USIDvalue;
         public static void UpdateDynamoDBItem(string tablename, string ID, string objectivenumber, string dbitem)
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -205,6 +206,156 @@ namespace SWEN_Dynamo.App_Start
                 }
             }
         }
-        
+        public static int FetchUSIDfromEmail (string Email)
+        {
+            int USID ;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "User");
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("Email", ScanOperator.Equal, Email);
+
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> { "USID" }
+            };
+            Search search = table.Scan(config);
+            List<int> USIDList = new List<int>();
+            List<Document> documentList = new List<Document>();
+            do
+            {
+                // people.Clear();
+                documentList = search.GetNextSet();
+                Console.WriteLine(documentList);
+                foreach (var doc in documentList)
+                {
+                    USID = Convert.ToInt32(doc["USID"]);
+                    USIDList.Add(USID);
+                 
+                  
+                }
+
+            } while (!search.IsDone);
+            return USIDList[0];
+
+
+        }
+        public static string FetchEmailfromUSID(int USID)
+        {
+            string Email;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "User");
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("USID", ScanOperator.Equal, USID);
+
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> { "Email" }
+            };
+            Search search = table.Scan(config);
+            List<string> EmailList = new List<string>();
+            List<Document> documentList = new List<Document>();
+            do
+            {
+                // people.Clear();
+                documentList = search.GetNextSet();
+                Console.WriteLine(documentList);
+                foreach (var doc in documentList)
+                {
+                    Email = Convert.ToString(doc["Email"]);
+                    EmailList.Add(Email);
+                    
+                }
+
+            } while (!search.IsDone);
+            return EmailList[0];
+
+
+        }
+        public static string FetchNamefromUSID(int USID)
+        {
+            string First;
+            string Last;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "User");
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("USID", ScanOperator.Equal, USID);
+
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> { "FirstName", "LastName" }
+            };
+            Search search = table.Scan(config);
+            List<string> NameList = new List<string>();
+            List<Document> documentList = new List<Document>();
+            do
+            {
+                // people.Clear();
+                documentList = search.GetNextSet();
+                Console.WriteLine(documentList);
+                foreach (var doc in documentList)
+                {
+                    First = Convert.ToString(doc["FirstName"]);
+                    Last = Convert.ToString(doc["LastName"]);
+                    NameList.Add(First + " " + Last);
+
+                }
+
+            } while (!search.IsDone);
+            return NameList[0];
+
+
+        }
+        public static List<FeedbackFor> FeedbackListPageFirst(int USID)
+        {
+
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "SurveyCatalog");
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("USID", ScanOperator.Equal, USID);
+
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> { "EventName", "SurveyID", "SurveyType" }
+            };
+            Search search = table.Scan(config);
+            List<Document> documentList = new List<Document>();
+            List<FeedbackFor> FBF = new List<FeedbackFor>();
+
+
+            do
+            {
+                // people.Clear();
+                documentList = search.GetNextSet();
+
+                foreach (var doc in documentList)
+                {
+                    //USID = Convert.ToInt32(doc["USID"]);
+                    FBF.Add(new FeedbackFor() { SurveyID = doc["SurveyID"], SurveyType = doc["SurveyType"], EventName = doc["EventName"] });
+
+                }
+
+            } while (!search.IsDone);
+
+            return FBF;
+
+
+        }
+
     }
+
+    //public class FeedbackFor
+    //{
+    //    public string SurveyType { get; set; }
+    //    public string SurveyID { get; set; }
+    //    public string EventName { get; set; }
+
+    //}
 }

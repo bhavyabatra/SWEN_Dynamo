@@ -58,6 +58,16 @@ namespace SWEN_Dynamo.Controllers
             model.Datemodified = System.DateTime.Now;
 
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            string Region;
+            if (model.RID == 1 || model.RID ==2)
+            {
+                
+               Region="USA";
+            }
+            else
+            {
+                Region = model.Region;
+            }
 
             string tablename = "User";
             var request = new PutItemRequest
@@ -77,11 +87,11 @@ namespace SWEN_Dynamo.Controllers
           { "RA", new AttributeValue { N = Convert.ToString(model.RA) }},
           { "FA", new AttributeValue { N = Convert.ToString(model.FA) }},
           { "SA", new AttributeValue { N = Convert.ToString(model.SA) }},
-          { "Region", new AttributeValue { S = model.Region }},
+          { "Region", new AttributeValue { S = Region }},
           { "Phone", new AttributeValue { N = Convert.ToString(model.Phone) }},
                     }
             };
-            client.PutItem(request);
+              client.PutItem(request);
             return View(model);
 
         }
