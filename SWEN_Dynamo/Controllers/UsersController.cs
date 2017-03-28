@@ -35,62 +35,59 @@ namespace SWEN_Dynamo.Controllers
 
             };
 
- //           model.RegionOptions = new List<SelectListItem>
- //               {
-
- //new SelectListItem() { Value = "Alabama", Text = "Alabama"},
- //new SelectListItem() { Value ="Alaska", Text = "Alaska" },
- //new SelectListItem() { Value ="Arizona", Text = "Arizona" },
- //new SelectListItem() { Value ="Arkansas", Text = "Arkansas" },
- //new SelectListItem() { Value ="California", Text = "California" },
- //new SelectListItem() { Value =Colorado
- //new SelectListItem() { Value =Connecticut
- //new SelectListItem() { Value =Delaware
- //new SelectListItem() { Value =Florida
- //new SelectListItem() { Value =Georgia
- //new SelectListItem() { Value =Hawaii
- //new SelectListItem() { Value =Idaho
- //new SelectListItem() { Value =Illinois
- //new SelectListItem() { Value =Indiana
- //new SelectListItem() { Value =Iowa
- //new SelectListItem() { Value =Kansas
- //new SelectListItem() { Value =Kentucky
- //new SelectListItem() { Value =Louisiana
- //new SelectListItem() { Value =Maine
- //new SelectListItem() { Value =Maryland
- //new SelectListItem() { Value =Massachusetts
- //new SelectListItem() { Value =Michigan
- //new SelectListItem() { Value =Minnesota
- //new SelectListItem() { Value =Mississippi
- //new SelectListItem() { Value =Missouri
- //new SelectListItem() { Value =Montana
- //new SelectListItem() { Value =Nebraska
- //new SelectListItem() { Value =Nevada
- //new SelectListItem() { Value =New Hampshire
- //new SelectListItem() { Value =New Jersey
- //new SelectListItem() { Value =New Mexico
- //new SelectListItem() { Value =New York
- //new SelectListItem() { Value =North Carolina
- //new SelectListItem() { Value =North Dakota
- //new SelectListItem() { Value =Ohio
- //new SelectListItem() { Value =Oklahoma
- //new SelectListItem() { Value =Oregon
- //new SelectListItem() { Value =Pennsylvania
- //new SelectListItem() { Value =Rhode Island
- //new SelectListItem() { Value =South Carolina
- //new SelectListItem() { Value =South Dakota
- //new SelectListItem() { Value =Tennessee
- //new SelectListItem() { Value =Texas
- //new SelectListItem() { Value =Utah
- //new SelectListItem() { Value =Vermont
- //new SelectListItem() { Value =Virginia
- //new SelectListItem() { Value =Washington
- //new SelectListItem() { Value =West Virginia
- //new SelectListItem() { Value =Wisconsin
- //new SelectListItem() { Value =Wyoming
-
-
-            //};
+            model.RegionOptions = new List<SelectListItem>
+            {
+                    new SelectListItem { Value = "AL", Text = "Alabama" },
+                    new SelectListItem { Value = "AK", Text = "Alaska" },
+                    new SelectListItem { Value = "AZ", Text = "Arizona" },
+                    new SelectListItem { Value = "AR", Text = "Arkansas" },
+                    new SelectListItem { Value = "CA", Text = "California" },
+                    new SelectListItem { Value = "CO", Text = "Colorado" },
+                    new SelectListItem { Value = "CT", Text = "Connecticut" },
+                    new SelectListItem { Value = "DE", Text = "Delaware" },
+                    new SelectListItem { Value = "FL", Text = "Florida" },
+                    new SelectListItem { Value = "GA", Text = "Georgia" },
+                    new SelectListItem { Value = "HI", Text = "Hawaii" },
+                    new SelectListItem { Value = "ID", Text = "Idaho" },
+                    new SelectListItem { Value = "IL", Text = "Illinois" },
+                    new SelectListItem { Value = "IN", Text = "Indiana" },
+                    new SelectListItem { Value = "IA", Text = "Iowa" },
+                    new SelectListItem { Value = "KS", Text = "Kansas" },
+                    new SelectListItem { Value = "KY", Text = "Kentucky" },
+                    new SelectListItem { Value = "LA", Text = "Louisiana" },
+                    new SelectListItem { Value = "ME", Text = "Maine" },
+                    new SelectListItem { Value = "MD", Text = "Maryland" },
+                    new SelectListItem { Value = "MA", Text = "Massachusetts" },
+                    new SelectListItem { Value = "MI", Text = "Michigan" },
+                    new SelectListItem { Value = "MN", Text = "Minnesota" },
+                    new SelectListItem { Value = "MS", Text = "Mississippi" },
+                    new SelectListItem { Value = "MO", Text = "Missouri" },
+                    new SelectListItem { Value = "MT", Text = "Montana" },
+                    new SelectListItem { Value = "NC", Text = "North Carolina" },
+                    new SelectListItem { Value = "ND", Text = "North Dakota" },
+                    new SelectListItem { Value = "NE", Text = "Nebraska" },
+                    new SelectListItem { Value = "NV", Text = "Nevada" },
+                    new SelectListItem { Value = "NH", Text = "New Hampshire" },
+                    new SelectListItem { Value = "NJ", Text = "New Jersey" },
+                    new SelectListItem { Value = "NM", Text = "New Mexico" },
+                    new SelectListItem { Value = "NY", Text = "New York" },
+                    new SelectListItem { Value = "OH", Text = "Ohio" },
+                    new SelectListItem { Value = "OK", Text = "Oklahoma" },
+                    new SelectListItem { Value = "OR", Text = "Oregon" },
+                    new SelectListItem { Value = "PA", Text = "Pennsylvania" },
+                    new SelectListItem { Value = "RI", Text = "Rhode Island" },
+                    new SelectListItem { Value = "SC", Text = "South Carolina" },
+                    new SelectListItem { Value = "SD", Text = "South Dakota" },
+                    new SelectListItem { Value = "TN", Text = "Tennessee" },
+                    new SelectListItem { Value = "TX", Text = "Texas" },
+                    new SelectListItem { Value = "UT", Text = "Utah" },
+                    new SelectListItem { Value = "VT", Text = "Vermont" },
+                    new SelectListItem { Value = "VA", Text = "Virginia" },
+                    new SelectListItem { Value = "WA", Text = "Washington" },
+                    new SelectListItem { Value = "WV", Text = "West Virginia" },
+                    new SelectListItem { Value = "WI", Text = "Wisconsin" },
+                    new SelectListItem { Value = "WY", Text = "Wyoming" }
+                };
             return View(model);
 
         }
@@ -106,6 +103,59 @@ namespace SWEN_Dynamo.Controllers
                 new SelectListItem() { Value = "5", Text = "SWE Member Volunteer" }
 
             };
+            model.RegionOptions = new List<SelectListItem>
+            {
+                    new SelectListItem { Value = "AL", Text = "Alabama" },
+                    new SelectListItem { Value = "AK", Text = "Alaska" },
+                    new SelectListItem { Value = "AZ", Text = "Arizona" },
+                    new SelectListItem { Value = "AR", Text = "Arkansas" },
+                    new SelectListItem { Value = "CA", Text = "California" },
+                    new SelectListItem { Value = "CO", Text = "Colorado" },
+                    new SelectListItem { Value = "CT", Text = "Connecticut" },
+                    new SelectListItem { Value = "DE", Text = "Delaware" },
+                    new SelectListItem { Value = "FL", Text = "Florida" },
+                    new SelectListItem { Value = "GA", Text = "Georgia" },
+                    new SelectListItem { Value = "HI", Text = "Hawaii" },
+                    new SelectListItem { Value = "ID", Text = "Idaho" },
+                    new SelectListItem { Value = "IL", Text = "Illinois" },
+                    new SelectListItem { Value = "IN", Text = "Indiana" },
+                    new SelectListItem { Value = "IA", Text = "Iowa" },
+                    new SelectListItem { Value = "KS", Text = "Kansas" },
+                    new SelectListItem { Value = "KY", Text = "Kentucky" },
+                    new SelectListItem { Value = "LA", Text = "Louisiana" },
+                    new SelectListItem { Value = "ME", Text = "Maine" },
+                    new SelectListItem { Value = "MD", Text = "Maryland" },
+                    new SelectListItem { Value = "MA", Text = "Massachusetts" },
+                    new SelectListItem { Value = "MI", Text = "Michigan" },
+                    new SelectListItem { Value = "MN", Text = "Minnesota" },
+                    new SelectListItem { Value = "MS", Text = "Mississippi" },
+                    new SelectListItem { Value = "MO", Text = "Missouri" },
+                    new SelectListItem { Value = "MT", Text = "Montana" },
+                    new SelectListItem { Value = "NC", Text = "North Carolina" },
+                    new SelectListItem { Value = "ND", Text = "North Dakota" },
+                    new SelectListItem { Value = "NE", Text = "Nebraska" },
+                    new SelectListItem { Value = "NV", Text = "Nevada" },
+                    new SelectListItem { Value = "NH", Text = "New Hampshire" },
+                    new SelectListItem { Value = "NJ", Text = "New Jersey" },
+                    new SelectListItem { Value = "NM", Text = "New Mexico" },
+                    new SelectListItem { Value = "NY", Text = "New York" },
+                    new SelectListItem { Value = "OH", Text = "Ohio" },
+                    new SelectListItem { Value = "OK", Text = "Oklahoma" },
+                    new SelectListItem { Value = "OR", Text = "Oregon" },
+                    new SelectListItem { Value = "PA", Text = "Pennsylvania" },
+                    new SelectListItem { Value = "RI", Text = "Rhode Island" },
+                    new SelectListItem { Value = "SC", Text = "South Carolina" },
+                    new SelectListItem { Value = "SD", Text = "South Dakota" },
+                    new SelectListItem { Value = "TN", Text = "Tennessee" },
+                    new SelectListItem { Value = "TX", Text = "Texas" },
+                    new SelectListItem { Value = "UT", Text = "Utah" },
+                    new SelectListItem { Value = "VT", Text = "Vermont" },
+                    new SelectListItem { Value = "VA", Text = "Virginia" },
+                    new SelectListItem { Value = "WA", Text = "Washington" },
+                    new SelectListItem { Value = "WV", Text = "West Virginia" },
+                    new SelectListItem { Value = "WI", Text = "Wisconsin" },
+                    new SelectListItem { Value = "WY", Text = "Wyoming" }
+                };
 
             var keyNew = Helper.GeneratePassword(10);
             var pass = Helper.EncodePassword(model.Password, keyNew);
@@ -141,9 +191,6 @@ namespace SWEN_Dynamo.Controllers
           { "Password", new AttributeValue { S = pass }},
           { "Vcode", new AttributeValue { S = keyNew }},
           { "RID", new AttributeValue { N = Convert.ToString(model.RID) }},
-          { "RA", new AttributeValue { N = Convert.ToString(model.RA) }},
-          { "FA", new AttributeValue { N = Convert.ToString(model.FA) }},
-          { "SA", new AttributeValue { N = Convert.ToString(model.SA) }},
           { "Region", new AttributeValue { S = Region }},
           { "Phone", new AttributeValue { N = Convert.ToString(model.Phone) }},
                     }
@@ -192,9 +239,6 @@ namespace SWEN_Dynamo.Controllers
                         Lastname = document["LastName"],
                         Phone = document["Phone"],
                         Region = document["Region"],
-                        RA = Convert.ToInt32(document["RA"]),
-                        FA = Convert.ToInt32(document["FA"]),
-                        SA = Convert.ToInt32(document["SA"])
                     });
 
                 }
@@ -239,9 +283,6 @@ namespace SWEN_Dynamo.Controllers
                             mod.Datecreated = Convert.ToDateTime(document["Datecreated"]);
                             mod.Region =  document["Region"];
                             mod.RID = Convert.ToInt32(document["RID"]);
-                            mod.FA = Convert.ToInt32(document["FA"]);
-                            mod.SA = Convert.ToInt32(document["SA"]);
-                            mod.RA = Convert.ToInt32(document["RA"]);
                             mod.Phone = document["Phone"];
                             mod.Password = null ;
                           //  mod.SelectedRole = Convert.ToString(mod.RID);
@@ -366,9 +407,7 @@ namespace SWEN_Dynamo.Controllers
         { ":PH",new AttributeValue {N = Convert.ToString(mod.Phone) } },
         {":RE",new AttributeValue { S = mod.Region}},
         { ":RI",new AttributeValue {N = Convert.ToString(mod.RID) } },
-          {":FA",new AttributeValue { N = Convert.ToString(mod.FA)}},
-        { ":SA",new AttributeValue {N = Convert.ToString(mod.SA) } },
-        {":RA",new AttributeValue { N = Convert.ToString( mod.RA)}},
+     
          {":DM",new AttributeValue { S = Convert.ToString(mod.Datemodified)}},
          {":PA", new AttributeValue { S = mod.Password} },
          {":VC", new AttributeValue { S = mod.Vcode} },
@@ -419,9 +458,6 @@ namespace SWEN_Dynamo.Controllers
                     det.Email = document["Email"];
                     det.Region = document["Region"];
                     det.RID = Convert.ToInt32(document["RID"]);
-                    det.FA = Convert.ToInt32(document["FA"]);
-                    det.SA = Convert.ToInt32(document["SA"]);
-                    det.RA = Convert.ToInt32(document["RA"]);
                     det.Phone = document["Phone"];
                     det.Datemodified = Convert.ToDateTime(document["Datemodified"]);
                     det.Datecreated = Convert.ToDateTime(document["Datecreated"]);
@@ -458,9 +494,6 @@ namespace SWEN_Dynamo.Controllers
                     det.Email = document["Email"];
                     det.Region = document["Region"];
                     det.RID = Convert.ToInt32(document["RID"]);
-                    det.FA = Convert.ToInt32(document["FA"]);
-                    det.SA = Convert.ToInt32(document["SA"]);
-                    det.RA = Convert.ToInt32(document["RA"]);
                     det.Phone = document["Phone"];
                     det.Datemodified = Convert.ToDateTime(document["Datemodified"]);
                     det.Datecreated = Convert.ToDateTime(document["Datecreated"]);

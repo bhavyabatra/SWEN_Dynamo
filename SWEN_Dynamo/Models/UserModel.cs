@@ -18,13 +18,7 @@ namespace SWEN_Dynamo.Models
         [Display(Name = "SWE Membership Role")]
         public int RID { get; set; }
 
-        public int SA { get; set; } //SurveyAdmin
-
-        public int RA { get; set; } //ReportAdmin
-
-        public int FA { get; set; } //FeedbackAdmin
-
-        
+           
         [StringLength(10, MinimumLength = 10, ErrorMessage =  "Invalid phone number, Do not enter country code if you are doing so")]
         [Required(ErrorMessage = "Phone is required")]
         [Phone]
@@ -47,8 +41,8 @@ namespace SWEN_Dynamo.Models
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; } = "Default@s.com";
 
-        
-        [Required(ErrorMessage = "Region is required")]
+        [Display(Name = "Region of Operation ")]
+        [Required(ErrorMessage = "The Region of Operation is required")]
         public string Region { get; set; }
 
         [StringLength(15, MinimumLength = 8, ErrorMessage = "Password should be between 8 to 15 characters")]
