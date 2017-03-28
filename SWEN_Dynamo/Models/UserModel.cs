@@ -61,7 +61,9 @@ namespace SWEN_Dynamo.Models
 
         public IEnumerable<SelectListItem> RolesOptions { get; set; }
 
-       // public string SelectedRole { get; set; }
+        public IEnumerable<SelectListItem> RegionOptions { get; set; }
+
+        // public string SelectedRole { get; set; }
 
     }
 }

@@ -34,6 +34,63 @@ namespace SWEN_Dynamo.Controllers
                 new SelectListItem() { Value = "5", Text = "SWE Member Volunteer", Selected = true }
 
             };
+
+ //           model.RegionOptions = new List<SelectListItem>
+ //               {
+
+ //new SelectListItem() { Value = "Alabama", Text = "Alabama"},
+ //new SelectListItem() { Value ="Alaska", Text = "Alaska" },
+ //new SelectListItem() { Value ="Arizona", Text = "Arizona" },
+ //new SelectListItem() { Value ="Arkansas", Text = "Arkansas" },
+ //new SelectListItem() { Value ="California", Text = "California" },
+ //new SelectListItem() { Value =Colorado
+ //new SelectListItem() { Value =Connecticut
+ //new SelectListItem() { Value =Delaware
+ //new SelectListItem() { Value =Florida
+ //new SelectListItem() { Value =Georgia
+ //new SelectListItem() { Value =Hawaii
+ //new SelectListItem() { Value =Idaho
+ //new SelectListItem() { Value =Illinois
+ //new SelectListItem() { Value =Indiana
+ //new SelectListItem() { Value =Iowa
+ //new SelectListItem() { Value =Kansas
+ //new SelectListItem() { Value =Kentucky
+ //new SelectListItem() { Value =Louisiana
+ //new SelectListItem() { Value =Maine
+ //new SelectListItem() { Value =Maryland
+ //new SelectListItem() { Value =Massachusetts
+ //new SelectListItem() { Value =Michigan
+ //new SelectListItem() { Value =Minnesota
+ //new SelectListItem() { Value =Mississippi
+ //new SelectListItem() { Value =Missouri
+ //new SelectListItem() { Value =Montana
+ //new SelectListItem() { Value =Nebraska
+ //new SelectListItem() { Value =Nevada
+ //new SelectListItem() { Value =New Hampshire
+ //new SelectListItem() { Value =New Jersey
+ //new SelectListItem() { Value =New Mexico
+ //new SelectListItem() { Value =New York
+ //new SelectListItem() { Value =North Carolina
+ //new SelectListItem() { Value =North Dakota
+ //new SelectListItem() { Value =Ohio
+ //new SelectListItem() { Value =Oklahoma
+ //new SelectListItem() { Value =Oregon
+ //new SelectListItem() { Value =Pennsylvania
+ //new SelectListItem() { Value =Rhode Island
+ //new SelectListItem() { Value =South Carolina
+ //new SelectListItem() { Value =South Dakota
+ //new SelectListItem() { Value =Tennessee
+ //new SelectListItem() { Value =Texas
+ //new SelectListItem() { Value =Utah
+ //new SelectListItem() { Value =Vermont
+ //new SelectListItem() { Value =Virginia
+ //new SelectListItem() { Value =Washington
+ //new SelectListItem() { Value =West Virginia
+ //new SelectListItem() { Value =Wisconsin
+ //new SelectListItem() { Value =Wyoming
+
+
+            //};
             return View(model);
 
         }
