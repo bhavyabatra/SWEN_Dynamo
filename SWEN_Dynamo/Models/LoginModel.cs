@@ -11,7 +11,7 @@ namespace SWEN_Dynamo.Models
     {
         
         [DynamoDBHashKey]
-        public int USID { get; set; }
+        public long USID { get; set; }
 
         public string Password { get; set; } 
 

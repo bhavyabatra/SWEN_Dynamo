@@ -35,6 +35,24 @@ namespace SWEN_Dynamo.Models
 
             public List<FeedbackFor> FLS { get; set; }
 
+        [Display(Name = "Number of Girls ")]
+        public int NOG { get; set; }
+        [Display(Name = "Number of Boys ")]
+        public int NOB { get; set; }
+        [Display(Name = "What is average age of Girls ")]
+        public int AOG { get; set; }
+        [Display(Name = "What is average of boys")]
+        public int AOB { get; set; }
+        [Display(Name = "Number of SWE Volunteer ")]
+        public int NumSWEV { get; set; }
+        [Display(Name = "Number of Other Volunteers ")]
+        public int NumOV { get; set; }
+        [Display(Name = "Enter Date of Event ")]
+        public DateTime DateofEvent { get; set; }
+        [Display(Name = "Type of Event ")]
+        public string EventType { get; set; }
+
+
     }
     public class FeedbackFor
     {

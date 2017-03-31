@@ -13,7 +13,7 @@ namespace SWEN_Dynamo.Models
     public class UserModel
     {
         [DynamoDBHashKey]
-        public int USID { get; set; }
+        public long USID { get; set; }
 
         [Display(Name = "SWE Membership Role")]
         public int RID { get; set; }
@@ -56,6 +56,9 @@ namespace SWEN_Dynamo.Models
         public IEnumerable<SelectListItem> RolesOptions { get; set; }
 
         public IEnumerable<SelectListItem> RegionOptions { get; set; }
+
+        [Display(Name = "Activate Loign for this user")]
+        public bool IsLoginActive { get; set; }
 
         // public string SelectedRole { get; set; }
 

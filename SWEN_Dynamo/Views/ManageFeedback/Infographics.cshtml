@@ -1,0 +1,321 @@
+﻿@model SWEN_Dynamo.Models.ManageFeedbacks
+
+@{
+    ViewBag.Title = "Infographics";
+}
+
+<h2>Infographics</h2>
+@*<!DOCTYPE html>
+<html>
+
+<head>
+    <script data-require="d3@3.5.3" data-semver="3.5.3" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: auto;
+            position: relative;
+            width: 700px;
+        }
+
+        text {
+            font: 10px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        form {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <label>
+            <input type="radio" name="mode" value="grouped" /> Grouped
+        </label>
+        <label>
+            <input type="radio" name="mode" value="stacked" checked="" /> Stacked
+        </label>
+    </form>
+    <chart_1></chart_1>
+    <script>
+    var layers = [{
+      "x": "2016-01-01",
+      "y": 4
+      "z": 5
+    }, {
+      "x": "2016-01-02",
+      "y": 5,
+      "z": 6
+    }, {
+      "x": "2016-01-03",
+      "y": 6,
+      "z": 3
+    }, {
+      "x": "2016-01-04",
+      "y": 7,
+      "z": 1
+    }];
+
+    var converted = convertjson(layers, "x", ["y", "z"]);
+
+
+    createChart(converted, "chart_1", 40, 20, 700, 550);
+
+
+
+    function createChart(inputdata, chartname, inputtop, inputbottom, inputwidth, inputheight) {
+
+      var stack = d3.layout.stack(),
+        layers = inputdata,
+        m = layers[0].length, // number of samples per layer
+        n = layers.length, // number of layers
+        data = stack(d3.range(n).map(function(d) {
+          return layers[d];
+        }));
+
+
+      var yGroupMax = d3.max(data, function(layer) {
+          return d3.max(layer, function(d) {
+            return d.y;
+          });
+        }),
+        yStackMax = d3.max(data, function(layer) {
+          return d3.max(layer, function(d) {
+            return d.y0 + d.y;
+          });
+        });
+
+
+      var margin = {
+          top: inputtop,
+          right: 10,
+          bottom: inputbottom,
+          left: 10
+        },
+        width = inputwidth - margin.left - margin.right,
+        height = inputheight - margin.top - margin.bottom;
+
+      var x = d3.scale.ordinal()
+        .domain(d3.range(m))
+        .rangeRoundBands([0, width], .08);
+
+      var xTime = d3.time.scale()
+        .domain([new Date("2016-01-01"), d3.time.day.offset(new Date("2016-01-04"), 1)])
+        .rangeRound([0, width - margin.left - margin.right]);
+
+
+      var xAxisTime = d3.svg.axis()
+        .scale(xTime)
+        .orient('bottom')
+        .ticks(d3.time.days, 1)
+        .tickFormat(d3.time.format('%a %d'))
+        .tickSize(0)
+        .tickPadding(8);
+
+
+      var y = d3.scale.linear()
+        .domain([0, yStackMax])
+        .range([height, 0]);
+
+      var color = d3.scale.linear()
+        .domain([0, n - 1])
+        .range(["#aad", "#556"]);
+
+
+
+      var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .tickSize(2)
+        .tickPadding(6)
+        .outerTickSize(0);
+
+      var svg = d3.select(chartname).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var layer = svg.selectAll(".layer")
+        .data(data)
+        .enter().append("g")
+        .attr("class", "layer")
+        .style("fill", function(d, i) {
+          return color(i);
+        });
+
+      var rect = layer.selectAll("rect")
+        .data(function(d) {
+          return d;
+        })
+        .enter().append("rect")
+        .attr("x", function(d) {
+          return xTime(d.x);
+        })
+        .attr("y", height)
+        .attr("width", x.rangeBand())
+        .attr("height", 0);
+
+      rect.transition()
+        .delay(function(d, i) {
+          return i * 10;
+        })
+        .attr("y", function(d) {
+          return y(d.y0 + d.y);
+        })
+        .attr("height", function(d) {
+          return y(d.y0) - y(d.y0 + d.y);
+        });
+
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxisTime)
+
+      svg.append("g")
+        .attr("class", "yaxis")
+        .attr("transform", "translate(" + (Number(margin.left) + 14) + ",0)")
+        .call(yAxis);
+
+      svg.select("g.yaxis").selectAll(".tick")
+        .each(function(d) {
+          if (d === 0) {
+            this.remove();
+          }
+        });
+
+      d3.selectAll("input").on("change", change);
+
+/*
+      var timeout = setTimeout(function() {
+        d3.select("input[value=\"grouped\"]").property("checked", true).each(change);
+        d3.select("input[value=\"0\"]").property("checked", true).each(change);
+      }, 2000);
+*/
+
+
+      function change() {
+        //clearTimeout(timeout);
+        if (this.value === "grouped") transitionGrouped();
+        if (this.value === "stacked") transitionStacked();
+        //else transitionStacked();
+      }
+
+
+
+      function transitionGrouped() {
+
+        y.domain([0, yGroupMax]);
+
+        var allchart = d3.selectAll(".layer").selectAll("rect"),
+          axistran = d3.selectAll(".chart");
+
+          console.log(allchart)
+
+        allchart.transition()
+          .ease("linear")
+          .duration(300)
+          .delay(function(d, i) {
+            return i * 10;
+          })
+          .attr("x", function(d, i, j) {
+            return xTime(d.x) + x.rangeBand() / n * j;
+          })
+          .attr("width", x.rangeBand() / n)
+          .transition()
+          .duration(200)
+          .ease("linear")
+          .attr("y", function(d) {
+            return y(d.y);
+          })
+          .attr("height", function(d) {
+            return height - y(d.y);
+          });
+
+
+        axistran.select("g.yaxis").transition()
+          .duration(600)
+          .call(yAxis);
+
+        axistran.select("g.yaxis").selectAll(".tick")
+          .each(function(d) {
+            if (d === 0) {
+              this.remove();
+            }
+          });
+      };
+
+
+      function transitionStacked() {
+        y.domain([0, yStackMax]);
+
+        var allchart = d3.selectAll(".layer").selectAll("rect"),
+          axistran = d3.selectAll(".chart");
+
+        allchart.transition()
+          .ease("linear")
+          .duration(300)
+          .delay(function(d, i) {
+            return i * 10;
+          })
+          .attr("y", function(d) {
+            return y(d.y0 + d.y);
+          })
+          .attr("height", function(d) {
+            return y(d.y0) - y(d.y0 + d.y);
+          })
+          .transition()
+          .duration(200)
+          .ease("linear")
+          .attr("x", function(d) {
+            return xTime(d.x);
+          })
+          .attr("width", x.rangeBand());
+
+        axistran.select("g.yaxis").transition()
+          .duration(600)
+          .call(yAxis);
+
+        axistran.select("g.yaxis").selectAll(".tick")
+          .each(function(d) {
+            if (d === 0) {
+              this.remove();
+            }
+          });
+
+      };
+
+
+    };
+
+
+    function convertjson(data, xValue, yArray) {
+      var arrayconvertedjson = [];
+      var convertedjson = [];
+
+      for (var j = 0; j < yArray.length; j++) {
+        for (var i = 0; i < data.length; i++) {
+          convertedjson.push({
+            "x": new Date(data[i][xValue]),
+            "y": data[i][yArray[j]]
+          });
+        };
+        arrayconvertedjson.push(convertedjson)
+        convertedjson = [];
+      };
+      return arrayconvertedjson;
+    };
+    </script>
+</body>
+
+</html>*@

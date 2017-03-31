@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ConsoleApplication1
@@ -200,16 +201,42 @@ namespace ConsoleApplication1
          
 
         }
+        public static long GenerateUSID() //length of salt    
+        {
+            string num;
+            num = DateTime.Now.ToString("HHmmsszyyyyMMdd");
+            num = Regex.Replace(num, "[-,:]", "4");
+            long USID = Convert.ToInt64(num);
+            return USID;
 
+
+        }
 
         public static void Main(string[] args)
         {
-            var x = ABC(0);
-            foreach (var s in x)
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table t = Table.LoadTable(client, "User");
+            
+            ////Table table = Table.LoadTable(client, "Respondent");
+            ScanFilter scanFilter = new ScanFilter();
+            Console.WriteLine(GenerateUSID());
+            //Console.WriteLine(num);
+            ////ScanFilter scanFilter2 = new ScanFilter();
+            scanFilter.AddCondition("USID", ScanOperator.GreaterThan, 0);
+            ////scanFilter.AddCondition("SurveyComplete", ScanOperator.Equal, "true");
+            ////scanFilter.AddCondition("O1_Q1_A", ScanOperator.Equal, "Strongly Agree");
+            ////scanFilter.AddCondition("O1_Q1_A", ScanOperator.Equal, "Agree");
+
+            ScanOperationConfig config = new ScanOperationConfig()
             {
-                Console.WriteLine(s.EventName);
-            }
-                Console.Read();
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> { "USID" }
+            };
+            Search search = t.Scan(config);
+
+
+            Console.Read();
         }
 
 

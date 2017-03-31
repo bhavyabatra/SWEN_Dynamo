@@ -35,7 +35,7 @@ namespace SWEN_Dynamo.Controllers
             // int x = (Convert.ToInt32(CheckWithUSIDandEmail) );
             if (!CheckWithUSIDandEmail.Contains("@"))
             {
-                firstscanFilter.AddCondition("USID", ScanOperator.Equal, Convert.ToInt32(CheckWithUSIDandEmail));
+                firstscanFilter.AddCondition("USID", ScanOperator.Equal, Convert.ToInt64(CheckWithUSIDandEmail));
                 x = true;
                 ScanOperationConfig firstconfig = new ScanOperationConfig()
                 {
@@ -59,6 +59,7 @@ namespace SWEN_Dynamo.Controllers
                             TempData["PasswordFromDB"] = FirstListElement["Password"];
                             TempData["VCodeFromDB"] = FirstListElement["Vcode"];
                             TempData["RIDFromDB"] = FirstListElement["RID"];
+                            TempData["IsLoginActive"] = FirstListElement["IsLoginActive"];
                         }
                     }
 
@@ -94,6 +95,7 @@ namespace SWEN_Dynamo.Controllers
                         TempData["PasswordFromDB"] = SecondListElement["Password"];
                         TempData["VCodeFromDB"] = SecondListElement["Vcode"];
                         TempData["RIDFromDB"] = SecondListElement["RID"];
+                        TempData["IsLoginActive"] = SecondListElement["IsLoginActive"];
                     }
 
 
@@ -103,14 +105,16 @@ namespace SWEN_Dynamo.Controllers
             if (TempData["USID"] != null)
             {
                 string USID = Convert.ToString(TempData["USID"]);
+             
                 string Password = Convert.ToString(TempData["PasswordFromDB"]);
                 var VCode = TempData["VCodeFromDB"];
                 string RID = Convert.ToString(TempData["RIDFromDB"]);
                 var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
+                string IsLoginActive = Convert.ToString(TempData["IsLoginActive"]);
 
-                if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1")
+                if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
                 {
-                    model.USID = Convert.ToInt32(USID);
+                    model.USID = Convert.ToInt64(USID);
                     return View("OutreachAdmin", model);
                 }
                 else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2")
@@ -138,9 +142,9 @@ namespace SWEN_Dynamo.Controllers
                 string RID = Convert.ToString(TempData["RIDFromDB"]);
                 var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
 
-                if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1")
+                if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" )
                 {
-                    model.USID = Convert.ToInt32(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
                     return View("OutreachAdmin",model);
                 }
                 else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2")

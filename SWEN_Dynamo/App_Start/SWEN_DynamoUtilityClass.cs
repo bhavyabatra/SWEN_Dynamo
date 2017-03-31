@@ -206,9 +206,9 @@ namespace SWEN_Dynamo.App_Start
                 }
             }
         }
-        public static int FetchUSIDfromEmail (string Email)
+        public static long FetchUSIDfromEmail (string Email)
         {
-            int USID ;
+            long USID ;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Table table = Table.LoadTable(client, "User");
             ScanFilter scanFilter = new ScanFilter();
@@ -221,7 +221,7 @@ namespace SWEN_Dynamo.App_Start
                 AttributesToGet = new List<string> { "USID" }
             };
             Search search = table.Scan(config);
-            List<int> USIDList = new List<int>();
+            List<long> USIDList = new List<long>();
             List<Document> documentList = new List<Document>();
             do
             {
@@ -230,7 +230,7 @@ namespace SWEN_Dynamo.App_Start
                 Console.WriteLine(documentList);
                 foreach (var doc in documentList)
                 {
-                    USID = Convert.ToInt32(doc["USID"]);
+                    USID = Convert.ToInt64(doc["USID"]);
                     USIDList.Add(USID);
                  
                   
@@ -241,7 +241,7 @@ namespace SWEN_Dynamo.App_Start
 
 
         }
-        public static string FetchEmailfromUSID(int USID)
+        public static string FetchEmailfromUSID(long USID)
         {
             string Email;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -275,7 +275,7 @@ namespace SWEN_Dynamo.App_Start
 
 
         }
-        public static string FetchNamefromUSID(int USID)
+        public static string FetchNamefromUSID(long USID)
         {
             string First;
             string Last;
@@ -311,7 +311,7 @@ namespace SWEN_Dynamo.App_Start
 
 
         }
-        public static List<FeedbackFor> FeedbackListPageFirst(int USID)
+        public static List<FeedbackFor> FeedbackListPageFirst(long USID)
         {
 
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();

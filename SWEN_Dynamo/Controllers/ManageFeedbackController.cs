@@ -38,12 +38,15 @@ namespace SWEN_Dynamo.Controllers
 
             if (!string.IsNullOrWhiteSpace(Proceed))
             {
-                string x = MF.XYZ;
-
+                string FetchSurveyID = MF.XYZ;
             }
+
             return View();
         }
-
+        public ActionResult Infographics(ManageFeedbacks model)
+        {
+            return View();
+        }
 
 
     }

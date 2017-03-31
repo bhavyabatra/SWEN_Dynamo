@@ -24,7 +24,8 @@ namespace SWEN_Dynamo.Controllers
 
         public ActionResult Create(UserModel model)
         {
-
+            model.USID = Helper.GenerateUSID();
+            TempData["AutoUSID"] = model.USID;
             model.RolesOptions = new List<SelectListItem>
                 {
                  new SelectListItem() { Value = "1", Text = "Outreach Admin" },
@@ -163,7 +164,7 @@ namespace SWEN_Dynamo.Controllers
             model.Vcode = keyNew;
             model.Datecreated = System.DateTime.Now;
             model.Datemodified = System.DateTime.Now;
-
+            model.USID = Convert.ToInt64(TempData["AutoUSID"]);
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             string Region;
             if (model.RID == 1 || model.RID ==2)
@@ -193,6 +194,7 @@ namespace SWEN_Dynamo.Controllers
           { "RID", new AttributeValue { N = Convert.ToString(model.RID) }},
           { "Region", new AttributeValue { S = Region }},
           { "Phone", new AttributeValue { N = Convert.ToString(model.Phone) }},
+          { "IsLoginActive", new AttributeValue { S = Convert.ToString(model.IsLoginActive) } }
                     }
             };
               client.PutItem(request);
@@ -216,7 +218,7 @@ namespace SWEN_Dynamo.Controllers
             {
                 Filter = scanFilter,
                 Select = SelectValues.SpecificAttributes,
-                AttributesToGet = new List<string> { "USID", "RID", "FirstName", "LastName", "Email", "RA", "SA", "FA", "Phone", "Datecreated", "Datemodified", "Region" }
+                AttributesToGet = new List<string> { "USID", "RID", "FirstName", "LastName", "Email", "Phone", "Datecreated", "Datemodified", "Region", "IsLoginActive" }
             };
             Search search = table.Scan(config);
             List<Document> documentList = new List<Document>();
@@ -230,7 +232,7 @@ namespace SWEN_Dynamo.Controllers
 
                     people.Add(new UserModel()
                     {
-                        USID = Convert.ToInt32(document["USID"]),
+                        USID = Convert.ToInt64(document["USID"]),
                         RID = Convert.ToInt32(document["RID"]),
                         Email = document["Email"],
                         Datecreated = Convert.ToDateTime(document["Datecreated"]),
@@ -239,6 +241,7 @@ namespace SWEN_Dynamo.Controllers
                         Lastname = document["LastName"],
                         Phone = document["Phone"],
                         Region = document["Region"],
+                        IsLoginActive = Convert.ToBoolean(document["IsLoginActive"])
                     });
 
                 }
@@ -248,7 +251,7 @@ namespace SWEN_Dynamo.Controllers
 
         }
 
-        public ActionResult Edit(int? id, UserModel mod)
+        public ActionResult Edit(long? id, UserModel mod)
         {
           
                 AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -256,7 +259,7 @@ namespace SWEN_Dynamo.Controllers
                 ScanFilter scanFilter = new ScanFilter();
                 string tablename = "User";
              
-                scanFilter.AddCondition("USID", ScanOperator.Equal, id);
+                scanFilter.AddCondition("USID", ScanOperator.Equal, Convert.ToInt64(id));
                 ScanOperationConfig config = new ScanOperationConfig()
                 {
                     Filter = scanFilter,
@@ -275,7 +278,7 @@ namespace SWEN_Dynamo.Controllers
                         foreach (var document in documentList)
                         {
 
-                            mod.USID = Convert.ToInt32(document["USID"]);
+                            mod.USID = Convert.ToInt64(document["USID"]);
                             mod.Firstname = document["FirstName"];
                             mod.Lastname = document["LastName"];
                             mod.Email = document["Email"];
@@ -285,6 +288,7 @@ namespace SWEN_Dynamo.Controllers
                             mod.RID = Convert.ToInt32(document["RID"]);
                             mod.Phone = document["Phone"];
                             mod.Password = null ;
+                            mod.IsLoginActive = Convert.ToBoolean(document["IsLoginActive"]);
                           //  mod.SelectedRole = Convert.ToString(mod.RID);
                         
                         }
@@ -308,7 +312,7 @@ namespace SWEN_Dynamo.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        public ActionResult EditConfirmed(int? id, UserModel mod)
+        public ActionResult EditConfirmed(long? id, UserModel mod)
         {
             mod.RolesOptions = new List<SelectListItem>
                 {
@@ -389,14 +393,12 @@ namespace SWEN_Dynamo.Controllers
         { "#LN","LastName"},
         { "#EM", "Email"},
         { "#RI","RID"},
-        { "#RA", "RA"},
-        { "#FA","FA"},
-        { "#SA", "SA"},
         { "#RE","Region"},
          { "#PH", "Phone"},
         { "#DM","Datemodified" },
         { "#PA","Password" },
-        { "#VC", "Vcode" }
+        { "#VC", "Vcode" },
+        { "#ILAC", "IsLoginActive" }
 
     },
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
@@ -411,9 +413,10 @@ namespace SWEN_Dynamo.Controllers
          {":DM",new AttributeValue { S = Convert.ToString(mod.Datemodified)}},
          {":PA", new AttributeValue { S = mod.Password} },
          {":VC", new AttributeValue { S = mod.Vcode} },
+         { ":ILAC", new AttributeValue { S = Convert.ToString(mod.IsLoginActive)} }
 
          },
-                UpdateExpression = "SET #FN = :FN, #LN = :LN, #RA = :RA, #PH = :PH, #RE = :RE, #SA = :SA, #FA = :FA, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC"
+                UpdateExpression = "SET #FN = :FN, #LN = :LN, #PH = :PH, #RE = :RE, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC, #ILAC = :ILAC"
             };
 
 
@@ -432,13 +435,13 @@ namespace SWEN_Dynamo.Controllers
             return View(mod);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(long? id)
         {
             UserModel det = new UserModel();
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Table table = Table.LoadTable(client, "User");
             ScanFilter scanFilter = new ScanFilter();
-            scanFilter.AddCondition("USID", ScanOperator.Equal, id);
+            scanFilter.AddCondition("USID", ScanOperator.Equal, Convert.ToInt64(id));
             ScanOperationConfig config = new ScanOperationConfig()
             {
                 Filter = scanFilter,
@@ -452,7 +455,7 @@ namespace SWEN_Dynamo.Controllers
                 documentList = search.GetNextSet();
                 foreach (var document in documentList)
                 {
-                    det.USID = Convert.ToInt32(document["USID"]);
+                    det.USID = Convert.ToInt64(document["USID"]);
                     det.Firstname = document["FirstName"];
                     det.Lastname = document["LastName"];
                     det.Email = document["Email"];
@@ -461,20 +464,21 @@ namespace SWEN_Dynamo.Controllers
                     det.Phone = document["Phone"];
                     det.Datemodified = Convert.ToDateTime(document["Datemodified"]);
                     det.Datecreated = Convert.ToDateTime(document["Datecreated"]);
+                    det.IsLoginActive = Convert.ToBoolean(document["IsLoginActive"]);
                 }
             } while (!search.IsDone);
             return View(det);
         }
 
 
-        public ActionResult Delete(int id, UserModel det, string action)
+        public ActionResult Delete(long? id, UserModel det, string action)
         {
             //      UserModel del = new UserModel();
         //    UserModel det = new UserModel();
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Table table = Table.LoadTable(client, "User");
             ScanFilter scanFilter = new ScanFilter();
-            scanFilter.AddCondition("USID", ScanOperator.Equal, id);
+            scanFilter.AddCondition("USID", ScanOperator.Equal, Convert.ToInt64(id));
             ScanOperationConfig config = new ScanOperationConfig()
             {
                 Filter = scanFilter,
@@ -488,7 +492,7 @@ namespace SWEN_Dynamo.Controllers
                 documentList = search.GetNextSet();
                 foreach (var document in documentList)
                 {
-                    det.USID = Convert.ToInt32(document["USID"]);
+                    det.USID = Convert.ToInt64(document["USID"]);
                     det.Firstname = document["FirstName"];
                     det.Lastname = document["LastName"];
                     det.Email = document["Email"];
@@ -497,6 +501,7 @@ namespace SWEN_Dynamo.Controllers
                     det.Phone = document["Phone"];
                     det.Datemodified = Convert.ToDateTime(document["Datemodified"]);
                     det.Datecreated = Convert.ToDateTime(document["Datecreated"]);
+                    det.IsLoginActive = Convert.ToBoolean(document["IsLoginActive"]);
                 }
             } while (!search.IsDone);
             
@@ -510,7 +515,7 @@ namespace SWEN_Dynamo.Controllers
 
         }
         [HttpPost, ActionName("Delete")]
-        public ActionResult Deleteconfirmed(int id, UserModel del, string action)
+        public ActionResult Deleteconfirmed(long? id, UserModel del, string action)
 
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();

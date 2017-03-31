@@ -19,7 +19,7 @@ namespace SWEN_Dynamo.Models
 
         public string CustomQuestion2 { get; set; } = "Null";
 
-
+        
     }
 
     public enum SurveyType

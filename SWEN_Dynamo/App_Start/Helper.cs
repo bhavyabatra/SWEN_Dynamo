@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace SWEN_Dynamo.App_Start
@@ -113,8 +114,16 @@ namespace SWEN_Dynamo.App_Start
             return result.ToString();
 
         }
-                 
-       
+
+        public static long GenerateUSID() //length of salt    
+        {
+            string num;
+            num = DateTime.Now.ToString("HHmmsszyyyyMMdd");
+            num = Regex.Replace(num, "[-,:]", "4");
+            long USID = Convert.ToInt64(num);
+            return USID;
+
+        }
     }
 
     }
