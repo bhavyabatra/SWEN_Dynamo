@@ -377,7 +377,7 @@ namespace SWEN_Dynamo.Controllers
                 else
                 {
                     mod.Vcode = Helper.GeneratePassword(10);
-                    mod.Password = Helper.EncodePassword(mod.Password, mod.Vcode);
+                    mod.Password = Helper.EncodePassword(TransactPass, mod.Vcode);
                 }
             }
                                                                                
@@ -416,7 +416,7 @@ namespace SWEN_Dynamo.Controllers
          { ":ILAC", new AttributeValue { S = Convert.ToString(mod.IsLoginActive)} }
 
          },
-                UpdateExpression = "SET #FN = :FN, #LN = :LN, #PH = :PH, #RE = :RE, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC, #ILAC = :ILAC"
+                UpdateExpression = "SET #FN = :FN, #LN = :LN, #PH = :PH, #RE = :RE, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC,#ILAC = :ILAC"
             };
 
 

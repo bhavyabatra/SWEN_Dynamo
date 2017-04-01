@@ -117,21 +117,25 @@ namespace SWEN_Dynamo.Controllers
                     model.USID = Convert.ToInt64(USID);
                     return View("OutreachAdmin", model);
                 }
-                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2")
+                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
                 {
-                    return View("NationalLevelMember");
+                    model.USID = Convert.ToInt64(USID);
+                    return View("NationalLevelMember", model);
                 }
-                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3")
+                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3" && IsLoginActive == "True")
                 {
-                    return View("RegionalLevelMember");
+                    model.USID = Convert.ToInt64(USID);
+                    return View("RegionalLevelMember", model);
                 }
-                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4")
+                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4" && IsLoginActive == "True")
                 {
-                    return View("ChapterLevelMember");
+                    model.USID = Convert.ToInt64(USID);
+                    return View("ChapterLevelMember", model);
                 }
-                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5")
+                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5" && IsLoginActive == "True")
                 {
-                    return View("SWEVolunteer");
+                    model.USID = Convert.ToInt64(USID);
+                    return View("SWEVolunteer", model);
                 }
             }
             else
@@ -141,27 +145,32 @@ namespace SWEN_Dynamo.Controllers
                 var VCode = TempData["VCodeFromDB"];
                 string RID = Convert.ToString(TempData["RIDFromDB"]);
                 var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
+                string IsLoginActive = Convert.ToString(TempData["IsLoginActive"]);
 
-                if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" )
+                if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
                     return View("OutreachAdmin",model);
                 }
-                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2")
+                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
                 {
-                    return View("NationalLevelMember");
+                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                    return View("NationalLevelMember", model);
                 }
-                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3")
+                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3" && IsLoginActive == "True")
                 {
-                    return View("RegionalLevelMember");
+                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                    return View("RegionalLevelMember", model);
                 }
-                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4")
+                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4" && IsLoginActive == "True")
                 {
-                    return View("ChapterLevelMember");
+                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                    return View("ChapterLevelMember", model);
                 }
-                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5")
+                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5" && IsLoginActive == "True")
                 {
-                    return View("SWEVolunteer");
+                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                    return View("SWEVolunteer", model);
                 }
             }
 
