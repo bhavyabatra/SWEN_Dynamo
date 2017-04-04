@@ -42,7 +42,7 @@ namespace SWEN_Dynamo.Models
         public string Email { get; set; } = "Default@s.com";
 
         [Display(Name = "Region of Operation ")]
-        [Required(ErrorMessage = "The Region of Operation is required")]
+        
         public string Region { get; set; }
 
         [StringLength(15, MinimumLength = 8, ErrorMessage = "Password should be between 8 to 15 characters")]
@@ -52,6 +52,8 @@ namespace SWEN_Dynamo.Models
         public string Password { get; set; } = "P@33w0rd";
 
         public string Vcode { get; set; } = "01001010";
+
+        public string HiddenText { get; set; } = "Hi";
 
         public IEnumerable<SelectListItem> RolesOptions { get; set; }
 
