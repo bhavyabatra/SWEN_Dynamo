@@ -15,14 +15,14 @@ namespace SWEN_Dynamo.Controllers
     {
         // GET: ManageFeedback
 
-        public ActionResult FeedbackFirst(int? id, ManageFeedbacks MF)
+        public ActionResult FeedbackFirst(long? id, ManageFeedbacks MF)
         {
 
             MF.FLS = new List<Models.FeedbackFor>();
             MF.USID = Convert.ToString(id);
-            MF.EmailID = SWEN_DynamoUtilityClass.FetchEmailfromUSID(Convert.ToInt32(MF.USID));
-            MF.UserName = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt32(MF.USID));
-            MF.FLS = SWEN_DynamoUtilityClass.FeedbackListPageFirst(Convert.ToInt32(MF.USID));
+            MF.EmailID = SWEN_DynamoUtilityClass.FetchEmailfromUSID(Convert.ToInt64(MF.USID));
+            MF.UserName = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(MF.USID));
+            MF.FLS = SWEN_DynamoUtilityClass.FeedbackListPageFirst(Convert.ToInt64(MF.USID));
             foreach (var feed in MF.FLS)
             {
                 MF.EventName = feed.EventName;

@@ -316,6 +316,7 @@
     <Content Include="Views\Users\UserAddedAck.cshtml" />
     <Content Include="Views\Users\UserEditedAck.cshtml" />
     <Content Include="Views\Users\UserDeletedAck.cshtml" />
+    <Content Include="Views\Survey\SurveyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

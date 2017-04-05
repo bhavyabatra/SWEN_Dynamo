@@ -27,6 +27,7 @@ namespace SWEN_Dynamo.Controllers
             model.USID = Helper.GenerateUSID();
             //TempData["id"] = model.USID;
             TempData["AutoUSID"] = model.USID;
+         
             model.RolesOptions = new List<SelectListItem>
                 {
                  new SelectListItem() { Value = "1", Text = "Outreach Admin" },
@@ -265,6 +266,7 @@ namespace SWEN_Dynamo.Controllers
             //{
             //    ModelState.Clear();
             //}
+            //usermodelobject.FullName = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(usermodelobject.USID));
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Table table = Table.LoadTable(client, "User");
             ScanFilter scanFilter = new ScanFilter();
@@ -308,6 +310,7 @@ namespace SWEN_Dynamo.Controllers
 
         public ActionResult Edit(long? id, UserModel mod)
         {
+            TempData["longid"] = id;
             TempData["id"] = id;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
                 Table table = Table.LoadTable(client, "User");
@@ -419,9 +422,11 @@ namespace SWEN_Dynamo.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        public ActionResult EditConfirmed(long? id, UserModel mod)
+        public ActionResult EditConfirmed(long? id, UserModel mod, string Saves, string Resets )
         {
-            mod.RolesOptions = new List<SelectListItem>
+            //long id = Convert.ToInt64(TempData["longid"]);
+          
+                mod.RolesOptions = new List<SelectListItem>
                 {
                  new SelectListItem() { Value = "1", Text = "Outreach Admin" },
                 new SelectListItem() { Value = "2", Text = "National SWE Comittee Member" },
@@ -430,7 +435,7 @@ namespace SWEN_Dynamo.Controllers
                 new SelectListItem() { Value = "5", Text = "SWE Member Volunteer", Selected = true }
 
             };
-            mod.RegionOptions = new List<SelectListItem>
+                mod.RegionOptions = new List<SelectListItem>
             {
                     new SelectListItem { Value = "AL", Text = "Alabama" },
                     new SelectListItem { Value = "AK", Text = "Alaska" },
@@ -483,80 +488,81 @@ namespace SWEN_Dynamo.Controllers
                     new SelectListItem { Value = "WI", Text = "Wisconsin" },
                     new SelectListItem { Value = "WY", Text = "Wyoming" }
                 };
+         
 
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-            Table table = Table.LoadTable(client, "User");
-            ScanFilter scanFilter = new ScanFilter();
-            string tablename = "User";
-            mod.Datemodified = System.DateTime.Now;
-            scanFilter.AddCondition("USID", ScanOperator.Equal, id);
+                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+                Table table = Table.LoadTable(client, "User");
+                ScanFilter scanFilter = new ScanFilter();
+                string tablename = "User";
+                mod.Datemodified = System.DateTime.Now;
+                scanFilter.AddCondition("USID", ScanOperator.Equal, id);
 
-            ScanOperationConfig config = new ScanOperationConfig()
+                ScanOperationConfig config = new ScanOperationConfig()
 
-            {
-                Filter = scanFilter,
-                Select = SelectValues.AllAttributes,
-                //AttributesToGet = new List<string> { "SuriveyID", "Email", "Objective1", "Question1" }
-            };
-            Search search = table.Scan(config);
-            List<Document> documentList = new List<Document>();
-            do
-            {
-
-
-                documentList = search.GetNextSet();
-                if (documentList != null)
                 {
-                    foreach (var document in documentList)
-                    {
-                        TempData["VCodeKeyFromDB"] = document["Vcode"];
-                        TempData["PasswordFromDB"] = document["Password"];
-                    }
-                }
-            } while (!search.IsDone);
+                    Filter = scanFilter,
+                    Select = SelectValues.AllAttributes,
+                    //AttributesToGet = new List<string> { "SuriveyID", "Email", "Objective1", "Question1" }
+                };
+                Search search = table.Scan(config);
+                List<Document> documentList = new List<Document>();
+                do
+                {
 
-            string VCodeKeyFromDB = Convert.ToString(TempData["VCodeKeyFromDB"]);
-            string PasswordFromDB = Convert.ToString(TempData["PasswordFromDB"]);
-           
-                                                                        
-            if (mod.Password == null )                                 
-            {
-               mod.Vcode = VCodeKeyFromDB;                              
-                mod.Password = PasswordFromDB;                         
-              
-            }
-            else                                
-            {
-                var TransactPass = mod.Password;
-                mod.Password = Helper.EncodePassword(TransactPass, VCodeKeyFromDB);
-                if (Convert.ToString(mod.Password) == Convert.ToString(PasswordFromDB))
+
+                    documentList = search.GetNextSet();
+                    if (documentList != null)
+                    {
+                        foreach (var document in documentList)
+                        {
+                            TempData["VCodeKeyFromDB"] = document["Vcode"];
+                            TempData["PasswordFromDB"] = document["Password"];
+                        }
+                    }
+                } while (!search.IsDone);
+
+                string VCodeKeyFromDB = Convert.ToString(TempData["VCodeKeyFromDB"]);
+                string PasswordFromDB = Convert.ToString(TempData["PasswordFromDB"]);
+
+
+                if (string.IsNullOrWhiteSpace(mod.Password))
                 {
                     mod.Vcode = VCodeKeyFromDB;
                     mod.Password = PasswordFromDB;
+
                 }
                 else
                 {
-                    mod.Vcode = Helper.GeneratePassword(10);
-                    mod.Password = Helper.EncodePassword(TransactPass, mod.Vcode);
+                    var TransactPass = mod.Password;
+                    mod.Password = Helper.EncodePassword(TransactPass, VCodeKeyFromDB);
+                    if (Convert.ToString(mod.Password) == Convert.ToString(PasswordFromDB))
+                    {
+                        mod.Vcode = VCodeKeyFromDB;
+                        mod.Password = PasswordFromDB;
+                    }
+                    else
+                    {
+                        mod.Vcode = Helper.GeneratePassword(10);
+                        mod.Password = Helper.EncodePassword(TransactPass, mod.Vcode);
+                    }
                 }
-            }
-            string Region;
-            if (mod.RID == 1 || mod.RID == 2)
-            {
+                string Region;
+                if (mod.RID == 1 || mod.RID == 2)
+                {
 
-                Region = "USA";
-            }
-            else
-            {
-                Region = mod.Region;
-            }
-            TempData["id"] = id;
-            var request = new UpdateItemRequest
-            {
-                TableName = tablename,
-                Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(id) } }
+                    Region = "USA";
+                }
+                else
+                {
+                    Region = mod.Region;
+                }
+                TempData["id"] = id;
+                var request = new UpdateItemRequest
+                {
+                    TableName = tablename,
+                    Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(id) } }
                      },
-                ExpressionAttributeNames = new Dictionary<string, string>()
+                    ExpressionAttributeNames = new Dictionary<string, string>()
     {
         {"#FN", "FirstName"},
         { "#LN","LastName"},
@@ -570,7 +576,7 @@ namespace SWEN_Dynamo.Controllers
         { "#ILAC", "IsLoginActive" }
 
     },
-                ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+                    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
     {
         {":FN",new AttributeValue { S = mod.Firstname}},
         { ":LN",new AttributeValue {S=mod.Lastname } },
@@ -578,32 +584,71 @@ namespace SWEN_Dynamo.Controllers
         { ":PH",new AttributeValue {N = Convert.ToString(mod.Phone) } },
         {":RE",new AttributeValue { S = Region}},
         { ":RI",new AttributeValue {N = Convert.ToString(mod.RID) } },
-     
+
          {":DM",new AttributeValue { S = Convert.ToString(mod.Datemodified)}},
          {":PA", new AttributeValue { S = mod.Password} },
          {":VC", new AttributeValue { S = mod.Vcode} },
          { ":ILAC", new AttributeValue { S = Convert.ToString(mod.IsLoginActive)} }
 
          },
-                UpdateExpression = "SET #FN = :FN, #LN = :LN, #PH = :PH, #RE = :RE, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC,#ILAC = :ILAC"
-            };
+                    UpdateExpression = "SET #FN = :FN, #LN = :LN, #PH = :PH, #RE = :RE, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC,#ILAC = :ILAC"
+                };
+
+
+
+
+
+                var res = client.UpdateItem(request);
+                if (res != null)
+                {
+                    client.UpdateItem(request);
+                }
+           
+
+            
             
 
-                     
-
-
-                        var res = client.UpdateItem(request);
-                        if (res != null)
-                        {
-                            client.UpdateItem(request);
-                        }
-
-    
-
-
             return View("UserEditedAck");
-        }
 
+        }
+        public ActionResult Reset (UserModel mod, long? id)
+        {
+           
+                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+                Table table = Table.LoadTable(client, "User");
+                ScanFilter scanFilter = new ScanFilter();
+                string tablename = "User";
+                mod.Datemodified = System.DateTime.Now;
+                string TransactPass = "#13bB150661";
+                mod.Vcode = Helper.GeneratePassword(10);
+                mod.Password = Helper.EncodePassword(TransactPass, mod.Vcode);
+                var request = new UpdateItemRequest
+                {
+                    TableName = tablename,
+                    Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(id) } }
+                     },
+                    ExpressionAttributeNames = new Dictionary<string, string>()
+    {
+        { "#DM","Datemodified" },
+        { "#PA","Password" },
+        { "#VC", "Vcode" },
+                    },
+                    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+    {
+         {":DM",new AttributeValue { S = Convert.ToString(mod.Datemodified)}},
+         {":PA", new AttributeValue { S = mod.Password} },
+         {":VC", new AttributeValue { S = mod.Vcode} },
+                    },
+                    UpdateExpression = "SET #DM = :DM, #PA = :PA, #VC = :VC"
+                };
+                var res = client.UpdateItem(request);
+                if (res != null)
+                {
+                    client.UpdateItem(request);
+                }
+                return View("UserEditedAck");
+            
+        }
         public ActionResult Details(long? id)
         {
             UserModel det = new UserModel();

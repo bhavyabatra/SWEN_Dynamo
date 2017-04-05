@@ -295,7 +295,49 @@ namespace SWEN_Dynamo.Controllers
             return View(mod);
         }
 
+        public ActionResult SurveyList(long? id, SurveyModel mod)
+        {
+            long ID = Convert.ToInt64(id);
+            int RIDofUser = SWEN_DynamoUtilityClass.CheckRIDwithUSID(ID);
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "SurveyCatalog");
+            ScanFilter scanFilter = new ScanFilter();
+            if (RIDofUser == 1)
+            {
+                scanFilter.AddCondition("USID", ScanOperator.GreaterThan, 0);
+            }
+            else
+            {
+                scanFilter.AddCondition("USID", ScanOperator.Equal, ID);
+            }
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.AllAttributes,
+            };
+            Search search = table.Scan(config);
+            List<Document> documentList = new List<Document>();
 
+            do
+            {
+                mod.SurveyModelList.Clear();
+                documentList = search.GetNextSet();
+                foreach (var document in documentList)
+                {
+                    mod.SurveyModelList.Add(new SurveyModel()
+                    {
+                        SurveyID = document["SurveyID"],
+                        ST = document["SurveyType"],
+                        EventName = document ["EventName"],
+                        USID = Convert.ToInt64(document ["USID"])
+
+                    });
+
+                }
+            } while (!search.IsDone);
+            return View(mod.SurveyModelList);
+
+        }
         public ActionResult DeploySurveyStart(DeploySurveyStart mod)
         {
             mod.SurveyID = Convert.ToString(TempData["RedirectID"]);

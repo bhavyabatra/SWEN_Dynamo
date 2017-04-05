@@ -50,10 +50,12 @@ namespace SWEN_Dynamo.Models
         public string Region { get; set; }
 
         [StringLength(15, MinimumLength = 8, ErrorMessage = "Password should be between 8 to 15 characters")]
-        [Required(ErrorMessage = "Password is required")]
+       // [Required(ErrorMessage = "Password is required")]
+        // [Required(AllowEmptyStrings = true)]
+        // [DisplayFormat(ConvertEmptyStringToNull = false)]
         [DataType(DataType.Password)]
-        [MembershipPassword(  MinRequiredNonAlphanumericCharacters = 1, MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).")]
-        public string Password { get; set; } 
+        [MembershipPassword(MinRequiredNonAlphanumericCharacters = 1, MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).")]
+        public string Password { get; set; }
 
         public string Vcode { get; set; } = "01001010";
 
@@ -66,6 +68,8 @@ namespace SWEN_Dynamo.Models
 
         [Display(Name = "Activate Login for this user")]
         public bool IsLoginActive { get; set; }
+
+        public string FullName { get; set; }
 
         // public string SelectedRole { get; set; }
 

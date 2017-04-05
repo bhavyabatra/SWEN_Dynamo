@@ -27,5 +27,7 @@ namespace SWEN_Dynamo.Models
         public string CheckWithUSIDandEmail { get; set; } 
  
         public bool LoginActive { get; set; } = false;
+
+        public string Name { get; set; }
     }
 }

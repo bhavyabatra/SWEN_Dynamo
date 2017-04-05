@@ -153,7 +153,7 @@ namespace SWEN_Dynamo.Controllers
                 if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return View("OutreachAdmin",model);
+                    return RedirectToAction("OutreachAdmin",model);
                 }
                 else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
                 {
@@ -191,18 +191,18 @@ namespace SWEN_Dynamo.Controllers
 
             FormsAuthentication.SignOut();
 
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
-            Response.Cache.SetNoStore();
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            //Response.Cache.SetNoStore();
             //this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
             //this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
             //this.Response.Cache.SetNoStore();
             return RedirectToAction("Index", "Login");
         }
-        public ActionResult OutreachAdmin(LoginModel m,string action)
+        public ActionResult OutreachAdmin(long? id, LoginModel mod, string action)
         {
-            
-            return View("OutreachAdmin");
+            mod.Name =  SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(mod.USID));
+            return View(mod);
 
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -18,6 +19,14 @@ namespace SWEN_Dynamo.Models
         public string CustomQuestion1 { get; set; } = "Null";
 
         public string CustomQuestion2 { get; set; } = "Null";
+
+        public List<SurveyModel> SurveyModelList = new List<SurveyModel>();
+
+        [Display(Name = "User ID")]
+        public long USID { get; set; }
+
+        [Display(Name = "Survey Type")]
+        public string ST { get; set; }
 
         
     }

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SWEN_Dynamo.Models.SurveyModel>
+
+@{
+    ViewBag.Title = "SurveyList";
+}
+
+<h2>SurveyList</h2>
+
+<p>
+    @Html.ActionLink("Create New Survey", "Create", new { /* id=item.PrimaryKey */ })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SurveyID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventName)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomQuestion1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomQuestion2)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.USID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ST)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurveyID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventName)
+        </td>
+        @*<td>
+        @Html.DisplayFor(modelItem => item.CreatedBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CustomQuestion1)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CustomQuestion2)
+    </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.USID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ST)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })*@ |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

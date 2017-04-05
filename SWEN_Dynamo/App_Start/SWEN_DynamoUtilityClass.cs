@@ -393,6 +393,17 @@ namespace SWEN_Dynamo.App_Start
 
         }
 
+        public static int CheckRIDwithUSID (long USID)
+        {
+             
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "User");
+            var RIDItem = table.GetItem(Convert.ToInt64(USID));
+            int RID = Convert.ToInt32(RIDItem["RID"]);
+            return RID;
+        
+    }
+
     }
 
     //public class FeedbackFor

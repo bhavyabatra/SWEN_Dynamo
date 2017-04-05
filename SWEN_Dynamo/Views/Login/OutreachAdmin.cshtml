@@ -1,18 +1,20 @@
-﻿@model SWEN_Dynamo.Models.LoginModel
+﻿
+
+@model SWEN_Dynamo.Models.LoginModel
 @{
     ViewBag.Title = "OutreachAdmin";
 }
 
-<h2>OutreachAdmin</h2>
-
-  
+<h2>Welcome  @Model.Name</h2>
+<h5>With your current level of memebership, you have following privliges.</h5>
+ 
 <div class="form-horizontal">
     <div class="form-group">
         <div class="col-md-10">
-            @Html.ActionLink("Users Administration", "UsersList", "Users")
+            @Html.ActionLink("Users Administration", "UsersList", "Users" , new { id = Model.USID }, null)
         </div>
         <div class="col-md-10">
-            @Html.ActionLink("Surveys Administration", "UsersList")
+            @Html.ActionLink("Surveys Administration", "SurveyList", "Survey", new { id = Model.USID }, null)
         </div>
       
         <div class="col-md-10">
@@ -25,5 +27,5 @@
     </div>
     </div>
 <ul class="nav navbar-nav navbar-right">
-    <li>@Html.ActionLink("Log Out", "Logout", "Login")</li>
-</ul>
+    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Model.USID }, null)</li>
+</ul> 
