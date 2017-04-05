@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CheckWithUSIDandEmail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CheckWithUSIDandEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CheckWithUSIDandEmail, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your User ID or Email" } })
                 @Html.ValidationMessageFor(model => model.CheckWithUSIDandEmail, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,6 +64,13 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index") @*Edit this links while giving last touch*@
-</div>
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+       // $("#CheckWithUSIDandEmail").text("United States of America");
+       // $("#CheckWithUSIDandEmail").text().replace("United States of America", "");
+        //$("#CheckWithUSIDandEmail").focus(0);
+      $("#Password").val('');
+       </script>
+}*@

@@ -10,6 +10,7 @@ using SWEN_Dynamo.App_Start;
 using Amazon.DynamoDBv2.Model;
 using Amazon.DynamoDBv2.DataModel;
 using System.Web.Helpers;
+using System.Web.Security;
 
 namespace SWEN_Dynamo.Controllers
 {
@@ -17,7 +18,9 @@ namespace SWEN_Dynamo.Controllers
     {
         public ActionResult Index(LoginModel model)
         {
-            return View();
+            //model.CheckWithUSIDandEmail ;
+            //model.Password;
+            return View(model);
         }
         [HttpPost, ActionName("Index")]
         public ActionResult IndexConfirmed(LoginModel model)
@@ -180,6 +183,22 @@ namespace SWEN_Dynamo.Controllers
 
         }
 
+        public ActionResult Logout(LoginModel model)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Session.RemoveAll();
+
+            FormsAuthentication.SignOut();
+
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            Response.Cache.SetNoStore();
+            //this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            //this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //this.Response.Cache.SetNoStore();
+            return RedirectToAction("Index", "Login");
+        }
         public ActionResult OutreachAdmin(LoginModel m,string action)
         {
             

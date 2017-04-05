@@ -13,6 +13,7 @@ namespace SWEN_Dynamo.Models
         [DynamoDBHashKey]
         public long USID { get; set; }
 
+        [DataType(DataType.Password)]
         public string Password { get; set; } 
 
         public string Vcode { get; set; } 
