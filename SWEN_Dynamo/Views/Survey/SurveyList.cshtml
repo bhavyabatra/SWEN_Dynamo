@@ -7,7 +7,7 @@
 <h2>SurveyList</h2>
 
 <p>
-    @Html.ActionLink("Create New Survey", "Create", new { /* id=item.PrimaryKey */ })
+    @Html.ActionLink("Create New Survey", "SurveyStart")
 </p>
 <table class="table">
     <tr>
@@ -59,9 +59,9 @@
             @Html.DisplayFor(modelItem => item.ST)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Edit/Deploy", "Edit", new {  id=item.SurveyID  }) |
             @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })*@ |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Delete", "Delete", new {  id=item.SurveyID })
         </td>
     </tr>
 }

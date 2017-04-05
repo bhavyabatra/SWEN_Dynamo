@@ -8,6 +8,8 @@ namespace SWEN_Dynamo.Models
 {
     public class SurveyModel 
     {
+        public long ParentID { get; set; } 
+
         public string SurveyID { get; set; } = "Was";
 
         public string EventName { get; set; } = "Was";

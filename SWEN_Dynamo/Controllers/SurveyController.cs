@@ -15,6 +15,8 @@ namespace SWEN_Dynamo.Controllers
     {
         public ActionResult SurveyStart(SurveyModel model)
         {
+            model.ParentID = Convert.ToInt64(TempData["IDCreate"]);
+            TempData["ParentID"] = model.ParentID;
             string y = Convert.ToString(model.SurveyType);
             return View(model);
 
@@ -26,6 +28,7 @@ namespace SWEN_Dynamo.Controllers
             string tablename = "SurveyCatalog";
             //string x = "Null";
             //Storestring(model.SurveyID);
+            model.ParentID = Convert.ToInt64(TempData["ParentID"]);
             TempData["ID"] = model.SurveyID;
             TempData["Type"] = model.SurveyType;
             TempData["EventName"] = model.EventName;
@@ -38,7 +41,7 @@ namespace SWEN_Dynamo.Controllers
       {
                     { "SurveyID", new AttributeValue { S = model.SurveyID } },
                     { "EventName", new AttributeValue { S = model.EventName } },
-                    { "USID", new AttributeValue { N = Convert.ToString(model.CreatedBy) }},
+                    { "USID", new AttributeValue { N = Convert.ToString(model.ParentID) }},
                     { "SurveyType", new AttributeValue { S = Convert.ToString(model.SurveyType) }},
                     {"O1", new AttributeValue { S = "false" } },
                     {"O1_Q1", new AttributeValue { S = "false" } },
@@ -298,6 +301,7 @@ namespace SWEN_Dynamo.Controllers
         public ActionResult SurveyList(long? id, SurveyModel mod)
         {
             long ID = Convert.ToInt64(id);
+            TempData["IDCreate"] = ID;
             int RIDofUser = SWEN_DynamoUtilityClass.CheckRIDwithUSID(ID);
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Table table = Table.LoadTable(client, "SurveyCatalog");
