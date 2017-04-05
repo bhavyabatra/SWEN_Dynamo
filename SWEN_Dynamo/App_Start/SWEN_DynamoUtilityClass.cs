@@ -262,7 +262,7 @@ namespace SWEN_Dynamo.App_Start
             {
                 // people.Clear();
                 documentList = search.GetNextSet();
-                Console.WriteLine(documentList);
+               // Console.WriteLine(documentList);
                 foreach (var doc in documentList)
                 {
                     Email = Convert.ToString(doc["Email"]);
@@ -346,6 +346,50 @@ namespace SWEN_Dynamo.App_Start
 
             return FBF;
 
+
+        }
+        public static bool CheckEmailWRTUSID (long USID, string Email)
+        {
+
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "User");
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("USID", ScanOperator.GreaterThan, 0);
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> { "USID" }
+            };
+            Search search = table.Scan(config);
+            List<long> USIDS = new List<long>();
+            List<Document> documentList = new List<Document>();
+            do
+            {
+                // people.Clear();
+                documentList = search.GetNextSet();
+                foreach(var d in documentList)
+                {
+                    USIDS.Add(Convert.ToInt64(d["USID"]));
+                }
+            } while (!search.IsDone);
+            if (USIDS.Contains(USID))
+            {
+                var EmailItem = table.GetItem(USID);
+                string CheckEmail = EmailItem["Email"];
+                if (CheckEmail == Email)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
 
         }
 

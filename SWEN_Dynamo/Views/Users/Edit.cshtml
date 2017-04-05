@@ -59,7 +59,7 @@
             @Html.LabelFor(model => model.Firstname, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger"  })
             </div>
         </div>
 
@@ -79,10 +79,12 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Region, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Region, htmlAttributes: new { @class = "control-label col-md-2", id = "SomeId" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Region, Model.RegionOptions, "Select Region of Operation", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Region, Model.RegionOptions, "Current Selection: " + Model.Region, new { @class = "form-control" })
+                @Html.EditorFor(model => model.HiddenText, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger", id = "Message" })
+
             </div>
         </div>
 
@@ -90,7 +92,7 @@
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", id = "Message1" })
             </div>
         </div>
 
@@ -119,8 +121,52 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "UsersList")
+    @Html.ActionLink("Back to Members List", "UsersList")
 </div>
+
 @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
+        $("#Message1").hide();
+        $("#HiddenText").hide();
+        $("#Message").show();
+        var RCC = $("#RID").val();
+        if (RCC == 1 || RCC == 2)
+        {
+            $("#Region").hide();
+            $("#SomeId").show();
+            $("#HiddenText").show();
+            $("#HiddenText").attr('readonly', true);
+            $("#HiddenText").addClass('input-disabled');
+            $("#Message").hide();
+        }
+        $("#RID").change(function () {
+        var end = this.value;
+        var firstDropVal = $('#RID').val();
+        if (firstDropVal == 1 || firstDropVal == 2)
+        {
+            $("#Region").hide();
+
+            $("#SomeId").show();
+
+            $("#HiddenText").show();
+            $("#HiddenText").attr('readonly', true);
+            $("#HiddenText").addClass('input-disabled');
+            $("#Message").hide();
+
+        }
+        else
+        {
+
+            $("#HiddenText").hide();
+            $("#Region").show();
+            $("#SomeId").show();
+            $("#Message").show();
+        }
+        //alert(firstDropVal);
+    });
+    </script>
+}
+
+

@@ -4,7 +4,7 @@
     ViewBag.Title = "UserCreate";
 }
 
-<h2>UserCreate</h2>
+<h2>Welcome User, Add new SWE Member information</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>UserModel</h4>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "1000000001" } })
                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Firstname, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name" } })
                 @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,7 +66,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Lastname, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })
                 @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -74,7 +74,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Default@s.com" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,15 +83,23 @@
             @Html.LabelFor(model => model.Region, htmlAttributes: new { @class = "control-label col-md-2", id = "SomeId" } )
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Region, Model.RegionOptions, "Select Region of Operation", new { @class = "form-control" })
-                @Html.EditorFor(model => model.HiddenText, new { @class = "form-control"  })
-                 @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.HiddenText, new { htmlAttributes = new { @class = "form-control" } })
+                 @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger", id = "Message" })
                
             </div>
         </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.HiddenText, htmlAttributes: new { @class = "control-label col-md-2", id = "SomeHiddenId" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HiddenText, new { htmlAttributes = new { @class = "form-control" } })
+             </div>
+        </div>*@
+
         <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Include altleast one special character." } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -127,23 +135,30 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
     $("#HiddenText").hide();
+    $("#SomeHiddenId").hide();
+    $("#Message").show();
     $("#RID").change(function () {
         var end = this.value;
         var firstDropVal = $('#RID').val();
         if (firstDropVal == 1 || firstDropVal == 2)
         {
             $("#Region").hide();
-            //     $("#Region").text("USA will be set as Region of Operation");
+           
             $("#SomeId").show();
+       
             $("#HiddenText").show();
-            //$("#HiddenText").show();
-           // $("#SomeId").text("USA will be set as Region of Operation");
+            $("#HiddenText").attr('readonly', true);
+            $("#HiddenText").addClass('input-disabled');
+            $("#Message").hide();
+        
         }
         else
         {
+           
             $("#HiddenText").hide();
             $("#Region").show();
             $("#SomeId").show();
+            $("#Message").show();
         }
         //alert(firstDropVal);
     });

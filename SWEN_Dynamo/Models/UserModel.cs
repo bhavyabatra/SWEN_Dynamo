@@ -19,47 +19,52 @@ namespace SWEN_Dynamo.Models
         public int RID { get; set; }
 
            
-        [StringLength(10, MinimumLength = 10, ErrorMessage =  "Invalid phone number, Do not enter country code if you are doing so")]
-        [Required(ErrorMessage = "Phone is required")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage =  "Invalid phone number")]
         [Phone]
-        public string Phone { get; set; } = "0000000000";
+        [RegularExpression(@"^[1-9]+[0-9]{9}$", ErrorMessage = "Please Enter valid number only")]
+        [Display(Name = "Phone Number without Country Code")]
+        public string Phone { get; set; } 
 
         public DateTime Datecreated { get; set; } 
 
-        public DateTime Datemodified { get; set; } 
+        public DateTime Datemodified { get; set; }
 
+        [Display(Name = "First Name*")]
         [Required(ErrorMessage = "First Name is required")]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
-        public string Firstname { get; set; } = "Default";
-    
+        public string Firstname { get; set; }
+
+        [Display(Name = "Last Name*")]
         [Required(ErrorMessage = "Last Name is required")]
         [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
-        public string Lastname { get; set; } = "Default";
+        public string Lastname { get; set; } 
 
-        [Display(Name = "Email address")]
-        [Required(ErrorMessage = "The email address is required")]
+        [Display(Name = "Email address*")]
+        [Required(ErrorMessage = "Email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string Email { get; set; } = "Default@s.com";
-
-        [Display(Name = "Region of Operation ")]
-        
+        [Remote("EmailExist", "Users", HttpMethod = "POST", ErrorMessage = "Email id already exists. Please use a different Email Id.")]
+        public string Email { get; set; } 
+     
+        [Display(Name = "Region of Operation* ")]
+        [Required(ErrorMessage = "Region of Operation is required")]
         public string Region { get; set; }
 
         [StringLength(15, MinimumLength = 8, ErrorMessage = "Password should be between 8 to 15 characters")]
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [MembershipPassword(  MinRequiredNonAlphanumericCharacters = 1, MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).")]
-        public string Password { get; set; } = "P@33w0rd";
+        public string Password { get; set; } 
 
         public string Vcode { get; set; } = "01001010";
 
-        public string HiddenText { get; set; } = "Hi";
+        [Display(Name = "Region of Operation* ")]
+        public string HiddenText { get; set; } = "United States of America";
 
         public IEnumerable<SelectListItem> RolesOptions { get; set; }
 
         public IEnumerable<SelectListItem> RegionOptions { get; set; }
 
-        [Display(Name = "Activate Loign for this user")]
+        [Display(Name = "Activate Login for this user")]
         public bool IsLoginActive { get; set; }
 
         // public string SelectedRole { get; set; }

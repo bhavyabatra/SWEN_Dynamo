@@ -25,6 +25,7 @@ namespace SWEN_Dynamo.Controllers
         public ActionResult Create(UserModel model)
         {
             model.USID = Helper.GenerateUSID();
+            //TempData["id"] = model.USID;
             TempData["AutoUSID"] = model.USID;
             model.RolesOptions = new List<SelectListItem>
                 {
@@ -95,6 +96,7 @@ namespace SWEN_Dynamo.Controllers
         [HttpPost, ActionName("Create")]
         public ActionResult CreateConfirmed(UserModel model)
         {
+           // TempData["id"] = model.USID;
             model.RolesOptions = new List<SelectListItem>
                 {
                  new SelectListItem() { Value = "1", Text = "Outreach Admin" },
@@ -178,6 +180,16 @@ namespace SWEN_Dynamo.Controllers
             }
 
             string tablename = "User";
+            string Phone;
+            if(string.IsNullOrWhiteSpace(model.Phone))
+            {
+                Phone = "9999999999";
+                
+            }
+            else
+            {
+                Phone = model.Phone;
+            }
             var request = new PutItemRequest
             {
                 TableName = tablename,
@@ -193,15 +205,58 @@ namespace SWEN_Dynamo.Controllers
           { "Vcode", new AttributeValue { S = keyNew }},
           { "RID", new AttributeValue { N = Convert.ToString(model.RID) }},
           { "Region", new AttributeValue { S = Region }},
-          { "Phone", new AttributeValue { N = Convert.ToString(model.Phone) }},
+          { "Phone", new AttributeValue { N = Convert.ToString(Phone) }},
           { "IsLoginActive", new AttributeValue { S = Convert.ToString(model.IsLoginActive) } }
                     }
             };
               client.PutItem(request);
-            return View(model);
+            return View("UserAddedAck");
 
         }
 
+        [HttpPost]
+        public ActionResult EmailExist(string Email)
+        {
+            bool EmailPresent = false;
+            long USID = Convert.ToInt64(TempData["id"]);
+            bool EmailPresentForUSID = false;
+            EmailPresentForUSID = SWEN_DynamoUtilityClass.CheckEmailWRTUSID(USID,Email);
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "User");
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("USID", ScanOperator.GreaterThan, 0);
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> { "USID","Email" }
+            };
+            Search search = table.Scan(config);
+            List<string> e = new List<string>();
+            List<Document> documentList = new List<Document>();
+            if (EmailPresentForUSID == false)
+            {
+                do
+                {
+                    documentList = search.GetNextSet();
+                    foreach (var d in documentList)
+                    {
+                        e.Add(Convert.ToString(d["Email"]));
+                    }
+
+                } while (!search.IsDone);
+            }
+            if(e.Contains(Email) )
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+             
+            }
+            else
+            {
+                return Json(!EmailPresent, JsonRequestBehavior.AllowGet);
+            }
+            
+            }
         // GET: Users
         static List<UserModel> people = new List<UserModel>();
         public ActionResult UsersList(UserModel usermodelobject)
@@ -253,8 +308,8 @@ namespace SWEN_Dynamo.Controllers
 
         public ActionResult Edit(long? id, UserModel mod)
         {
-          
-                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            TempData["id"] = id;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
                 Table table = Table.LoadTable(client, "User");
                 ScanFilter scanFilter = new ScanFilter();
                 string tablename = "User";
@@ -495,7 +550,7 @@ namespace SWEN_Dynamo.Controllers
             {
                 Region = mod.Region;
             }
-
+            TempData["id"] = id;
             var request = new UpdateItemRequest
             {
                 TableName = tablename,
@@ -532,7 +587,7 @@ namespace SWEN_Dynamo.Controllers
          },
                 UpdateExpression = "SET #FN = :FN, #LN = :LN, #PH = :PH, #RE = :RE, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC,#ILAC = :ILAC"
             };
-
+            
 
                      
 
@@ -546,7 +601,7 @@ namespace SWEN_Dynamo.Controllers
     
 
 
-            return View(mod);
+            return View("UserEditedAck");
         }
 
         public ActionResult Details(long? id)
@@ -642,7 +697,7 @@ namespace SWEN_Dynamo.Controllers
                 Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(id) } } },
             };
             var response = client.DeleteItem(request);
-            return View(del);
+            return View("UserDeletedAck");
         }
     }
 }
