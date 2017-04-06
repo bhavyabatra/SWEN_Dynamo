@@ -6,33 +6,40 @@
 
 <h2>TestCheck</h2>
 TestCheck= Success
-
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<div class="form-group">
-    @Html.LabelFor(model => model.Objective1, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        <div class="checkbox">
-            @Html.EditorFor(model => model.Objective1)
-            @Html.ValidationMessageFor(model => model.Objective1, "", new { @class = "text-danger" })
-        </div>
-    </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.O1_Q1, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        <div class="checkbox">
-            @Html.EditorFor(model => model.O1_Q1)
-            @Html.ValidationMessageFor(model => model.O1_Q1, "", new { @class = "text-danger" })
-        </div>
-    </div>
-</div>
-
-@section Scripts {
+@using (Html.BeginForm())
+{
+  
+        @Html.AntiForgeryToken()
+    
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Objective1, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-1">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Objective1)
+                        @Html.ValidationMessageFor(model => model.Objective1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+           
+            <div class="form-group" >
+            @Html.LabelFor(model => model.O1_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1" >
+                
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.O1_Q1)
+                        @Html.ValidationMessageFor(model => model.O1_Q1, "", new { @class = "text-danger" })
+                    </div>
+                    </div>
+            </div>
+       </div>
+}
+@*@section Scripts {
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
-     
-     
+
+
         $('[id^=O1]').attr('disabled', true)
         $('[id^=O2]').attr('disabled', true)
         $('[id^=O3]').attr('disabled', true)
@@ -152,6 +159,6 @@ TestCheck= Success
                     $("#O1_Q1").attr("disabled", "disabled");
                 }
             });
-        });*@
+        })
     </script>
-    }
+    }*@

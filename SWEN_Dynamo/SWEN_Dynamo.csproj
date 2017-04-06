@@ -302,7 +302,6 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Survey\SurveyStart.cshtml" />
-    <Content Include="Views\Survey\StudentSurvey.cshtml" />
     <Content Include="Views\Survey\ParentSurvey.cshtml" />
     <Content Include="Views\Survey\DeploySurveyStart.cshtml" />
     <Content Include="Views\Survey\TakeSurvey.cshtml" />
@@ -317,6 +316,7 @@
     <Content Include="Views\Users\UserEditedAck.cshtml" />
     <Content Include="Views\Users\UserDeletedAck.cshtml" />
     <Content Include="Views\Survey\SurveyList.cshtml" />
+    <Content Include="Views\Survey\StudentSurvey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

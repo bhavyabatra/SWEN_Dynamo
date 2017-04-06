@@ -46,10 +46,49 @@ namespace SWEN_Dynamo.Controllers
                     {"O1", new AttributeValue { S = "false" } },
                     {"O1_Q1", new AttributeValue { S = "false" } },
                     {"O1_Q2", new AttributeValue { S = "false" } },
+                    {"O1_Q3", new AttributeValue { S = "false" } },
+                    {"O1_Q4", new AttributeValue { S = "false" } },
+                    {"O1_Q5", new AttributeValue { S = "false" } },
+                    {"O1_Q6", new AttributeValue { S = "false" } },
                     {"O2", new AttributeValue { S = "false" } },
+                    {"O2_Q1", new AttributeValue { S = "false" } },
+                    {"O2_Q2", new AttributeValue { S = "false" } },
+                    {"O2_Q3", new AttributeValue { S = "false" } },
+                    {"O2_Q4", new AttributeValue { S = "false" } },
+                    {"O2_Q5", new AttributeValue { S = "false" } },
+                    {"O2_Q6", new AttributeValue { S = "false" } },
                     {"O3", new AttributeValue { S = "false" } },
-                    {"CQ1", new AttributeValue { S = model.CustomQuestion1} },
-                    {"CQ2", new AttributeValue { S = model.CustomQuestion2} }
+                    {"O3_Q1", new AttributeValue { S = "false" } },
+                    {"O4", new AttributeValue { S = "false" } },
+                    {"O4_Q1", new AttributeValue { S = "false" } },
+                    {"O4_Q2", new AttributeValue { S = "false" } },
+                    {"O5", new AttributeValue { S = "false" } },
+                    {"O5_Q1", new AttributeValue { S = "false" } },
+                    {"O5_Q2", new AttributeValue { S = "false" } },
+                    {"O5_Q3", new AttributeValue { S = "false" } },
+                    {"O6", new AttributeValue { S = "false" } },
+                    {"O6_Q1", new AttributeValue { S = "false" } },
+                    {"O7", new AttributeValue { S = "false" } },
+                    {"O7_Q1", new AttributeValue { S = "false" } },
+                    {"O8", new AttributeValue { S = "false" } },
+                    {"O8_Q1", new AttributeValue { S = "false" } },
+                    {"O9", new AttributeValue { S = "false" } },
+                    {"O9_Q1", new AttributeValue { S = "false" } },
+                    {"O9_Q2", new AttributeValue { S = "false" } },
+                    {"O9_Q3", new AttributeValue { S = "false" } },
+                    {"O9_Q4", new AttributeValue { S = "false" } },
+                    {"O10", new AttributeValue { S = "false" } },
+                    {"O10_Q1", new AttributeValue { S = "false" } },
+                    {"O10_Q2", new AttributeValue { S = "false" } },
+                    {"O10_Q3", new AttributeValue { S = "false" } },
+                    {"O10_Q4", new AttributeValue { S = "false" } },
+                     {"O11", new AttributeValue { S = "false" } },
+                     {"CQ1", new AttributeValue { S = model.CustomQuestion1} },
+                    {"CQ2", new AttributeValue { S = model.CustomQuestion2} },
+                     {"CQ3", new AttributeValue { S = model.CustomQuestion1} },
+                    {"CQ4", new AttributeValue { S = model.CustomQuestion2} },
+                    {"CQ5", new AttributeValue { S = model.CustomQuestion1} },
+                    
      }
 
             };
@@ -103,10 +142,49 @@ namespace SWEN_Dynamo.Controllers
                     mod.Objective1 = Convert.ToBoolean(document["O1"]);
                     mod.O1_Q1 = Convert.ToBoolean(document["O1_Q1"]);
                     mod.O1_Q2 = Convert.ToBoolean(document["O1_Q2"]);
+                    mod.O1_Q3 = Convert.ToBoolean(document["O1_Q3"]);
+                    mod.O1_Q4 = Convert.ToBoolean(document["O1_Q4"]);
+                    mod.O1_Q5 = Convert.ToBoolean(document["O1_Q5"]);
+                    mod.O1_Q6 = Convert.ToBoolean(document["O1_Q6"]);
                     mod.Objective2 = Convert.ToBoolean(document["O2"]);
+                    mod.O2_Q1 = Convert.ToBoolean(document["O2_Q1"]);
+                    mod.O2_Q2 = Convert.ToBoolean(document["O2_Q2"]);
+                    mod.O2_Q3 = Convert.ToBoolean(document["O2_Q3"]);
+                    mod.O2_Q4 = Convert.ToBoolean(document["O2_Q4"]);
+                    mod.O2_Q5 = Convert.ToBoolean(document["O2_Q5"]);
+                    mod.O2_Q6 = Convert.ToBoolean(document["O2_Q6"]);
                     mod.Objective3 = Convert.ToBoolean(document["O3"]);
+                    mod.O3_Q1 = Convert.ToBoolean(document["O3_Q1"]);
+                    mod.Objective4 = Convert.ToBoolean(document["O4"]);
+                    mod.O4_Q1 = Convert.ToBoolean(document["O4_Q1"]);
+                    mod.O4_Q2 = Convert.ToBoolean(document["O4_Q2"]);
+                    mod.Objective5 = Convert.ToBoolean(document["O5"]);
+                    mod.O5_Q1 = Convert.ToBoolean(document["O5_Q1"]);
+                    mod.O5_Q2 = Convert.ToBoolean(document["O5_Q2"]);
+                    mod.O5_Q3 = Convert.ToBoolean(document["O5_Q3"]);
+                    mod.Objective6 = Convert.ToBoolean(document["O6"]);
+                    mod.O6_Q1 = Convert.ToBoolean(document["O6_Q1"]);
+                    mod.Objective7 = Convert.ToBoolean(document["O7"]);
+                    mod.O7_Q1 = Convert.ToBoolean(document["O7_Q1"]);
+                    mod.Objective8 = Convert.ToBoolean(document["O8"]);
+                    mod.O8_Q1 = Convert.ToBoolean(document["O8_Q1"]);
+                    mod.Objective9 = Convert.ToBoolean(document["O9"]);
+                    mod.O9_Q1 = Convert.ToBoolean(document["O9_Q1"]);
+                    mod.O9_Q2 = Convert.ToBoolean(document["O9_Q2"]);
+                    mod.O9_Q3 = Convert.ToBoolean(document["O9_Q3"]);
+                    mod.O9_Q4 = Convert.ToBoolean(document["O9_Q4"]);
+                    mod.Objective10 = Convert.ToBoolean(document["O10"]);
+                    mod.O10_Q1 = Convert.ToBoolean(document["O10_Q1"]);
+                    mod.O10_Q2 = Convert.ToBoolean(document["O10_Q2"]);
+                    mod.O10_Q3 = Convert.ToBoolean(document["O10_Q3"]);
+                    mod.O10_Q4 = Convert.ToBoolean(document["O10_Q4"]);
+                    mod.Objective11 = Convert.ToBoolean(document["O11"]);
                     mod.CustomQuestion1 = document["CQ1"];
                     mod.CustomQuestion2 = document["CQ2"];
+                    mod.CustomQuestion3 = document["CQ3"];
+                    mod.CustomQuestion4 = document["CQ4"];
+                    mod.CustomQuestion5 = document["CQ5"];
+                    
 
                 }
             } while (!search.IsDone) ;
@@ -150,32 +228,8 @@ namespace SWEN_Dynamo.Controllers
                 // scanFilter.AddCondition("SurveyType", ScanOperator.Equal, mod.SurveyofType);
                 string tablename = "SurveyCatalog";
                 if (mod.Objective1 == true || mod.Objective1 == false)
-
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective1), "O1");
-                    //// Function call above is responsible for following task 
-                    ////var request = new UpdateItemRequest
-                    ////{
-
-                    ////    TableName = tablename,
-                    ////    Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = mod.SurveyID } }
-                    ////                 },
-                    ////    ExpressionAttributeNames = new Dictionary<string, string>()
-                    ////{
-                    ////    {"#O1", "O1"},
-
-                    ////},
-                    ////    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
-                    ////{
-                    ////    {":O1",new AttributeValue { S = Convert.ToString(mod.Objective1) }},
-                    ////     },
-                    ////    UpdateExpression = "SET #O1 = :O1"
-                    ////};
-                    ////var res = client.UpdateItem(request);
-                    ////if (res != null)
-                    ////{
-                    ////    client.UpdateItem(request);
-                    ////}
                 }
                 if (mod.O1_Q1 == true || mod.O1_Q1 == false)
                 {
@@ -185,31 +239,194 @@ namespace SWEN_Dynamo.Controllers
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q2), "O1_Q2");
                 }
+                if (mod.O1_Q3 == true || mod.O1_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q3), "O1_Q3");
+                }
+                if (mod.O1_Q4 == true || mod.O1_Q4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q4), "O1_Q4");
+                }
+                if (mod.O1_Q5 == true || mod.O1_Q5 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q5), "O1_Q5");
+                }
+                if (mod.O1_Q6 == true || mod.O1_Q6 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q6), "O1_Q6");
+                }
                 if (mod.Objective2 == true || mod.Objective2 == false)
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O2");
                 }
+                if (mod.O2_Q1 == true || mod.O2_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q1), "O2_Q1");
+                }
+                if (mod.O2_Q2 == true || mod.O2_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q2), "O2_Q2");
+                }
+                if (mod.O2_Q3 == true || mod.O2_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q3), "O2_Q3");
+                }
+                if (mod.O2_Q4 == true || mod.O2_Q4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q4), "O2_Q4");
+                }
+                if (mod.O2_Q5 == true || mod.O2_Q5 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q5), "O2_Q5");
+                }
+                if (mod.O2_Q6 == true || mod.O2_Q6 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q6), "O2_Q6");
+                }
+                if (mod.Objective3 == true || mod.Objective3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective3), "O3");
+                }
+                if (mod.O3_Q1 == true || mod.O3_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O3_Q1), "O3_Q1");
+                }
+                if (mod.Objective4 == true || mod.Objective4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective4), "O4");
+                }
+                if (mod.O4_Q1 == true || mod.O4_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O4_Q1), "O4_Q1");
+                }
+                if (mod.O4_Q2 == true || mod.O4_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O4_Q2), "O4_Q2");
+                }
+                if (mod.Objective5 == true || mod.Objective5 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective5), "O5");
+                }
+                if (mod.O5_Q1 == true || mod.O5_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O5_Q1), "O5_Q1");
+                }
+                if (mod.O5_Q2 == true || mod.O5_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O5_Q2), "O5_Q2");
+                }
+                if (mod.O5_Q3 == true || mod.O5_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O5_Q3), "O5_Q3");
+                }
+                if (mod.Objective6 == true || mod.Objective6 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective6), "O6");
+                }
+                if (mod.O6_Q1 == true || mod.O6_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O6_Q1), "O6_Q1");
+                }
+                if (mod.Objective7 == true || mod.Objective7 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective7), "O7");
+                }
+                if (mod.O7_Q1 == true || mod.O7_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O7_Q1), "O7_Q1");
+                }
+                if (mod.Objective8 == true || mod.Objective8 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective8), "O8");
+                }
+                if (mod.O8_Q1 == true || mod.O8_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O8_Q1), "O8_Q1");
+                }
+                if (mod.Objective9 == true || mod.Objective9 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective9), "O9");
+                }
+                if (mod.O9_Q1 == true || mod.O9_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O9_Q1), "O9_Q1");
+                }
+                if (mod.O9_Q2 == true || mod.O9_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O9_Q2), "O9_Q2");
+                }
+                if (mod.O9_Q3 == true || mod.O9_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O9_Q3), "O9_Q3");
+                }
+                if (mod.O9_Q4 == true || mod.O9_Q4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O9_Q4), "O9_Q4");
+                }
+                if (mod.Objective10 == true || mod.Objective10 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective10), "O10");
+                }
+                if (mod.O10_Q1 == true || mod.O10_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O10_Q1), "O10_Q1");
+                }
+                if (mod.O10_Q2 == true || mod.O10_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O10_Q2), "O10_Q2");
+                }
+                if (mod.O10_Q3 == true || mod.O10_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O10_Q3), "O10_Q3");
+                }
+                if (mod.O10_Q4 == true || mod.O10_Q4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O10_Q4), "O10_Q4");
+                }
+                if (mod.Objective11 == true || mod.Objective11 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective11), "O11");
+                }
                 if (mod.CustomQuestion1 != null)
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion1, "CQ1");
-
-                }
+                 }
                 if (mod.CustomQuestion1 == null)
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ1");
-
-                }
+                 }
                 if (mod.CustomQuestion2 != null)
                 {
-
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion2, "CQ2");
                 }
                 if (mod.CustomQuestion2 == null)
                 {
-
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ2");
                 }
-
+                if (mod.CustomQuestion3 != null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion3, "CQ3");
+                }
+                if (mod.CustomQuestion3 == null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ3");
+                }
+                if (mod.CustomQuestion4 != null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion4, "CQ4");
+                }
+                if (mod.CustomQuestion4 == null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ4");
+                }
+                if (mod.CustomQuestion5 != null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion5, "CQ5");
+                }
+                if (mod.CustomQuestion5 == null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ5");
+                }
                 TempData["RedirectID"] = mod.SurveyID;
                 TempData["RedirectType"] = mod.SurveyofType;
                 TempData["RedirectEventName"] = mod.EventName;
@@ -243,43 +460,209 @@ namespace SWEN_Dynamo.Controllers
                 // scanFilter.AddCondition("SurveyType", ScanOperator.Equal, mod.SurveyofType);
                 string tablename = "SurveyCatalog";
                 if (mod.Objective1 == true || mod.Objective1 == false)
-
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective1), "O1");
                 }
-
+                if (mod.O1_Q1 == true || mod.O1_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q1), "O1_Q1");
+                }
                 if (mod.O1_Q2 == true || mod.O1_Q2 == false)
                 {
-                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q2), "O1_Q1");
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q2), "O1_Q2");
                 }
-                if (mod.Objective2 == true || mod.Objective2 == false)
+                if (mod.O1_Q3 == true || mod.O1_Q3 == false)
                 {
-                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O1_Q2");
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q3), "O1_Q3");
+                }
+                if (mod.O1_Q4 == true || mod.O1_Q4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q4), "O1_Q4");
+                }
+                if (mod.O1_Q5 == true || mod.O1_Q5 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q5), "O1_Q5");
+                }
+                if (mod.O1_Q6 == true || mod.O1_Q6 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O1_Q6), "O1_Q6");
                 }
                 if (mod.Objective2 == true || mod.Objective2 == false)
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective2), "O2");
                 }
+                if (mod.O2_Q1 == true || mod.O2_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q1), "O2_Q1");
+                }
+                if (mod.O2_Q2 == true || mod.O2_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q2), "O2_Q2");
+                }
+                if (mod.O2_Q3 == true || mod.O2_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q3), "O2_Q3");
+                }
+                if (mod.O2_Q4 == true || mod.O2_Q4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q4), "O2_Q4");
+                }
+                if (mod.O2_Q5 == true || mod.O2_Q5 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q5), "O2_Q5");
+                }
+                if (mod.O2_Q6 == true || mod.O2_Q6 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O2_Q6), "O2_Q6");
+                }
+                if (mod.Objective3 == true || mod.Objective3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective3), "O3");
+                }
+                if (mod.O3_Q1 == true || mod.O3_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O3_Q1), "O3_Q1");
+                }
+                if (mod.Objective4 == true || mod.Objective4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective4), "O4");
+                }
+                if (mod.O4_Q1 == true || mod.O4_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O4_Q1), "O4_Q1");
+                }
+                if (mod.O4_Q2 == true || mod.O4_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O4_Q2), "O4_Q2");
+                }
+                if (mod.Objective5 == true || mod.Objective5 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective5), "O5");
+                }
+                if (mod.O5_Q1 == true || mod.O5_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O5_Q1), "O5_Q1");
+                }
+                if (mod.O5_Q2 == true || mod.O5_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O5_Q2), "O5_Q2");
+                }
+                if (mod.O5_Q3 == true || mod.O5_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O5_Q3), "O5_Q3");
+                }
+                if (mod.Objective6 == true || mod.Objective6 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective6), "O6");
+                }
+                if (mod.O6_Q1 == true || mod.O6_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O6_Q1), "O6_Q1");
+                }
+                if (mod.Objective7 == true || mod.Objective7 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective7), "O7");
+                }
+                if (mod.O7_Q1 == true || mod.O7_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O7_Q1), "O7_Q1");
+                }
+                if (mod.Objective8 == true || mod.Objective8 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective8), "O8");
+                }
+                if (mod.O8_Q1 == true || mod.O8_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O8_Q1), "O8_Q1");
+                }
+                if (mod.Objective9 == true || mod.Objective9 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective9), "O9");
+                }
+                if (mod.O9_Q1 == true || mod.O9_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O9_Q1), "O9_Q1");
+                }
+                if (mod.O9_Q2 == true || mod.O9_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O9_Q2), "O9_Q2");
+                }
+                if (mod.O9_Q3 == true || mod.O9_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O9_Q3), "O9_Q3");
+                }
+                if (mod.O9_Q4 == true || mod.O9_Q4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O9_Q4), "O9_Q4");
+                }
+                if (mod.Objective10 == true || mod.Objective10 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective10), "O10");
+                }
+                if (mod.O10_Q1 == true || mod.O10_Q1 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O10_Q1), "O10_Q1");
+                }
+                if (mod.O10_Q2 == true || mod.O10_Q2 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O10_Q2), "O10_Q2");
+                }
+                if (mod.O10_Q3 == true || mod.O10_Q3 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O10_Q3), "O10_Q3");
+                }
+                if (mod.O10_Q4 == true || mod.O10_Q4 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.O10_Q4), "O10_Q4");
+                }
+                if (mod.Objective11 == true || mod.Objective11 == false)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, Convert.ToString(mod.Objective11), "O11");
+                }
                 if (mod.CustomQuestion1 != null)
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion1, "CQ1");
-
                 }
                 if (mod.CustomQuestion1 == null)
                 {
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ1");
-
                 }
                 if (mod.CustomQuestion2 != null)
                 {
-
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion2, "CQ2");
                 }
                 if (mod.CustomQuestion2 == null)
                 {
-
                     SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ2");
                 }
+                if (mod.CustomQuestion3 != null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion3, "CQ3");
+                }
+                if (mod.CustomQuestion3 == null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ3");
+                }
+                if (mod.CustomQuestion4 != null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion4, "CQ4");
+                }
+                if (mod.CustomQuestion4 == null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ4");
+                }
+                if (mod.CustomQuestion5 != null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, mod.CustomQuestion5, "CQ5");
+                }
+                if (mod.CustomQuestion5 == null)
+                {
+                    SWEN_DynamoUtilityClass.UpdateDynamoDBItem(tablename, mod.SurveyID, "Null", "CQ5");
+                }
+
+
+
+
 
                 TempData["RedirectID"] = mod.SurveyID;
                 TempData["RedirectType"] = mod.SurveyofType;
@@ -462,10 +845,13 @@ namespace SWEN_Dynamo.Controllers
             var item = table1.GetItem(id, FinalResponseToken);
             TempData["Item"] = item;
             DynamoDBEntry SurveyCompleteFlag = null;
-            item.TryGetValue("O1_Q1", out SurveyCompleteFlag);
-            if (SurveyCompleteFlag == "True")
+            if (item.Contains("SurveyComplete"))
             {
-                return Redirect("SurveySubmissionAck");
+                item.TryGetValue("SurveyComplete", out SurveyCompleteFlag);
+                if (SurveyCompleteFlag == "True")
+                {
+                    return Redirect("SurveySubmissionAck");
+                }
             }
             else
             {
@@ -598,7 +984,7 @@ namespace SWEN_Dynamo.Controllers
                         }
                     }
                 }
-                SWEN_DynamoUtilityClass.SetSurveyCompleteFlag(FinalPostID, FinalPostResponseToken, "true");
+                SWEN_DynamoUtilityClass.SetSurveyCompleteFlag(FinalPostID, FinalPostResponseToken, "true");//SurveyComplete
                 return RedirectToAction("SurveySubmissionAck");
             }
                 return View(mod);

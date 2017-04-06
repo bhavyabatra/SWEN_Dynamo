@@ -138,8 +138,23 @@ namespace SWEN_Dynamo.App_Start
         }
         public static void DeploymentStepSixth(string FinalSurveyID, string FinalResponseToken)
         {
-            string[] PickQuestion = new string[3] { "O1_Q1", "O1_Q2", "CQ1" };
-            for (int i = 0; i < 3; i++)
+            string[] PickQuestion = new string[34]
+            { "O1_Q1", "O1_Q2","O1_Q3","O1_Q4", "O1_Q5", "O1_Q6",
+                "O2_Q1", "O2_Q2","O2_Q3","O2_Q4", "O2_Q5", "O2_Q6",
+                "O3_Q1",
+                "O4_Q1","O4_Q2",
+               "O5_Q1", "O5_Q2","O5_Q3",
+               "O6_Q1",
+               "O7_Q1",
+               "O8_Q1",
+               "O9_Q1", "O9_Q2","O9_Q3","O9_Q4",
+               "O10_Q1", "O10_Q2","O10_Q3","O10_Q4",
+                "CQ1",
+            "CQ2",
+            "CQ3",
+            "CQ4",
+            "CQ5" };
+            for (int i = 0; i < 34; i++)
             {
                 DeploymentStepFive(FinalSurveyID, FinalResponseToken, PickQuestion[i]);
             }
