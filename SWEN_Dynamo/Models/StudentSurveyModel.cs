@@ -12,86 +12,86 @@ namespace SWEN_Dynamo.Models
         [Display(Name = "Develop students understanding of what engineers do.")]
         public bool Objective1 { get; set; } = false;
 
-                [Display(Name = "Before this event, I knew what an engineer did.")]
-                public bool O1_Q1 { get; set; } = false;
-                [Display(Name = "After this event, I know what an engineer does.")]
-                public bool O1_Q2 { get; set; } = false;
-                [Display(Name = "Engineers are innovative.(They come up with new ideas and inventions.)")]
-                public bool O1_Q3 { get; set; } = false;
-                [Display(Name = "Engineers are creative.")]
-                public bool O1_Q4 { get; set; } = false;
-                [Display(Name = "Engineers do work that is hands-on.")]
-                public bool O1_Q5 { get; set; } = false;
-                [Display(Name = "Engineers work in many different kinds of career fields.")]
-                public bool O1_Q6 { get; set; } = false;
+        [Display(Name = "Before this event, I knew what an engineer did.")]
+        public bool O1_Q1 { get; set; } = false;
+        [Display(Name = "After this event, I know what an engineer does.")]
+        public bool O1_Q2 { get; set; } = false;
+        [Display(Name = "Engineers are innovative.(They come up with new ideas and inventions.)")]
+        public bool O1_Q3 { get; set; } = false;
+        [Display(Name = "Engineers are creative.")]
+        public bool O1_Q4 { get; set; } = false;
+        [Display(Name = "Engineers do work that is hands-on.")]
+        public bool O1_Q5 { get; set; } = false;
+        [Display(Name = "Engineers work in many different kinds of career fields.")]
+        public bool O1_Q6 { get; set; } = false;
 
         [Display(Name = "Change negative attitudes about engineering careers.")]
         public bool Objective2 { get; set; } = false;
 
-                [Display(Name = "Before this event, I was interested in becoming an engineer.")]
-                public bool O2_Q1 { get; set; } = false;
-                [Display(Name = "After this event, I am interested in becoming an engineer.")]
-                public bool O2_Q2 { get; set; } = false;
-                [Display(Name = "I know my friends would support my interest in engineering.")]
-                public bool O2_Q3 { get; set; } = false;
-                [Display(Name = "Engineers do work that is fun.")]
-                public bool O2_Q4 { get; set; } = false;
-                [Display(Name = "Engineers do work that allows them to help their community and/or society.")]
-                public bool O2_Q5 { get; set; } = false;
-                [Display(Name = "Engineers work in many different kinds of career fields.")]
-                public bool O2_Q6 { get; set; } = false;
+        [Display(Name = "Before this event, I was interested in becoming an engineer.")]
+        public bool O2_Q1 { get; set; } = false;
+        [Display(Name = "After this event, I am interested in becoming an engineer.")]
+        public bool O2_Q2 { get; set; } = false;
+        [Display(Name = "I know my friends would support my interest in engineering.")]
+        public bool O2_Q3 { get; set; } = false;
+        [Display(Name = "Engineers do work that is fun.")]
+        public bool O2_Q4 { get; set; } = false;
+        [Display(Name = "Engineers do work that allows them to help their community and/or society.")]
+        public bool O2_Q5 { get; set; } = false;
+        [Display(Name = "Engineers work in many different kinds of career fields.")]
+        public bool O2_Q6 { get; set; } = false;
 
         [Display(Name = "Help students draw connections between their interests/passions and engineering.")]
         public bool Objective3 { get; set; } = false;
 
-                [Display(Name = "Before this event, I was interested in becoming an engineer.")]
-                public bool O3_Q1 { get; set; } = false;
+        [Display(Name = "Before this event, I was interested in becoming an engineer.")]
+        public bool O3_Q1 { get; set; } = false;
 
         [Display(Name = "Build students’ self-confidence skills as they relate to engineering.")]
         public bool Objective4 { get; set; } = false;
 
-                [Display(Name = "My confidence in problem-solving.")]
-                public bool O4_Q1 { get; set; } = false;
-                [Display(Name = "My confidence in building and designing things")]
-                public bool O4_Q2 { get; set; } = false;
+        [Display(Name = "My confidence in problem-solving is improved.")]
+        public bool O4_Q1 { get; set; } = false;
+        [Display(Name = "My confidence in building and designing things is improved.")]
+        public bool O4_Q2 { get; set; } = false;
 
         [Display(Name = "Build students’ critical thinking skills as they relate to engineering.")]
         public bool Objective5 { get; set; } = false;
 
-                [Display(Name = "My ability to brainstrom solutions to problems.")]
-                public bool O5_Q1 { get; set; } = false;
-                [Display(Name = "My ability to think of many different possible ways to solve a problem")]
-                public bool O5_Q2 { get; set; } = false;
-                [Display(Name = "My ability to design process (brainstrom, design, build, test, redesign)")]
-                public bool O5_Q3 { get; set; } = false;
-        
+        [Display(Name = "My ability to brainstrom solutions to problems is improved.")]
+        public bool O5_Q1 { get; set; } = false;
+        [Display(Name = "My ability to think of many different possible ways to solve a problem is improved.")]
+        public bool O5_Q2 { get; set; } = false;
+        [Display(Name = "My ability to design process (brainstrom, design, build, test, redesign) is improved.")]
+        public bool O5_Q3 { get; set; } = false;
+
 
         [Display(Name = "Enable students to meet and network with engineering role models.")]
         public bool Objective6 { get; set; } = false;
 
-                [Display(Name = "I worked with a mentor/role model who was helpful and easy to talk to. ")]
-                public bool O6_Q1 { get; set; } = false;
+        [Display(Name = "I worked with a mentor/role model who was helpful and easy to talk to. ")]
+        public bool O6_Q1 { get; set; } = false;
 
         [Display(Name = "Help students see that engineering is a viable career for women.")]
         public bool Objective7 { get; set; } = false;
 
-                [Display(Name = "Engineering is a good career choice for women.")]
-                public bool O7_Q1 { get; set; } = false;
+        [Display(Name = "Engineering is a good career choice for women.")]
+        public bool O7_Q1 { get; set; } = false;
 
         [Display(Name = "Enable students to identify what the next steps to becoming an engineer are.")]
         public bool Objective8 { get; set; } = false;
 
-                [Display(Name = "I know how to find out more about engineering if I want to.")]
-                public bool O8_Q1 { get; set; } = false;
+        [Display(Name = "I know how to find out more about engineering if I want to.")]
+        public bool O8_Q1 { get; set; } = false;
 
         [Display(Name = "Open Ended Questions")]
         public bool Objective9 { get; set; } = false;
 
-                [Display(Name = "What grade would you give today’s event?")]
+                [Display(Name = "Do you consider today’s event as an A-Grade event ? [Strongly Agree = A Grade, Strongly Disagree = D Grade]" )]
                 public bool O9_Q1 { get; set; } = false;
-                [Display(Name = "What did you like most about the event today? ")]
+                [Display(Name = "Did you like most of the part about the event today? ")]
                 public bool O9_Q2 { get; set; } = false;
-                [Display(Name = "If you were in charge, how would you change this event?")]
+                [Display(Name = "If you were in charge, would you like to change this event?")]
                 public bool O9_Q3 { get; set; } = false;
                 [Display(Name = "Would you recommend that other kids participate in events like this?")]
                 public bool O9_Q4 { get; set; } = false;

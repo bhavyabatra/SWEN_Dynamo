@@ -70,8 +70,14 @@ namespace SWEN_Dynamo.Controllers
                     {"O6_Q1", new AttributeValue { S = "false" } },
                     {"O7", new AttributeValue { S = "false" } },
                     {"O7_Q1", new AttributeValue { S = "false" } },
+                    {"O7_Q2", new AttributeValue { S = "false" } },
+                    {"O7_Q3", new AttributeValue { S = "false" } },
+                    {"O7_Q4", new AttributeValue { S = "false" } },
+                    {"O7_Q5", new AttributeValue { S = "false" } },
                     {"O8", new AttributeValue { S = "false" } },
                     {"O8_Q1", new AttributeValue { S = "false" } },
+                    {"O8_Q2", new AttributeValue { S = "false" } },
+                    {"O8_Q3", new AttributeValue { S = "false" } },
                     {"O9", new AttributeValue { S = "false" } },
                     {"O9_Q1", new AttributeValue { S = "false" } },
                     {"O9_Q2", new AttributeValue { S = "false" } },
@@ -132,7 +138,7 @@ namespace SWEN_Dynamo.Controllers
             };
             Search search = table1.Scan(config);
             List<Document> documentList = new List<Document>();
-            //do
+            do
             {
                 // Fetch the number value from objective in doc list. Map number value to local value and iterate the loop for that number of objectives
                 documentList = search.GetNextSet();
