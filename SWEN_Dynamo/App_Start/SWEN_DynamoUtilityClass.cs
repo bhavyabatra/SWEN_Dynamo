@@ -138,15 +138,15 @@ namespace SWEN_Dynamo.App_Start
         }
         public static void DeploymentStepSixth(string FinalSurveyID, string FinalResponseToken)
         {
-            string[] PickQuestion = new string[34]
-            { "O1_Q1", "O1_Q2","O1_Q3","O1_Q4", "O1_Q5", "O1_Q6",
+            string[] PickQuestion = new string[40]
+            {   "O1_Q1", "O1_Q2","O1_Q3","O1_Q4", "O1_Q5", "O1_Q6",
                 "O2_Q1", "O2_Q2","O2_Q3","O2_Q4", "O2_Q5", "O2_Q6",
                 "O3_Q1",
                 "O4_Q1","O4_Q2",
                "O5_Q1", "O5_Q2","O5_Q3",
                "O6_Q1",
-               "O7_Q1",
-               "O8_Q1",
+               "O7_Q1","O7_Q2","O7_Q3","O7_Q4","O7_Q5",
+               "O8_Q1","O8_Q2","O8_Q3",
                "O9_Q1", "O9_Q2","O9_Q3","O9_Q4",
                "O10_Q1", "O10_Q2","O10_Q3","O10_Q4",
                 "CQ1",
@@ -154,7 +154,7 @@ namespace SWEN_Dynamo.App_Start
             "CQ3",
             "CQ4",
             "CQ5" };
-            for (int i = 0; i < 34; i++)
+            for (int i = 0; i < 40; i++)
             {
                 DeploymentStepFive(FinalSurveyID, FinalResponseToken, PickQuestion[i]);
             }
@@ -421,11 +421,5 @@ namespace SWEN_Dynamo.App_Start
 
     }
 
-    //public class FeedbackFor
-    //{
-    //    public string SurveyType { get; set; }
-    //    public string SurveyID { get; set; }
-    //    public string EventName { get; set; }
-
-    //}
+  
 }

@@ -1,76 +1,64 @@
 ﻿@model SWEN_Dynamo.Models.ParentSurveyModel
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "ParentSurvey";
 }
 
-<h2>View</h2>
+<h2>StudentSurvey</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>ParentSurveyModel</h4>
 
+    <div class="form-horizontal">
+        <h4>You are working on Student Survey</h4>
         <div class="form-group">
             @Html.LabelFor(model => model.SurveyID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="text-left">
-                    @Html.DisplayTextFor(model => model.SurveyID)
-                    @Html.ValidationMessageFor(model => model.SurveyID, "", new { @class = "text-danger" })
-                </div>
+                @Html.DisplayTextFor(model => model.SurveyID@*, new { htmlAttributes = new { @class = "form-control" } }*@)
+                @Html.ValidationMessageFor(model => model.SurveyID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.SurveyofType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="text-left">
-                    @Html.DisplayTextFor(model => model.SurveyofType)
-                    @Html.ValidationMessageFor(model => model.SurveyofType, "", new { @class = "text-danger" })
-                </div>
+                @Html.DisplayTextFor(model => model.SurveyofType@*, new { htmlAttributes = new { @class = "form-control" } }*@)
+                @Html.ValidationMessageFor(model => model.SurveyofType, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.EventName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayTextFor(model => model.EventName@*, new { htmlAttributes = new { @class = "form-control" } }*@)
+                @Html.ValidationMessageFor(model => model.EventName, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <hr />
-
-        
-
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.O1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Objective1, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.O1)
-                    @Html.ValidationMessageFor(model => model.O1, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Objective1)
+                    @Html.ValidationMessageFor(model => model.Objective1, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.O1_Q1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.O1_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.O1_Q1)
                     @Html.ValidationMessageFor(model => model.O1_Q1, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.O1_Q2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.O1_Q2)
-                    @Html.ValidationMessageFor(model => model.O1_Q2, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Objective2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+       <div class="form-group">
+            @Html.LabelFor(model => model.Objective2, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Objective2)
                     @Html.ValidationMessageFor(model => model.Objective2, "", new { @class = "text-danger" })
@@ -79,8 +67,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Objective3, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.O2_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O2_Q1)
+                    @Html.ValidationMessageFor(model => model.O2_Q1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Objective3, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Objective3)
                     @Html.ValidationMessageFor(model => model.Objective3, "", new { @class = "text-danger" })
@@ -88,41 +86,262 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.O3_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O3_Q1)
+                    @Html.ValidationMessageFor(model => model.O3_Q1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Objective4, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Objective4)
+                    @Html.ValidationMessageFor(model => model.Objective4, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.O4_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O4_Q1)
+                    @Html.ValidationMessageFor(model => model.O4_Q1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+       <div class="form-group">
+            @Html.LabelFor(model => model.Objective5, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Objective5)
+                    @Html.ValidationMessageFor(model => model.Objective5, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.O5_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O5_Q1)
+                    @Html.ValidationMessageFor(model => model.O5_Q1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.O5_Q2, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O5_Q2)
+                    @Html.ValidationMessageFor(model => model.O5_Q2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.O5_Q3, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O5_Q3)
+                    @Html.ValidationMessageFor(model => model.O5_Q3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Objective6, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Objective6)
+                    @Html.ValidationMessageFor(model => model.Objective6, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.O6_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O6_Q1)
+                    @Html.ValidationMessageFor(model => model.O6_Q1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Objective7, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Objective7)
+                    @Html.ValidationMessageFor(model => model.Objective7, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.O7_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O7_Q1)
+                    @Html.ValidationMessageFor(model => model.O7_Q1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.O7_Q2, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O7_Q2)
+                    @Html.ValidationMessageFor(model => model.O7_Q2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.O7_Q3, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O7_Q3)
+                    @Html.ValidationMessageFor(model => model.O7_Q3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.O7_Q4, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O7_Q4)
+                    @Html.ValidationMessageFor(model => model.O7_Q4, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.O7_Q5, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O7_Q5)
+                    @Html.ValidationMessageFor(model => model.O7_Q5, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Objective8, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Objective8)
+                    @Html.ValidationMessageFor(model => model.Objective8, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.O8_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O8_Q1)
+                    @Html.ValidationMessageFor(model => model.O8_Q1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.O8_Q2, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O8_Q2)
+                    @Html.ValidationMessageFor(model => model.O8_Q2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.O8_Q3, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.O8_Q3)
+                    @Html.ValidationMessageFor(model => model.O8_Q3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Objective9, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-1">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Objective9)
+                    @Html.ValidationMessageFor(model => model.Objective9, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomQuestion1, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.CustomQuestion1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomQuestion1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomQuestion2, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.CustomQuestion2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomQuestion2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomQuestion3, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.CustomQuestion3, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomQuestion3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomQuestion4, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.CustomQuestion4, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomQuestion4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomQuestion5, htmlAttributes: new { @class = "control-label col-md-7" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.CustomQuestion5, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomQuestion5, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         @*<div class="form-group">
-            @Html.LabelFor(model => model.OID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OID, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.OID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OID, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.QID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.QID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.QID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.QID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.QID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SurveyID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SurveyID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SurveyID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SurveyofType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SurveyofType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SurveyofType, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" name="SaveSurvey" value="Save Survey" class="btn btn-default" />
+                <input type="submit" name="DeploySurvey" value="Save and Deploy Survey" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -131,3 +350,116 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@section Scripts {
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://raw.githubusercontent.com/HubSpot/pace/v1.0.0/pace.min.js"></script>
+    <script type="text/javascript">
+
+
+        $('[id^=O1]').attr('disabled', true)
+        $('[id^=O2]').attr('disabled', true)
+        $('[id^=O3]').attr('disabled', true)
+        $('[id^=O4]').attr('disabled', true)
+        $('[id^=O5]').attr('disabled', true)
+        $('[id^=O6]').attr('disabled', true)
+        $('[id^=O7]').attr('disabled', true)
+        $('[id^=O8]').attr('disabled', true)
+        $('[id^=O9]').attr('disabled', true)
+        $('[id^=CustomQuestion]').attr('disabled', true)
+        
+        $("#Objective1").click(function ()
+        {
+            if ($(this).is(":checked")) {
+            $('[id^=O1]').attr("disabled", false);
+            }
+             else {
+            $('[id^=O1]').attr("disabled", true);
+            }
+        });
+        $("#Objective2").click(function () {
+            if ($(this).is(":checked")) {
+                $('[id^=O2]').attr("disabled", false);
+            }
+            else {
+                $('[id^=O2]').attr("disabled", true);
+            }
+        });
+        $("#Objective3").click(function () {
+            if ($(this).is(":checked")) {
+                $('[id^=O3]').attr("disabled", false);
+            }
+            else {
+                $('[id^=O3]').attr("disabled", true);
+            }
+        });
+        $("#Objective4").click(function () {
+            if ($(this).is(":checked")) {
+                $('[id^=O4]').attr("disabled", false);
+            }
+            else {
+                $('[id^=O4]').attr("disabled", true);
+            }
+        });
+        $("#Objective5").click(function () {
+            if ($(this).is(":checked")) {
+                $('[id^=O5]').attr("disabled", false);
+            }
+            else {
+                $('[id^=O5]').attr("disabled", true);
+            }
+        });
+        $("#Objective6").click(function () {
+            if ($(this).is(":checked")) {
+                $('[id^=O6]').attr("disabled", false);
+            }
+            else {
+                $('[id^=O6]').attr("disabled", true);
+            }
+        });
+        $("#Objective7").click(function () {
+            if ($(this).is(":checked")) {
+                $('[id^=O7]').attr("disabled", false);
+            }
+            else {
+                $('[id^=O7]').attr("disabled", true);
+            }
+        });
+        $("#Objective8").click(function () {
+            if ($(this).is(":checked")) {
+                $('[id^=O8]').attr("disabled", false);
+            }
+            else {
+                $('[id^=O8]').attr("disabled", true);
+            }
+        });
+        $("#Objective9").click(function () {
+            if ($(this).is(":checked")) {
+                $('[id^=CustomQuestion]').attr("disabled", false);
+            }
+            else {
+                $('[id^=CustomQuestion]').attr("disabled", true);
+            }
+        });
+    
+        //var checkboxes = $(this).find("input[class=checkbox]");
+        //alert(che.));
+        //checkboxes.attr("disabled", true);
+        //$("#taskrow_id1").click(function () {
+        //    var checkboxes = $(this).find("input[type=checkbox]");
+        //    checkboxes.prop("checked", checkboxes.prop("checked"));
+        //});
+
+        //alert('Working Section');
+        @*$(function () {
+           var x = @Model.Objective1;
+            $(x).click(function () {
+                if ($(this).is(":checked")) {
+                    $("#O1_Q1").removeAttr("disabled");
+                    $("#O1_Q1").focus();
+                } else {
+                    $("#O1_Q1").attr("disabled", "disabled");
+                }
+            });
+        });*@
+    </script>
+}
