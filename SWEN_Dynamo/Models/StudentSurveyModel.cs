@@ -9,6 +9,8 @@ namespace SWEN_Dynamo.Models
 {
     public class StudentSurveyModel
     {
+        public long USID { get; set; }
+
         [Display(Name = "Develop students understanding of what engineers do.")]
         public bool Objective1 { get; set; } = false;
 
@@ -139,6 +141,8 @@ namespace SWEN_Dynamo.Models
 
     public class ParentSurveyModel
     {
+        public long USID { get; set; }
+
         [Display(Name = "Develop PEP’s understanding of what engineers do.")]
         public bool Objective1 { get; set; } = false;
 

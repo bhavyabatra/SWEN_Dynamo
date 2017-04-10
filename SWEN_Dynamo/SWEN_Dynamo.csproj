@@ -318,6 +318,8 @@
     <Content Include="Views\Users\UserDeletedAck.cshtml" />
     <Content Include="Views\Survey\SurveyList.cshtml" />
     <Content Include="Views\Survey\StudentSurvey.cshtml" />
+    <Content Include="Views\Survey\StudentSurveyDeletedAck.cshtml" />
+    <Content Include="Views\Survey\ParentSurveyDeletedAck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

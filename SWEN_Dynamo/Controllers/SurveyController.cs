@@ -32,6 +32,7 @@ namespace SWEN_Dynamo.Controllers
             TempData["ID"] = model.SurveyID;
             TempData["Type"] = model.SurveyType;
             TempData["EventName"] = model.EventName;
+          //  TempData["USID"] = model.ParentID;
             string str = Convert.ToString(model.SurveyType);
             var request = new PutItemRequest
             {
@@ -114,9 +115,25 @@ namespace SWEN_Dynamo.Controllers
             }
         }
 
-
+        public ActionResult Navigator(StudentSurveyModel mod, string id)
+        {
+            string IDofSurvey = id;
+            TempData["ID"] = id;
+            string TypeOfSurvey = SWEN_DynamoUtilityClass.SurveyEditorNavigation(IDofSurvey);
+            TempData["Type"] = TypeOfSurvey;
+            TempData["EventName"] = SWEN_DynamoUtilityClass.FetchEventNameFromSID(IDofSurvey);
+            if (TypeOfSurvey == "Student")
+            {
+                return RedirectToAction("StudentSurvey");
+            }
+            else
+            {
+                return RedirectToAction("ParentSurvey");
+            }
+        }
         public ActionResult StudentSurvey(StudentSurveyModel mod)
         {
+          
 
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             Table table1 = Table.LoadTable(client, "SurveyCatalog");
@@ -125,6 +142,8 @@ namespace SWEN_Dynamo.Controllers
             mod.SurveyID = Convert.ToString(TempData["ID"]);
             mod.EventName = Convert.ToString(TempData["EventName"]);
             mod.SurveyofType = Convert.ToString(TempData["Type"]);
+            mod.USID = SWEN_DynamoUtilityClass.FetchUSIDFromSurveyID(mod.SurveyID);
+            TempData["USID"] = mod.USID;
 
             ScanFilter scanFilter = new ScanFilter();
             scanFilter.AddCondition("SurveyID", ScanOperator.Equal, mod.SurveyID);
@@ -204,7 +223,7 @@ namespace SWEN_Dynamo.Controllers
 
 
         [HttpPost, ActionName("StudentSurvey")]
-        public ActionResult StudentSurveyConfirmed(StudentSurveyModel mod, string SaveSurvey, string DeploySurvey)
+        public ActionResult StudentSurveyConfirmed(StudentSurveyModel mod, string SaveSurvey, string DeploySurvey, string DeleteSurvey)
         {
             if (!string.IsNullOrWhiteSpace(SaveSurvey))
             {
@@ -671,8 +690,38 @@ namespace SWEN_Dynamo.Controllers
                 TempData["RedirectEventName"] = mod.EventName;
                 return RedirectToAction("DeploySurveyStart");
             }
+            if (!string.IsNullOrWhiteSpace(DeleteSurvey))
+            {
+                if (TempData["NewID"] != null)
+                {
+                    mod.SurveyID = Convert.ToString(TempData["NewID"]);
+                    mod.SurveyofType = Convert.ToString(TempData["NewSurveyType"]);
+                    mod.EventName = Convert.ToString(TempData["NewEventName"]);
+                }
+                else
+                {
+                    mod.SurveyID = Convert.ToString(TempData["RedirectID"]);
+                    mod.SurveyofType = Convert.ToString(TempData["RedirectType"]);
+                    mod.EventName = Convert.ToString(TempData["RedirectEventName"]);
+                }
 
-            return View(mod);
+
+                //    mod.SurveyofType = "Student"; //Convert.ToString(TempData["Type"]);
+                //                                  //  mod.EventName = Convert.ToString(TempData["EventName"]);
+                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+                Table table1 = Table.LoadTable(client, "SurveyCatalog");
+                string tableName = "SurveyCatalog";
+
+
+                var request = new DeleteItemRequest
+                {
+                    TableName = tableName,
+                    Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = Convert.ToString(mod.SurveyID) } } },
+                };
+                var response = client.DeleteItem(request);
+                return RedirectToAction("StudentSurveyDeletedAck");
+            }
+                return View(mod);
         }
 
         public ActionResult ParentSurvey(ParentSurveyModel mod)
@@ -685,6 +734,8 @@ namespace SWEN_Dynamo.Controllers
             mod.SurveyID = Convert.ToString(TempData["ID"]);
             mod.EventName = Convert.ToString(TempData["EventName"]);
             mod.SurveyofType = Convert.ToString(TempData["Type"]);
+            mod.USID = SWEN_DynamoUtilityClass.FetchUSIDFromSurveyID(mod.SurveyID);
+            TempData["USID"] = mod.USID;
 
             ScanFilter scanFilter = new ScanFilter();
             scanFilter.AddCondition("SurveyID", ScanOperator.Equal, mod.SurveyID);
@@ -747,7 +798,7 @@ namespace SWEN_Dynamo.Controllers
         }
 
         [HttpPost, ActionName("ParentSurvey")]
-        public ActionResult ParentSurveyConfirmed(ParentSurveyModel mod, string SaveSurvey, string DeploySurvey)
+        public ActionResult ParentSurveyConfirmed(ParentSurveyModel mod, string SaveSurvey, string DeploySurvey, string DeleteSurvey)
         {
             if (!string.IsNullOrWhiteSpace(SaveSurvey))
             {
@@ -1096,6 +1147,38 @@ namespace SWEN_Dynamo.Controllers
                 return RedirectToAction("DeploySurveyStart");
             }
 
+            if (!string.IsNullOrWhiteSpace(DeleteSurvey))
+            {
+                if (TempData["NewID"] != null)
+                {
+                    mod.SurveyID = Convert.ToString(TempData["NewID"]);
+                    mod.SurveyofType = Convert.ToString(TempData["NewSurveyType"]);
+                    mod.EventName = Convert.ToString(TempData["NewEventName"]);
+                }
+                else
+                {
+                    mod.SurveyID = Convert.ToString(TempData["RedirectID"]);
+                    mod.SurveyofType = Convert.ToString(TempData["RedirectType"]);
+                    mod.EventName = Convert.ToString(TempData["RedirectEventName"]);
+                }
+
+
+                //    mod.SurveyofType = "Student"; //Convert.ToString(TempData["Type"]);
+                //                                  //  mod.EventName = Convert.ToString(TempData["EventName"]);
+                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+                Table table1 = Table.LoadTable(client, "SurveyCatalog");
+                string tableName = "SurveyCatalog";
+
+
+                var request = new DeleteItemRequest
+                {
+                    TableName = tableName,
+                    Key = new Dictionary<string, AttributeValue>() { { "SurveyID", new AttributeValue { S = Convert.ToString(mod.SurveyID) } } },
+                };
+                var response = client.DeleteItem(request);
+                return RedirectToAction("ParentSurveyDeletedAck");
+            }
+
             return View(mod);
         }
 
@@ -1143,6 +1226,21 @@ namespace SWEN_Dynamo.Controllers
             return View(mod.SurveyModelList);
 
         }
+
+        public ActionResult StudentSurveyDeletedAck(StudentSurveyModel mod)
+     
+        {
+            mod.USID = Convert.ToInt64(TempData["USID"]);
+            return View(mod);
+        }
+
+        public ActionResult ParentSurveyDeletedAck(ParentSurveyModel mod)
+
+        {
+            mod.USID = Convert.ToInt64(TempData["USID"]);
+            return View(mod);
+        }
+
         public ActionResult DeploySurveyStart(DeploySurveyStart mod)
         {
             mod.SurveyID = Convert.ToString(TempData["RedirectID"]);

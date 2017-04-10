@@ -120,7 +120,7 @@ namespace SWEN_Dynamo.App_Start
                 {
                     string Question = DeploymentStepThird(S_O_Q, ST);
                     UpdateRespondent(FinalSurveyID, FinalResponseToken, S_O_Q, Question);
-                    Console.WriteLine(Question);
+                   // Console.WriteLine(Question);
                 }
             }
             if (S_O_Q.StartsWith("CQ"))
@@ -129,7 +129,7 @@ namespace SWEN_Dynamo.App_Start
                 {
                     string Question = DeploymentStepThirdCustom(FinalSurveyID, S_O_Q);
                     UpdateRespondent(FinalSurveyID, FinalResponseToken, S_O_Q, Question);
-                    Console.WriteLine(Question);
+                    //Console.WriteLine(Question);
                 }
             }
 
@@ -418,6 +418,38 @@ namespace SWEN_Dynamo.App_Start
             return RID;
         
     }
+
+        public static string SurveyEditorNavigation(string SID)
+        {
+
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "SurveyCatalog");
+            var SurveyItem = table.GetItem(Convert.ToString(SID));
+            string Stype = Convert.ToString(SurveyItem["SurveyType"]);
+            return Stype;
+
+        }
+        public static string FetchEventNameFromSID (string SID)
+        {
+
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "SurveyCatalog");
+            var SurveyItem = table.GetItem(Convert.ToString(SID));
+            string EventName = Convert.ToString(SurveyItem["EventName"]);
+            return EventName;
+
+        }
+
+        public static long FetchUSIDFromSurveyID(string SID)
+        {
+
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "SurveyCatalog");
+            var SurveyItem = table.GetItem(Convert.ToString(SID));
+            long USID = Convert.ToInt64(SurveyItem["USID"]);
+            return USID;
+
+        }
 
     }
 

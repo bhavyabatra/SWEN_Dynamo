@@ -59,11 +59,11 @@
             @Html.DisplayFor(modelItem => item.ST)
         </td>
         <td>
-            @Html.ActionLink("Edit/Deploy", "Edit", new {  id=item.SurveyID  }) |
-            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })*@ |
-            @Html.ActionLink("Delete", "Delete", new {  id=item.SurveyID })
-        </td>
-    </tr>
-}
+            @Html.ActionLink("Edit/Deploy/Delete Surveys", "Navigator", new {  id=item.SurveyID  }) @*|
+               @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.SurveyID })*@
+            </td>
+        </tr>
+    }
 
-</table>
+    </table>

@@ -1,0 +1,10 @@
+﻿@model SWEN_Dynamo.Models.ParentSurveyModel
+@{
+    ViewBag.Title = "ParentSurveyDeletedAck";
+}
+
+<h2>Survey is deleted successfully. </h2>
+
+<div>
+    @Html.ActionLink("Back to Survey List", "SurveyList", new { id = Model.USID })
+</div>
