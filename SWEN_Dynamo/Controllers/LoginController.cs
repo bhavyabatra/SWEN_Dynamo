@@ -118,27 +118,28 @@ namespace SWEN_Dynamo.Controllers
                 if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(USID);
-                    return View("OutreachAdmin", model);
+                    TempData["LogUSID"] = model.USID;
+                    return RedirectToAction("OutreachAdmin", model);
                 }
                 else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(USID);
-                    return View("NationalLevelMember", model);
+                    return RedirectToAction("NationalLevelMember", model);
                 }
                 else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(USID);
-                    return View("RegionalLevelMember", model);
+                    return RedirectToAction("RegionalLevelMember", model);
                 }
                 else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(USID);
-                    return View("ChapterLevelMember", model);
+                    return RedirectToAction("ChapterLevelMember", model);
                 }
                 else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(USID);
-                    return View("SWEVolunteer", model);
+                    return RedirectToAction("SWEVolunteer", model);
                 }
             }
             else
@@ -153,27 +154,28 @@ namespace SWEN_Dynamo.Controllers
                 if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                    //TempData["LogUSID"] = model.USID;
                     return RedirectToAction("OutreachAdmin",model);
                 }
                 else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return View("NationalLevelMember", model);
+                    return RedirectToAction("NationalLevelMember", model);
                 }
                 else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return View("RegionalLevelMember", model);
+                    return RedirectToAction("RegionalLevelMember", model);
                 }
                 else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return View("ChapterLevelMember", model);
+                    return RedirectToAction("ChapterLevelMember", model);
                 }
                 else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5" && IsLoginActive == "True")
                 {
                     model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return View("SWEVolunteer", model);
+                    return RedirectToAction("SWEVolunteer", model);
                 }
             }
 
@@ -201,9 +203,35 @@ namespace SWEN_Dynamo.Controllers
         }
         public ActionResult OutreachAdmin(long? id, LoginModel mod, string action)
         {
+           // mod.USID = Convert.ToInt64(TempData["LogUSID"]);
             mod.Name =  SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(mod.USID));
             return View(mod);
+        }
 
+        public ActionResult NationalLevelMember(long? id, LoginModel mod, string action)
+        {
+            // mod.USID = Convert.ToInt64(TempData["LogUSID"]);
+            mod.Name = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(mod.USID));
+            return View(mod);
+        }
+        public ActionResult RegionalLevelMember(long? id, LoginModel mod, string action)
+        {
+            // mod.USID = Convert.ToInt64(TempData["LogUSID"]);
+            mod.Name = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(mod.USID));
+            return View(mod);
+        }
+        public ActionResult ChapterLevelMember(long? id, LoginModel mod, string action)
+        {
+            // mod.USID = Convert.ToInt64(TempData["LogUSID"]);
+            mod.Name = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(mod.USID));
+            return View(mod); 
+        }
+
+        public ActionResult SWEVolunteer(long? id, LoginModel mod, string action)
+        {
+            // mod.USID = Convert.ToInt64(TempData["LogUSID"]);
+            mod.Name = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(mod.USID));
+            return View(mod); 
         }
     }
 }
