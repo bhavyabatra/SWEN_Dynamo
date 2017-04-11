@@ -9,10 +9,11 @@
     <div class="form-group">
         
         <div class="col-md-10">
-            @Html.ActionLink("Manage Surveys", "UsersList")
+            @Html.ActionLink("Surveys Administration", "SurveyList", "Survey", new { id = Model.USID }, null)
         </div>
+
         <div class="col-md-10">
-            @Html.ActionLink("Feedbacks", "UsersList")
+            @Html.ActionLink("Manage Feedbacks", "FeedbackFirst", "ManageFeedback", new { id = Model.USID }, null)
         </div>
         <div class="col-md-10">
             @Html.ActionLink("Inforgrahics", "UsersList", "Users")

@@ -1314,12 +1314,12 @@ namespace SWEN_Dynamo.Controllers
                         if (item.ContainsKey("SurveyComplete") && (item["SurveyComplete"].S == "True" || item["SurveyComplete"].S == "true"))
                        { 
                        
-                                TakeSurveylist.Add(new TakeSurveyStepTwo() { TakeSurveyID = (item["SurveyID"].S), SurveyStatus = "Submitted" });
+                                TakeSurveylist.Add(new TakeSurveyStepTwo() { TakeSurveyID = (item["SurveyID"].S), SurveyStatus = "Submitted", EventName = SWEN_DynamoUtilityClass.FetchEventNameFromSID(item["SurveyID"].S) });
                           
                        }
                        else 
                         {
-                            TakeSurveylist.Add(new TakeSurveyStepTwo() { TakeSurveyID = (item["SurveyID"].S), SurveyStatus = "Pending" });
+                            TakeSurveylist.Add(new TakeSurveyStepTwo() { TakeSurveyID = (item["SurveyID"].S), SurveyStatus = "Pending", EventName = SWEN_DynamoUtilityClass.FetchEventNameFromSID(item["SurveyID"].S) });
                         }
 
                     }

@@ -8,12 +8,9 @@
 <div class="form-horizontal">
     <div class="form-group">
         
-        <div class="col-md-10">
-            @Html.ActionLink("Manage Surveys", "UsersList")
-        </div>
-        <div class="col-md-10">
-            @Html.ActionLink("Feedbacks", "UsersList")
-        </div>
+       <div class="col-md-10">
+            @Html.ActionLink("Manage Feedbacks", "FeedbackFirst", "ManageFeedback", new { id = Model.USID }, null)
+       </div>
         
     </div>
 </div>

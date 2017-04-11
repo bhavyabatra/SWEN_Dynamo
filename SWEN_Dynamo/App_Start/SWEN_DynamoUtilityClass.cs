@@ -177,13 +177,17 @@ namespace SWEN_Dynamo.App_Start
                             ExpressionAttributeNames = new Dictionary<string, string>()
 
                  {
-                    { "#FN", keytoupdate+"_A"}
+                    { "#FN", keytoupdate+"_A"},
+                    { "#EN", "EventName"},
+
                     },
+
                             ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
     {
         {":FN",new AttributeValue { S = answervalue }},
+        {":EN",new AttributeValue { S = SWEN_DynamoUtilityClass.FetchEventNameFromSID(SurveyID) }}
          },
-                            UpdateExpression = "SET #FN = :FN"
+                            UpdateExpression = "SET #FN = :FN, #EN = :EN"
 
                         };
                         var res = client.UpdateItem(request);
@@ -431,12 +435,20 @@ namespace SWEN_Dynamo.App_Start
         }
         public static string FetchEventNameFromSID (string SID)
         {
-
+            string EventName;
             var client = new AmazonDynamoDBClient();
             var table = Table.LoadTable(client, "SurveyCatalog");
             var SurveyItem = table.GetItem(Convert.ToString(SID));
-            string EventName = Convert.ToString(SurveyItem["EventName"]);
-            return EventName;
+            //if ()
+            //{
+            //    EventName = "Expired Event";
+                
+            //}
+            //else
+            //{
+                EventName = Convert.ToString(SurveyItem["EventName"]);
+           // }
+                return EventName;
 
         }
 
@@ -455,3 +467,39 @@ namespace SWEN_Dynamo.App_Start
 
   
 }
+
+
+
+
+///////////////////////
+
+
+//public static string ScanKeysForExistence(string nameoftable, string attributename, string attributevalue)
+//{
+//    string Email;
+//    AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+//    Table table = Table.LoadTable(client, nameoftable);
+//    ScanFilter scanFilter = new ScanFilter();
+    
+//    scanFilter.AddCondition(attributename, ScanOperator.Contains, attributevalue);
+
+//    ScanOperationConfig config = new ScanOperationConfig()
+//    {
+//        Filter = scanFilter,
+//        Select = SelectValues.AllAttributes,
+//    };
+//    Search search = table.Scan(config);
+//   // List<string> EmailList = new List<string>();
+//    List<Document> documentList = new List<Document>();
+//    do
+//    {
+//        // people.Clear();
+//        documentList = search.GetNextSet();
+//        // Console.WriteLine(documentList);
+       
+
+//    } while (!search.IsDone);
+//   if(documentList.)
+
+
+//}

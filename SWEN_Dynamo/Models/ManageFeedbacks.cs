@@ -41,7 +41,7 @@ namespace SWEN_Dynamo.Models
         public int NOB { get; set; }
         [Display(Name = "What is average age of Girls ")]
         public int AOG { get; set; }
-        [Display(Name = "What is average of boys")]
+        [Display(Name = "What is average of boys0")]
         public int AOB { get; set; }
         [Display(Name = "Number of SWE Volunteer ")]
         public int NumSWEV { get; set; }
