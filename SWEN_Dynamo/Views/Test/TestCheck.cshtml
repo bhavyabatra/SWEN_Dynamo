@@ -1,164 +1,34 @@
-﻿@model SWEN_Dynamo.Models.StudentSurveyModel
-
-@{
-    ViewBag.Title = "TestCheck";
-}
-
-<h2>TestCheck</h2>
-TestCheck= Success
-@using (Html.BeginForm())
-{
-  
-        @Html.AntiForgeryToken()
-    
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Objective1, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-1">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Objective1)
-                        @Html.ValidationMessageFor(model => model.Objective1, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-           
-            <div class="form-group" >
-            @Html.LabelFor(model => model.O1_Q1, htmlAttributes: new { @class = "control-label col-md-7" })
-            <div class="col-md-1" >
-                
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.O1_Q1)
-                        @Html.ValidationMessageFor(model => model.O1_Q1, "", new { @class = "text-danger" })
-                    </div>
-                    </div>
-            </div>
-       </div>
-}
-@*@section Scripts {
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+﻿<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses', 'Profit'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
 
-        $('[id^=O1]').attr('disabled', true)
-        $('[id^=O2]').attr('disabled', true)
-        $('[id^=O3]').attr('disabled', true)
-        $('[id^=O4]').attr('disabled', true)
-        $('[id^=O5]').attr('disabled', true)
-        $('[id^=O6]').attr('disabled', true)
-        $('[id^=O7]').attr('disabled', true)
-        $('[id^=O8]').attr('disabled', true)
-        $('[id^=O9]').attr('disabled', true)
-        $('[id^=O10]').attr('disabled', true)
-        $('[id^=O11]').attr('disabled', true)
-        $("#Objective1").click(function ()
-        {
-            if ($(this).is(":checked")) {
-            $('[id^=O1]').attr("disabled", false);
-            }
-             else {
-            $('[id^=O1]').attr("disabled", true);
-            }
-        });
-        $("#Objective2").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O2]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O2]').attr("disabled", true);
-            }
-        });
-        $("#Objective3").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O3]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O3]').attr("disabled", true);
-            }
-        });
-        $("#Objective4").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O4]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O4]').attr("disabled", true);
-            }
-        });
-        $("#Objective5").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O5]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O5]').attr("disabled", true);
-            }
-        });
-        $("#Objective6").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O6]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O6]').attr("disabled", true);
-            }
-        });
-        $("#Objective7").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O7]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O7]').attr("disabled", true);
-            }
-        });
-        $("#Objective8").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O8]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O8]').attr("disabled", true);
-            }
-        });
-        $("#Objective9").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O9]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O9]').attr("disabled", true);
-            }
-        });
-        $("#Objective10").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O10]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O10]').attr("disabled", true);
-            }
-        });
-        $("#Objective11").click(function () {
-            if ($(this).is(":checked")) {
-                $('[id^=O11]').attr("disabled", false);
-            }
-            else {
-                $('[id^=O11]').attr("disabled", true);
-            }
-        });
-        //var checkboxes = $(this).find("input[class=checkbox]");
-        //alert(che.));
-        //checkboxes.attr("disabled", true);
-        //$("#taskrow_id1").click(function () {
-        //    var checkboxes = $(this).find("input[type=checkbox]");
-        //    checkboxes.prop("checked", checkboxes.prop("checked"));
-        //});
+        var options = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
+        };
 
-        //alert('Working Section');
-        @*$(function () {
-           var x = @Model.Objective1;
-            $(x).click(function () {
-                if ($(this).is(":checked")) {
-                    $("#O1_Q1").removeAttr("disabled");
-                    $("#O1_Q1").focus();
-                } else {
-                    $("#O1_Q1").attr("disabled", "disabled");
-                }
-            });
-        })
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+        chart.draw(data, options);
+      }
     </script>
-    }*@
+</head>
+<body>
+    <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
