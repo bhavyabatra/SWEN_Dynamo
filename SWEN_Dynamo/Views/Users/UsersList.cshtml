@@ -71,9 +71,11 @@
          <td>
             @Html.DisplayFor(modelItem => item.RID)
         </td>
+        
          <td>
             @Html.DisplayFor(modelItem => item.Phone)
         </td>
+  
         <td>
             @Html.DisplayFor(modelItem => item.Datecreated)
         </td>
@@ -101,17 +103,15 @@
 }
 
 </table>
-@*@section Scripts {
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+@section Scripts {
+    @*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $(".linkone").click(function(){
-                if (!confirm("Password of this member will be set to default password. Click OK to continue. ")) {
-                    return false;
-                }});
-            });
+        if($("#Phone") = "9999999999")
+        {
+            $("#Phone") = "Not Provided"
+        }
 
 
-        </script>
-}*@
+        </script>*@
+}

@@ -26,13 +26,16 @@
             @Html.DisplayFor(model => model.RID)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
+        @if (Model.Phone != "9999999999")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+        }
 
         <dt>
             @Html.DisplayNameFor(model => model.Datecreated)
@@ -81,6 +84,17 @@
         <dd>
             @Html.DisplayFor(model => model.Region)
         </dd>
+        @if (Model.RID == 4 || Model.RID == 5)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ZipCode)
+            </dd>
+        }
+
         <dt>
             @Html.DisplayNameFor(model => model.IsLoginActive)
         </dt>
