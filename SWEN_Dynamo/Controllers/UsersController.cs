@@ -191,6 +191,16 @@ namespace SWEN_Dynamo.Controllers
             {
                 Phone = model.Phone;
             }
+            string Zip;
+            if (string.IsNullOrWhiteSpace(model.ZipCode))
+            {
+                Zip = "00000";
+
+            }
+            else
+            {
+                Zip = model.ZipCode;
+            }
             var request = new PutItemRequest
             {
                 TableName = tablename,
@@ -206,6 +216,7 @@ namespace SWEN_Dynamo.Controllers
           { "Vcode", new AttributeValue { S = keyNew }},
           { "RID", new AttributeValue { N = Convert.ToString(model.RID) }},
           { "Region", new AttributeValue { S = Region }},
+          { "ZipCode", new AttributeValue { S = Zip }},
           { "Phone", new AttributeValue { N = Convert.ToString(Phone) }},
           { "IsLoginActive", new AttributeValue { S = Convert.ToString(model.IsLoginActive) } }
                     }
@@ -343,6 +354,7 @@ namespace SWEN_Dynamo.Controllers
                             mod.Datemodified = Convert.ToDateTime(document["Datemodified"]);
                             mod.Datecreated = Convert.ToDateTime(document["Datecreated"]);
                             mod.Region =  document["Region"];
+                            mod.ZipCode = document["ZipCode"];
                             mod.RID = Convert.ToInt32(document["RID"]);
                             mod.Phone = document["Phone"];
                             mod.Password = null ;
@@ -556,7 +568,17 @@ namespace SWEN_Dynamo.Controllers
                 {
                     Region = mod.Region;
                 }
-                TempData["id"] = id;
+            string Zip;
+            if (string.IsNullOrWhiteSpace(mod.ZipCode))
+            {
+                Zip = "00000";
+
+            }
+            else
+            {
+                Zip = mod.ZipCode;
+            }
+            TempData["id"] = id;
                 var request = new UpdateItemRequest
                 {
                     TableName = tablename,
@@ -569,6 +591,7 @@ namespace SWEN_Dynamo.Controllers
         { "#EM", "Email"},
         { "#RI","RID"},
         { "#RE","Region"},
+        { "#ZC","ZipCode"},
          { "#PH", "Phone"},
         { "#DM","Datemodified" },
         { "#PA","Password" },
@@ -583,6 +606,7 @@ namespace SWEN_Dynamo.Controllers
         {":EM",new AttributeValue { S = mod.Email}},
         { ":PH",new AttributeValue {N = Convert.ToString(mod.Phone) } },
         {":RE",new AttributeValue { S = Region}},
+        {":ZC",new AttributeValue { S = Zip}},
         { ":RI",new AttributeValue {N = Convert.ToString(mod.RID) } },
 
          {":DM",new AttributeValue { S = Convert.ToString(mod.Datemodified)}},
@@ -591,7 +615,7 @@ namespace SWEN_Dynamo.Controllers
          { ":ILAC", new AttributeValue { S = Convert.ToString(mod.IsLoginActive)} }
 
          },
-                    UpdateExpression = "SET #FN = :FN, #LN = :LN, #PH = :PH, #RE = :RE, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC,#ILAC = :ILAC"
+                    UpdateExpression = "SET #FN = :FN, #LN = :LN, #PH = :PH, #RE = :RE, #RI = :RI,#EM = :EM,#DM = :DM, #PA = :PA, #VC = :VC,#ILAC = :ILAC, #ZC = :ZC"
                 };
 
 
@@ -674,6 +698,7 @@ namespace SWEN_Dynamo.Controllers
                     det.Lastname = document["LastName"];
                     det.Email = document["Email"];
                     det.Region = document["Region"];
+                    det.ZipCode = document["ZipCode"];
                     det.RID = Convert.ToInt32(document["RID"]);
                     det.Phone = document["Phone"];
                     det.Datemodified = Convert.ToDateTime(document["Datemodified"]);
@@ -711,6 +736,7 @@ namespace SWEN_Dynamo.Controllers
                     det.Lastname = document["LastName"];
                     det.Email = document["Email"];
                     det.Region = document["Region"];
+                    det.ZipCode = document["ZipCode"];
                     det.RID = Convert.ToInt32(document["RID"]);
                     det.Phone = document["Phone"];
                     det.Datemodified = Convert.ToDateTime(document["Datemodified"]);

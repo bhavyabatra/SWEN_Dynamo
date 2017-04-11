@@ -89,6 +89,15 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2", id = "ZLabel" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control", placeholder = "00000", id = "ZipID" } })
+                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
         @*<div class="form-group">
             @Html.LabelFor(model => model.HiddenText, htmlAttributes: new { @class = "control-label col-md-2", id = "SomeHiddenId" })
             <div class="col-md-10">
@@ -136,6 +145,8 @@
 <script type="text/javascript">
     $("#HiddenText").hide();
     $("#SomeHiddenId").hide();
+    $("#ZLabel").hide();
+    $("#ZipID").hide();
     $("#Message").show();
     $("#RID").change(function () {
         var end = this.value;
@@ -150,15 +161,30 @@
             $("#HiddenText").attr('readonly', true);
             $("#HiddenText").addClass('input-disabled');
             $("#Message").hide();
+            $("#ZLabel").hide();
+            $("#ZipID").hide();
         
         }
-        else
+        else if (firstDropVal == 3)
         {
            
             $("#HiddenText").hide();
             $("#Region").show();
             $("#SomeId").show();
             $("#Message").show();
+            $("#ZLabel").hide();
+            $("#ZipID").hide();
+        }
+        else
+        {
+            $("#HiddenText").hide();
+            $("#Region").show();
+            $("#SomeId").show();
+            $("#Message").show();
+            $("#ZLabel").show();
+            $("#ZipID").show();
+
+
         }
         //alert(firstDropVal);
     });

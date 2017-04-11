@@ -62,6 +62,12 @@ namespace SWEN_Dynamo.Models
         [Display(Name = "Region of Operation* ")]
         public string HiddenText { get; set; } = "United States of America";
 
+        [Display(Name = "ZipCode of Operation* ")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Zip Code")]
+        [RegularExpression(@"^[0-9]{5}$", ErrorMessage = "Please Enter numerical value only")]
+        public string ZipCode { get; set; }
+     
+
         public IEnumerable<SelectListItem> RolesOptions { get; set; }
 
         public IEnumerable<SelectListItem> RegionOptions { get; set; }

@@ -252,7 +252,9 @@ namespace ConsoleApplication1
         }
         public static void Main(string[] args)
         {
-            Console.WriteLine(EncodePassword("abcdef", "ghijkl"));
+            int z = 332323232;
+            Console.WriteLine(z);
+            ///Console.WriteLine(EncodePassword("abcdef", "ghijkl"));
             //AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             //Table t = Table.LoadTable(client, "User");
             
