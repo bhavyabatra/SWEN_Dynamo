@@ -4,7 +4,7 @@
     ViewBag.Title = "FeedbackFirst";
 }
 
-<h2>Welcome @Html.DisplayFor(model => model.UserName)</h2>
+<h1>Welcome, @Html.DisplayFor(model => model.UserName)</h1>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -12,151 +12,243 @@
     <div class="form-horizontal">
 
         <div>
-            <h4>ManageFeedbacks</h4>
+            <h4>Give back a feed !!</h4>
             <hr />
+            <div class="jumbotron">
             <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.USID)
-                </dt>
+                    <content class="col-lg-offset-5">  @Model.UserName's Information </content>
+                    <dt class="col-lg-offset-4">
+                        @Html.DisplayNameFor(model => model.USID)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.USID)
-                </dd>
-                <dt>
+                    <dd class="col-md-offset-4">
+                        @Html.DisplayFor(model => model.USID)
+                    </dd>
+                <dt class="col-lg-offset-4">
                     @Html.DisplayNameFor(model => model.EmailID)
                 </dt>
 
-                <dd>
+                <dd class="col-md-offset-4">
                     @Html.DisplayFor(model => model.EmailID)
                 </dd>
-                <dt>
+                <dt class="col-lg-offset-4">
                     @Html.DisplayNameFor(model => model.FeedbackID)
                 </dt>
 
-                <dd>
+                <dd class="col-md-offset-4">
                     @Html.DisplayFor(model => model.FeedbackID)
                 </dd>
-            </dl>
-            @*<dt>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.UserName)
-                </dd>*@
-            @*<div class="col-md-10">
-                @Html.CheckBoxFor(model => model.CheckToOnlineTable, new { htmlAttributes = new { @class = "form-control" },  })
-            </div>*@
-            <h5> You Following Online Surveys have some responses. You may choose associated Survey from the following. </h5>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.SurveyID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EventName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.SurveyType)
-                    </th>
-                </tr>
-                @foreach (var item in Model.FLS)
+                @if (Model.RID == 4 || Model.RID == 5)
                 {
-                    <tr>
-                        <td>
-                            @Html.RadioButtonFor(modelItem => modelItem.XYZ, item.SurveyID)
-                            @Html.DisplayFor(modelItem => item.SurveyID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EventName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SurveyType)
-                        </td>
-
-                    </tr>
+                <dt class="col-lg-offset-4">
+                    @Html.DisplayNameFor(model => model.Region)
+                </dt>
+              
+                <dd class="col-md-offset-4">
+                    @Html.DisplayFor(model => model.Region), @Model.ZipCode
+                </dd>
                 }
-
-            </table>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.EventName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EventName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EventName, "", new { @class = "text-danger" })
-                </div>
+                @if (Model.RID == 3 )
+                {
+                    <dt class="col-lg-offset-4">
+                        @Html.DisplayNameFor(model => model.Region)
+                    </dt>
+                    <dd class="col-md-offset-4">
+                        @Html.DisplayFor(model => model.Region)
+                    </dd>
+                }
+</dl>
             </div>
+    @*<dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.DateofEvent, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DateofEvent, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DateofEvent, "", new { @class = "text-danger" })
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>*@
+    @*<div class="col-md-10">
+            @Html.CheckBoxFor(model => model.CheckToOnlineTable, new { htmlAttributes = new { @class = "form-control" },  })
+        </div>*@
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EventName, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.EventName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EventName, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.EventType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EventType, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateofEvent, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.DateofEvent, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DateofEvent, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.NOG, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NOG, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NOG, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EventType, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.EventType, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.NOB, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NOB, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NOB, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NOG, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.NOG, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NOG, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.AOG, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.AOG, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AOG, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NOB, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.NOB, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NOB, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.AOB, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.AOB, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AOB, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AOG, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.AOG, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AOG, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.NumSWEV, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NumSWEV, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NumSWEV, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AOB, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.AOB, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AOB, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.NumOV, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NumOV, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NumOV, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumSWEV, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.NumSWEV, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumSWEV, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" name="Proceed" value="Proceed With Feedback" class="btn btn-default" />
-
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumOV, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.NumOV, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumOV, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
+                @if (Model.RID == 1 || Model.RID == 2 || Model.RID == 3)
+                {
+                    if (Model.RID == 1 || Model.RID == 2)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Region, htmlAttributes: new { @class = "control-label col-md-4", id = "SomeId" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(model => model.Region, Model.RegionOptions, "Feedback Region", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger", id = "Message" })
+
+                            </div>
+                        </div>
+                    }
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                }
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <p>
+                <h5> Following Online Surveys have some responses. If you want to include feedback from online surveys, Please Choose the online survey associated with this event from the following. </h5>
+                @if (Model.GetOnlineSurveyData == true)
+                {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GetOnlineSurveyData, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-1">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.GetOnlineSurveyData)
+                            @Html.ValidationMessageFor(model => model.GetOnlineSurveyData, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+              
+                <table class="table", id="tab">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SurveyID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SurveyType)
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.FLS)
+                    {
+                        <tr>
+                            <td>
+                                @Html.RadioButtonFor(modelItem => modelItem.SurveyIDValueHolder, item.SurveyID)
+                                @Html.DisplayFor(modelItem => item.SurveyID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SurveyType)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+                }
+                @if (Model.GetOnlineSurveyData == false)
+                {
+                        <div class="form-group">
+                        @Html.LabelFor(model => model.No_Survey_Text, htmlAttributes: new { @class = "control-label col-md-12", style= "color:#ff0000" })
+                        </div>
+                        }
+<p>
         </div>
     </div>
-}
+    <div class="form-group">
+        <div class="col-md-offset-5 col-md-10">
+            <input type="submit" name="Proceed" value="Submit Feedback" class="btn btn-default" />
+
+        </div>
+    </div>
+</div>
+
+
+
+            </div>
+            }
+@section Scripts {
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    $("#GetOnlineSurveyData").click(function () {
+         if ($(this).is(":checked")) {
+                $("#tab").show();
+                $("#tab").attr("disabled", false);
+                $("#tab").attr('readonly', true);
+              
+            }
+            else {
+                $("#tab").attr("disabled", true);
+                $("#tab").hide();
+                $("#tab").addClass('input-disabled');
+            }
+        });</script>
+    }

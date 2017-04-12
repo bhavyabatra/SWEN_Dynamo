@@ -107,6 +107,33 @@ namespace SWEN_Dynamo.App_Start
             string Question = QuestionItem[CQ];
             return Question;
         }
+
+        public static int FetchRIDfromUSID(long USID)
+        {
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "User");
+            var RIDItem = table.GetItem(USID);
+            int RID = Convert.ToInt32(RIDItem["RID"]);
+            return RID;
+        }
+
+        public static int FetchZipCodefromUSID(long USID)
+        {
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "User");
+            var ZipCodeItem = table.GetItem(USID);
+            int ZipCode = Convert.ToInt32(ZipCodeItem["ZipCode"]);
+            return ZipCode;
+        }
+
+        public static string FetchRegionfromUSID(long USID)
+        {
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "User");
+            var RegionItem = table.GetItem(USID);
+            string Region = RegionItem["Region"];
+            return Region;
+        }
         public static void DeploymentStepFive(string FinalSurveyID, string FinalResponseToken, string O_Q)
         {
             Document t = DeploymentStepFirst(FinalSurveyID); // Got the Survey complete survey information in t.
@@ -347,7 +374,7 @@ namespace SWEN_Dynamo.App_Start
             Search search = table.Scan(config);
             List<Document> documentList = new List<Document>();
             List<FeedbackFor> FBF = new List<FeedbackFor>();
-
+            string ResponseToken = "ResponseToken";
 
             do
             {
@@ -356,9 +383,15 @@ namespace SWEN_Dynamo.App_Start
 
                 foreach (var doc in documentList)
                 {
-                    //USID = Convert.ToInt32(doc["USID"]);
-                    FBF.Add(new FeedbackFor() { SurveyID = doc["SurveyID"], SurveyType = doc["SurveyType"], EventName = doc["EventName"] });
-
+                    if(SWEN_DynamoUtilityClass.CountFromRespondent(doc["SurveyID"]) > 0)
+                        {
+                        //USID = Convert.ToInt32(doc["USID"]);
+                        FBF.Add(new FeedbackFor() { SurveyID = doc["SurveyID"], SurveyType = doc["SurveyType"], EventName = doc["EventName"] });
+                    }
+                    //else
+                    //{
+                    //    FBF.Add(new FeedbackFor() { SurveyID = "None", SurveyType = "None", EventName = "None" });
+                    //}
                 }
 
             } while (!search.IsDone);
@@ -460,6 +493,50 @@ namespace SWEN_Dynamo.App_Start
             var SurveyItem = table.GetItem(Convert.ToString(SID));
             long USID = Convert.ToInt64(SurveyItem["USID"]);
             return USID;
+
+        }
+
+
+        ///
+
+        public static int CountFromRespondent(string SID, string KeyName = "ResponseToken")
+        {
+            int number_of_keys = 0;
+            string Total;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "Respondent");
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("SurveyID", ScanOperator.Equal, SID);
+            scanFilter.AddCondition("SurveyComplete", ScanOperator.Equal, "true");
+            if (KeyName == "O1_Q1_A" || KeyName == "O1_Q2_A" || KeyName == "O7_Q1_A")
+            {
+                scanFilter.AddCondition(KeyName, ScanOperator.Equal, "Strongly Agree");
+                scanFilter.AddCondition(KeyName, ScanOperator.Equal, "Agree");
+            }
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string> { KeyName }
+            };
+            Search search = table.Scan(config);
+            List<string> ReskeyList = new List<string>();
+            List<Document> documentList = new List<Document>();
+            do
+            {
+                // people.Clear();
+                documentList = search.GetNextSet();
+                Console.WriteLine(documentList);
+                foreach (var doc in documentList)
+                {
+                    Total = Convert.ToString(doc[KeyName]);
+                    ReskeyList.Add(Total);
+                }
+            } while (!search.IsDone);
+
+            number_of_keys = ReskeyList.Count();
+            return number_of_keys;
+
 
         }
 
