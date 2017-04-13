@@ -5,6 +5,100 @@
 }
 
 <h2>Infographics</h2>
+
+<p>
+    @Html.ActionLink("Create New Survey", "SurveyStart")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Region)
+        </th>
+        
+
+        <th>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </th>
+
+        <th>
+                @Html.DisplayNameFor(model => model.I_Com)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.I_Grade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.I_Number)
+            </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I_Age)
+        </th>
+     
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Infolist)
+    {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+            
+          
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+           
+        <td>
+        @Html.ActionLink("View Infographics", "Agree_Disagree", new { id = item.ZipCode }) 
+        </td>
+        <td>
+         @Html.ActionLink("View Infographics", "A_Grade", new { id = item.ZipCode })
+        </td>
+        <td>
+         @Html.ActionLink("View Infographics", "Number", new { id = item.ZipCode })
+        </td>
+        <td>
+         @Html.ActionLink("View Infographics", "Age", new { id = item.ZipCode })
+        </td>
+    </tr>
+    }
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @*<!DOCTYPE html>
 <html>
 

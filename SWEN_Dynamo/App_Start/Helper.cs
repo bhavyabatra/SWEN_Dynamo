@@ -124,6 +124,17 @@ namespace SWEN_Dynamo.App_Start
             return USID;
 
         }
+
+        public static string GenerateFDID() //length of salt    
+        {
+            string num;
+            num = DateTime.Now.ToString("HHmmsszyyyyMMdd");
+            num = Regex.Replace(num, "[-,:]", "4");
+            long FDID = Convert.ToInt64(num);
+            return Convert.ToString(FDID);
+
+        }
+
     }
 
     }

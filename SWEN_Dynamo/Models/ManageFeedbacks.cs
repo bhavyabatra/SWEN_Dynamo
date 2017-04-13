@@ -69,6 +69,18 @@ namespace SWEN_Dynamo.Models
         [Display(Name = "Type of Event ")]
         public string EventType { get; set; }
 
+        [Display(Name = "Before/After Event Infographics ")]
+        public string I_Com { get; set; }
+        [Display(Name = "A-Grade from Parents Infographics ")]
+        public string I_Grade { get; set; }
+        [Display(Name = "Number of Boys/Girls Infographics ")]
+        public string I_Number { get; set; }
+        [Display(Name = "Age of Boys/Girls Infographics ")]
+        public string I_Age { get; set; }
+
+
+        public List<ManageFeedbacks> Infolist = new List<ManageFeedbacks>();
+
 
     }
     public class FeedbackFor

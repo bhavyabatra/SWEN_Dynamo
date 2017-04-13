@@ -72,6 +72,7 @@ namespace SWEN_Dynamo.Controllers
                     new SelectListItem { Value = "WI", Text = "Wisconsin" },
                     new SelectListItem { Value = "WY", Text = "Wyoming" }
                 };
+            MF.FeedbackID = Helper.GenerateFDID();
             TempData["FeedbackID"] = MF.FeedbackID;
             MF.FLS = new List<Models.FeedbackFor>();
             MF.USID = Convert.ToString(id);
@@ -79,6 +80,7 @@ namespace SWEN_Dynamo.Controllers
             MF.DateofEvent = Date;
             MF.EmailID = SWEN_DynamoUtilityClass.FetchEmailfromUSID(Convert.ToInt64(MF.USID));
             MF.UserName = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(MF.USID));
+            TempData["UserName"] = MF.UserName;
             MF.FLS = SWEN_DynamoUtilityClass.FeedbackListPageFirst(Convert.ToInt64(MF.USID));
             MF.RID = SWEN_DynamoUtilityClass.FetchRIDfromUSID(Convert.ToInt64(MF.USID));
             TempData["RID"] = MF.RID;
@@ -101,6 +103,7 @@ namespace SWEN_Dynamo.Controllers
                 MF.GetOnlineSurveyData = false; 
             }
             //   MF.XYZ = "11";
+            SWEN_DynamoUtilityClass.PushFeedIDs(MF.USID,MF.FeedbackID);
             return View(MF);
         }
         [HttpPost, ActionName("FeedbackFirst")]
@@ -161,8 +164,13 @@ namespace SWEN_Dynamo.Controllers
                     new SelectListItem { Value = "WI", Text = "Wisconsin" },
                     new SelectListItem { Value = "WY", Text = "Wyoming" }
                 };
+                MF.UserName = Convert.ToString(TempData["UserName"]);
             string Region = null;
-            string TempRegion = Convert.ToString(TempData["Region"]) ;
+                string FetchSurveyID = MF.SurveyIDValueHolder;
+                int TOQ1 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O1_Q1_A");
+                int TOQ2 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O1_Q2_A");
+                int TOQ7 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O7_Q1_A");
+                string TempRegion = Convert.ToString(TempData["Region"]) ;
             string Date = System.DateTime.Today.ToString("MM/dd/yyyy");
                 string ZipCode = null;
             string TempZip = Convert.ToString(TempData["Zip"]);
@@ -205,28 +213,35 @@ namespace SWEN_Dynamo.Controllers
                     { "#NB", "N_Boys"},
                     { "#NG", "N_Girls"},
                     { "#Grade", "A Grade"},
+                     { "#NS", "NSWE"},
+                    { "#NO", "NOV"},
                     { "#RE", "Region"},
                     { "#ZP", "ZipCode"},
                     { "#Date", "Date of Submission"},
-                    { "#Total", "Number of Responses"},
+                    { "#TOQ1", "O1_Q1_A"},
+                    { "#TOQ2", "O1_Q2_A"},
+                  
 
                     },
 
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
     {
         
-        { ":RID", new AttributeValue { S = Convert.ToString(RID) }},
-                    { ":AB", new AttributeValue { S = Convert.ToString(RID) }},
-                    { ":AG", new AttributeValue { S = Convert.ToString(RID) }},
-                    { ":NB", new AttributeValue { S = Convert.ToString(RID) }},
-                    { ":NG", new AttributeValue { S = Convert.ToString(RID) }},
-                    { ":Grade", new AttributeValue { S = Convert.ToString(RID) }},
+                    { ":RID", new AttributeValue { S = Convert.ToString(RID) }},
+                    { ":AB", new AttributeValue { S = Convert.ToString(MF.AOB) }},
+                    { ":AG", new AttributeValue { S = Convert.ToString(MF.AOG) }},
+                    { ":NB", new AttributeValue { S = Convert.ToString(MF.NOB) }},
+                    { ":NG", new AttributeValue { S = Convert.ToString(MF.NOG) }},
+                    { ":NS", new AttributeValue { S = Convert.ToString(MF.NumSWEV) }},
+                    { ":NO", new AttributeValue { S = Convert.ToString(MF.NumOV) }},
+                    { ":Grade", new AttributeValue { S = Convert.ToString(TOQ7) }},
                     { ":RE", new AttributeValue { S = Region }},
                     { ":ZP", new AttributeValue { S = ZipCode }},
                     { ":Date", new AttributeValue { S = Date }},
-                    { ":Total", new AttributeValue { S = Convert.ToString(RID) }},
+                    { ":TOQ1", new AttributeValue { S = Convert.ToString(TOQ1) }},
+                    { ":TOQ2", new AttributeValue { S = Convert.ToString(TOQ2) }}
          },
-                UpdateExpression = "SET #FN = :FN, #EN = :EN"
+                UpdateExpression = "SET #RID = :RID, #AB = :AB, #AG = :AG, #NB = :NB, #NG = :NG, #NS = :NS, #NO = :NO, #Grade = :Grade, #RE = :RE, #ZP = :ZP, #Date = :Date, #TOQ1 = :TOQ1, #TOQ2 = :TOQ2"
 
             };
             var res = client.UpdateItem(request);
@@ -235,16 +250,122 @@ namespace SWEN_Dynamo.Controllers
                 client.UpdateItem(request);
             }
         }
-        string FetchSurveyID = MF.SurveyIDValueHolder;
+        
             }
 
-            return View();
+            return View("FeedbackAck");
         }
-        public ActionResult Infographics(ManageFeedbacks model)
+        public ActionResult Infographics(long? id, ManageFeedbacks model)
         {
-            return View();
+
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "SurveysFeedback");
+
+
+            model.USID = Convert.ToString(id);
+            model.RID = SWEN_DynamoUtilityClass.FetchRIDfromUSID(Convert.ToInt64(model.USID));
+            TempData["RID"] = model.RID;
+            model.Region = SWEN_DynamoUtilityClass.FetchRegionfromUSID(Convert.ToInt64(model.USID));
+            TempData["Region"] = model.Region;
+            model.ZipCode = Convert.ToString(SWEN_DynamoUtilityClass.FetchZipCodefromUSID(Convert.ToInt64(model.USID)));
+            TempData["Zip"] = model.ZipCode;
+            ScanFilter scanFilter = new ScanFilter();
+            if (model.RID == 1 || model.RID == 2)
+            {
+                scanFilter.AddCondition("USID", ScanOperator.IsNotNull);
+            }
+            if (model.RID == 3)
+            {
+                scanFilter.AddCondition("Region", ScanOperator.Equal, model.Region);
+            }
+            if (model.RID == 4 || model.RID ==5)
+            {
+                scanFilter.AddCondition("Region", ScanOperator.Equal, model.Region);
+                scanFilter.AddCondition("ZipCode", ScanOperator.Equal, model.ZipCode);
+            }
+
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.AllAttributes,
+
+            };
+
+            Search search = table.Scan(config);
+            List<Document> documentList = new List<Document>(); 
+            //////////////////
+
+           
+
+            // List<FeedbackFor> FBF = new List<FeedbackFor>();
+            // string ResponseToken = "ResponseToken";
+            
+            {
+                do
+                {
+                    // people.Clear();
+                    documentList = search.GetNextSet();
+
+                    foreach (var doc in documentList)
+                    {
+                        if (model.RID == 1 || model.RID == 2)
+                        {
+                            model.Infolist.Add(new ManageFeedbacks() { Region = doc["Region"], ZipCode = doc["ZipCode"] });
+                        }
+                        else if (model.RID == 3)
+                        {
+                            model.Infolist.Add(new ManageFeedbacks() { Region = model.Region, ZipCode = doc["ZipCode"] });
+                        }
+
+                       else  if (model.RID == 4 || model.RID == 5)
+                        {
+                            model.Infolist.Add(new ManageFeedbacks() { Region = model.Region, ZipCode = model.ZipCode });
+
+                        }
+
+                        //if (SWEN_DynamoUtilityClass.CountFromRespondent(doc["SurveyID"]) > 0)
+                        //{
+                        //    //USID = Convert.ToInt32(doc["USID"]);
+                        //    FBF.Add(new FeedbackFor() { SurveyID = doc["SurveyID"], SurveyType = doc["SurveyType"], EventName = doc["EventName"] });
+                        //}
+                        //else
+                        //{
+                        //    FBF.Add(new FeedbackFor() { SurveyID = "None", SurveyType = "None", EventName = "None" });
+                        //}
+                    }
+
+                } while (!search.IsDone);
+
+
+            }
+          //  return FBF;
+
+            return View(model);
         }
 
+
+        public ActionResult Agree_Disagree(long? id)
+        {
+            // retrieve date 
+            // o1 number //
+            //o2 number
+            return View();
+        }
+             public ActionResult A_Grade(long? id)
+        {
+
+            return View();
+        }
+             public ActionResult Number(long? id)
+        {
+
+            return View();
+        }
+             public ActionResult Age(long? id)
+        {
+
+            return View();
+        }
 
     }
 }

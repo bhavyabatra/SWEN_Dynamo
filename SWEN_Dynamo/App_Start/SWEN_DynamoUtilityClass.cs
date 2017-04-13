@@ -499,6 +499,21 @@ namespace SWEN_Dynamo.App_Start
 
         ///
 
+        public static void  PushFeedIDs(string USID, string FID)
+        {
+                        AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+                        string tablename = "SurveysFeedback";
+                        var request = new PutItemRequest
+                        {
+                            TableName = tablename,
+                            Item = new Dictionary<string, AttributeValue>()
+                  {
+                      { "USID", new AttributeValue { S = USID } },
+                      { "FeedbackID", new AttributeValue { S = FID}},
+                   }
+                        };
+                        client.PutItem(request);
+        }
         public static int CountFromRespondent(string SID, string KeyName = "ResponseToken")
         {
             int number_of_keys = 0;

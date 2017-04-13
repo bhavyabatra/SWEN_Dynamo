@@ -321,6 +321,11 @@
     <Content Include="Views\Survey\StudentSurvey.cshtml" />
     <Content Include="Views\Survey\StudentSurveyDeletedAck.cshtml" />
     <Content Include="Views\Survey\ParentSurveyDeletedAck.cshtml" />
+    <Content Include="Views\ManageFeedback\FeedbackAck.cshtml" />
+    <Content Include="Views\ManageFeedback\Agree_Disagree.cshtml" />
+    <Content Include="Views\ManageFeedback\A_Grade.cshtml" />
+    <Content Include="Views\ManageFeedback\Number.cshtml" />
+    <Content Include="Views\ManageFeedback\Age.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
