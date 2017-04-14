@@ -379,13 +379,24 @@ namespace SWEN_Dynamo.Controllers
 
                     foreach (var doc in documentList)
                     {
-                        mod.Agree_List.Add(new Agree_Disagree { Q1 = 23/* Convert.ToInt32(doc["O1_Q1_A"])*/, Q2 = 22/*Convert.ToInt32(doc["O1_Q2_A"])*/});
+                        mod.Agree_List.Add(new Agree_Disagree { Q1 = 23/* Convert.ToInt32(doc["O1_Q1_A"])*/, Q2 = 52/*Convert.ToInt32(doc["O1_Q2_A"])*/});
+
+                     
                     }
                 } while (!search.IsDone);
-            } 
+                
+            }
 
-            var output = JsonConvert.SerializeObject(mod.Agree_List);
-            ViewData["Check"] = output;
+            mod.Ex = JsonConvert.SerializeObject(mod.Agree_List);
+            mod.Ag_Dis = Json(mod.Agree_List);
+            {
+
+            }
+            //mod.Ex = x;
+            //string z = x;
+            //mod.Ag_Dis = Json(z);
+
+
             return View(mod);
         }
 

@@ -78,11 +78,13 @@ namespace SWEN_Dynamo.Models
         [Display(Name = "Age of Boys/Girls Infographics ")]
         public string I_Age { get; set; }
 
+        public string Ex { get; set; }
 
         public List<ManageFeedbacks> Infolist = new List<ManageFeedbacks>();
 
         public List<Agree_Disagree> Agree_List = new List<Agree_Disagree>();
 
+        public JsonResult Ag_Dis { get; set; }
 
     }
     public class FeedbackFor
@@ -96,7 +98,7 @@ namespace SWEN_Dynamo.Models
     public class Agree_Disagree
     {
         public int Q1 { get; set; }
-        public int Q2 { get; set; }
+        public int  Q2 { get; set; }
         
 
     }
