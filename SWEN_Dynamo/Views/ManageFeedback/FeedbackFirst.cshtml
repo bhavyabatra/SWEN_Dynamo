@@ -41,17 +41,17 @@
                 @if (Model.RID == 4 || Model.RID == 5)
                 {
                 <dt class="col-lg-offset-4">
-                    @Html.DisplayNameFor(model => model.Region)
+                    @Html.DisplayNameFor(model => model.Region):
                 </dt>
               
                 <dd class="col-md-offset-4">
-                    @Html.DisplayFor(model => model.Region), @Model.ZipCode
+                   @Html.DisplayFor(model => model.Region), @Model.ZipCode
                 </dd>
                 }
                 @if (Model.RID == 3 )
                 {
                     <dt class="col-lg-offset-4">
-                        @Html.DisplayNameFor(model => model.Region)
+                        @Html.DisplayNameFor(model => model.Region):
                     </dt>
                     <dd class="col-md-offset-4">
                         @Html.DisplayFor(model => model.Region)

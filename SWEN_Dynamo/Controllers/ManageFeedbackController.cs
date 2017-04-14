@@ -9,6 +9,7 @@ using SWEN_Dynamo.App_Start;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using Newtonsoft.Json;
 
 namespace SWEN_Dynamo.Controllers
 {
@@ -103,7 +104,7 @@ namespace SWEN_Dynamo.Controllers
                 MF.GetOnlineSurveyData = false; 
             }
             //   MF.XYZ = "11";
-            SWEN_DynamoUtilityClass.PushFeedIDs(MF.USID,MF.FeedbackID);
+           
             return View(MF);
         }
         [HttpPost, ActionName("FeedbackFirst")]
@@ -111,6 +112,9 @@ namespace SWEN_Dynamo.Controllers
         {
             if (!string.IsNullOrWhiteSpace(Proceed))
             {
+                long USID = Convert.ToInt64(TempData["USID"]);
+                string FeedbackID = Convert.ToString(TempData["FeedbackID"]);
+                SWEN_DynamoUtilityClass.PushFeedIDs(Convert.ToString(USID), FeedbackID);
                 MF.RegionOptions = new List<SelectListItem>
             {
                     new SelectListItem { Value = "AL", Text = "Alabama" },
@@ -167,15 +171,20 @@ namespace SWEN_Dynamo.Controllers
                 MF.UserName = Convert.ToString(TempData["UserName"]);
             string Region = null;
                 string FetchSurveyID = MF.SurveyIDValueHolder;
-                int TOQ1 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O1_Q1_A");
-                int TOQ2 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O1_Q2_A");
-                int TOQ7 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O7_Q1_A");
-                string TempRegion = Convert.ToString(TempData["Region"]) ;
+                int TOQ1 = 0;
+                int TOQ2 = 0;
+                int TOQ7 = 0;
+                if (MF.GetOnlineSurveyData == true)
+                {
+                      TOQ1 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O1_Q1_A");
+                     TOQ2 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O1_Q2_A");
+                     TOQ7 = SWEN_DynamoUtilityClass.CountFromRespondent(FetchSurveyID, "O7_Q1_A");
+                }
+                    string TempRegion = Convert.ToString(TempData["Region"]) ;
             string Date = System.DateTime.Today.ToString("MM/dd/yyyy");
                 string ZipCode = null;
             string TempZip = Convert.ToString(TempData["Zip"]);
-            long USID = Convert.ToInt64(TempData["USID"]);
-            string FeedbackID = Convert.ToString(TempData["FeedbackID"]);
+           
             int RID = Convert.ToInt32(TempData["RID"]);
             if(RID == 1 || RID == 2)
             {
@@ -310,16 +319,16 @@ namespace SWEN_Dynamo.Controllers
                     {
                         if (model.RID == 1 || model.RID == 2)
                         {
-                            model.Infolist.Add(new ManageFeedbacks() { Region = doc["Region"], ZipCode = doc["ZipCode"] });
+                            model.Infolist.Add(new ManageFeedbacks() { Region = doc["Region"], ZipCode = doc["ZipCode"], DateofEvent = doc["Date of Submission"], FeedbackID = doc["FeedbackID"] });
                         }
                         else if (model.RID == 3)
                         {
-                            model.Infolist.Add(new ManageFeedbacks() { Region = model.Region, ZipCode = doc["ZipCode"] });
+                            model.Infolist.Add(new ManageFeedbacks() { Region = model.Region, ZipCode = doc["ZipCode"], DateofEvent = doc["Date of Submission"], FeedbackID = doc["FeedbackID"] });
                         }
 
                        else  if (model.RID == 4 || model.RID == 5)
                         {
-                            model.Infolist.Add(new ManageFeedbacks() { Region = model.Region, ZipCode = model.ZipCode });
+                            model.Infolist.Add(new ManageFeedbacks() { Region = model.Region, ZipCode = model.ZipCode, DateofEvent = doc["Date of Submission"], FeedbackID = doc["FeedbackID"] });
 
                         }
 
@@ -344,13 +353,46 @@ namespace SWEN_Dynamo.Controllers
         }
 
 
-        public ActionResult Agree_Disagree(long? id)
+        public ActionResult Agree_Disagree(string id, ManageFeedbacks mod)
         {
             // retrieve date 
             // o1 number //
             //o2 number
-            return View();
+            mod.FeedbackID = id;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            Table table = Table.LoadTable(client, "SurveysFeedback");
+            ScanFilter scanFilter = new ScanFilter();
+            scanFilter.AddCondition("FeedbackID", ScanOperator.Equal, mod.FeedbackID);
+            ScanOperationConfig config = new ScanOperationConfig()
+            {
+                Filter = scanFilter,
+                Select = SelectValues.AllAttributes,
+
+            };
+            Search search = table.Scan(config);
+            List<Document> documentList = new List<Document>();
+            {
+                do
+                {
+                    // people.Clear();
+                    documentList = search.GetNextSet();
+
+                    foreach (var doc in documentList)
+                    {
+                        mod.Agree_List.Add(new Agree_Disagree { Q1 = 23/* Convert.ToInt32(doc["O1_Q1_A"])*/, Q2 = 22/*Convert.ToInt32(doc["O1_Q2_A"])*/});
+                    }
+                } while (!search.IsDone);
+            } 
+
+            var output = JsonConvert.SerializeObject(mod.Agree_List);
+            ViewData["Check"] = output;
+            return View(mod);
         }
+
+
+
+
+
              public ActionResult A_Grade(long? id)
         {
 

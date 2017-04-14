@@ -2,6 +2,7 @@
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+
 namespace ConsoleApplication1
 {
     public class Emails 
@@ -17,6 +19,10 @@ namespace ConsoleApplication1
        public  string USID { get; set; }
 
         public string EventName { get; set; }
+
+        public string Evename { get; set; }
+        public string Evene { get; set; }
+        public string Eame { get; set; }
     }
     public  class FeedbackFor
     {
@@ -252,12 +258,18 @@ namespace ConsoleApplication1
         }
         public static void Main(string[] args)
         {
-            int z = 332323232;
-            Console.WriteLine(z);
+           
+            List<Emails> check = new List<Emails>();
+            string x;
+            check.Add(new Emails { EventName = "yes", USID = "1231" });
+            check.Add(new Emails { EventName = "no", USID = "2121" });
+            var output = JsonConvert.SerializeObject(check);
+            x = output;
+            Console.WriteLine(x);
             ///Console.WriteLine(EncodePassword("abcdef", "ghijkl"));
             //AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             //Table t = Table.LoadTable(client, "User");
-            
+
             //////Table table = Table.LoadTable(client, "Respondent");
             //ScanFilter scanFilter = new ScanFilter();
             //Console.WriteLine(GenerateUSID());

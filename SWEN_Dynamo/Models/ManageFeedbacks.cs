@@ -20,7 +20,7 @@ namespace SWEN_Dynamo.Models
 
             public string SurveyID { get; set; }
 
-            [Display(Name = "Region : ")]
+            [Display(Name = "Region ")]
             public string Region { get; set; }
 
         [Display(Name = "Either you dont have any Online Survey OR Any of your Online Survey do not have any response yet. ")]
@@ -81,6 +81,8 @@ namespace SWEN_Dynamo.Models
 
         public List<ManageFeedbacks> Infolist = new List<ManageFeedbacks>();
 
+        public List<Agree_Disagree> Agree_List = new List<Agree_Disagree>();
+
 
     }
     public class FeedbackFor
@@ -88,6 +90,14 @@ namespace SWEN_Dynamo.Models
         public string SurveyType { get; set; }
         public string SurveyID { get; set; }
         public string EventName { get; set; }
+
+    }
+
+    public class Agree_Disagree
+    {
+        public int Q1 { get; set; }
+        public int Q2 { get; set; }
+        
 
     }
 
