@@ -11,9 +11,11 @@
 </p>
 <table class="table">
     <tr>
-        
         <th>
-            @Html.DisplayNameFor(model => model.FeedbackID)
+            @Html.DisplayNameFor(model => model.MALCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FeedbackID):
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateofEvent)
@@ -48,6 +50,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.MALCode)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.FeedbackID)
             </td>
             <td>
@@ -73,16 +78,19 @@
          @Html.ActionLink("View Infographics", "Number", new { id = item.FeedbackID })
         </td>
         <td>
-         @Html.ActionLink("View Infographics", "Age", new { id = item.ZipCode })
+         @Html.ActionLink("View Infographics", "Age", new { id = item.FeedbackID })
         </td>
     </tr>
     }
 
 </table>
 
+<a href='javascript:history.go(-1)'>Go Back to your Main Page</a>
 
 
-
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Model.USID }, null)</li>
+</ul>
 
 
 

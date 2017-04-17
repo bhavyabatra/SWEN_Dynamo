@@ -7,25 +7,27 @@
 
 <h2>Welcome  @Model.Name</h2>
 <h5>With your current level of memebership, you have following privliges.</h5>
- 
-<div class="form-horizontal">
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.ActionLink("Users Administration", "UsersList", "Users" , new { id = Model.USID }, null)
-        </div>
-        <div class="col-md-10">
-            @Html.ActionLink("Surveys Administration", "SurveyList", "Survey", new { id = Model.USID }, null)
-        </div>
-      
-        <div class="col-md-10">
-            @Html.ActionLink("Manage Feedbacks", "FeedbackFirst", "ManageFeedback", new { id = Model.USID }, null)
-        </div>
-      
-         <div class="col-md-10">
-            @Html.ActionLink("Infographics", "Infographics", "ManageFeedback", new { id = Model.USID }, null)
+ <div class="jumbotron">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.ActionLink("Users Administration", "UsersList", "Users", new { id = Model.USID }, null)
+            </div>
+            <div class="col-md-10">
+                @Html.ActionLink("Surveys Administration", "SurveyList", "Survey", new { id = Model.USID }, null)
+            </div>
+
+            <div class="col-md-10">
+                @Html.ActionLink("Manage Feedbacks", "FeedbackFirst", "ManageFeedback", new { id = Model.USID }, null)
+            </div>
+
+            <div class="col-md-10">
+                @Html.ActionLink("Infographics", "Infographics", "ManageFeedback", new { id = Model.USID }, null)
+            </div>
         </div>
     </div>
-    </div>
+     </div>
+
 <ul class="nav navbar-nav navbar-right">
     <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Model.USID }, null)</li>
-</ul> 
+</ul>

@@ -20,6 +20,8 @@ namespace SWEN_Dynamo.Controllers
             string y = Convert.ToString(model.SurveyType);
             return View(model);
 
+        
+
         }
         [HttpPost, ActionName("SurveyStart")]
         public ActionResult SurveyStartConfirmed(SurveyModel model)

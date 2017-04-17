@@ -258,15 +258,22 @@ namespace ConsoleApplication1
         }
         public static void Main(string[] args)
         {
+          
+          //  string[] s = new string[130];
+            for (int i = 1; i <= 130; i++)
+            {
+                Console.WriteLine(" new SelectListItem { Value = \""+i+ "\",  Text = \""+i+"\"},");
+            }
            
-            List<Emails> check = new List<Emails>();
-            string x;
-            check.Add(new Emails { EventName = "yes", USID = "1231" });
-            check.Add(new Emails { EventName = "no", USID = "2121" });
-            var output = JsonConvert.SerializeObject(check);
-            x = output;
-            Console.WriteLine(x);
-            ///Console.WriteLine(EncodePassword("abcdef", "ghijkl"));
+           // public IEnumerable<SelectListItem> SectionN { get; set; }
+        //MF.SectionN = new List<SelectListItem>();
+
+        //    {
+
+        //        new SelectListItem { Value = s[130], Text = Convert.ToString(s[130]) };
+
+        //    };
+        //    ///Console.WriteLine(EncodePassword("abcdef", "ghijkl"));
             //AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             //Table t = Table.LoadTable(client, "User");
 

@@ -4,13 +4,18 @@
 }
 
 <h2>SWEVolunteer</h2>
+<div class="jumbotron">
+    <div class="form-horizontal">
+        <div class="form-group">
 
-<div class="form-horizontal">
-    <div class="form-group">
-        
-       <div class="col-md-10">
-            @Html.ActionLink("Manage Feedbacks", "FeedbackFirst", "ManageFeedback", new { id = Model.USID }, null)
-       </div>
-        
+            <div class="col-md-10">
+                @Html.ActionLink("Manage Feedbacks", "FeedbackFirst", "ManageFeedback", new { id = Model.USID }, null)
+            </div>
+
+        </div>
     </div>
 </div>
+
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Model.USID }, null)</li>
+</ul>
