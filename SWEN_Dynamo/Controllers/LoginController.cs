@@ -25,164 +25,173 @@ namespace SWEN_Dynamo.Controllers
         [HttpPost, ActionName("Index")]
         public ActionResult IndexConfirmed(LoginModel model)
         {
-           
-            var CheckWithUSIDandEmail = model.CheckWithUSIDandEmail;
-            var PasswordFromUser = model.Password;
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-            Table table = Table.LoadTable(client, "User");
-            ScanFilter firstscanFilter = new ScanFilter();
-            ScanFilter secondscanFilter = new ScanFilter();
-            bool x;
-
-
-            // int x = (Convert.ToInt32(CheckWithUSIDandEmail) );
-            if (!CheckWithUSIDandEmail.Contains("@"))
+            try
             {
-                firstscanFilter.AddCondition("USID", ScanOperator.Equal, Convert.ToInt64(CheckWithUSIDandEmail));
-                x = true;
-                ScanOperationConfig firstconfig = new ScanOperationConfig()
-                {
-                    Filter = firstscanFilter,
-                    Select = SelectValues.AllAttributes,
-                };
-                Search firstsearch = table.Scan(firstconfig);
-                List<Document> firstdocumentList = new List<Document>();
-                do
-                {
-                    firstdocumentList = firstsearch.GetNextSet();
+                var CheckWithUSIDandEmail = model.CheckWithUSIDandEmail;
+                var PasswordFromUser = model.Password;
+                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+                Table table = Table.LoadTable(client, "User");
+                ScanFilter firstscanFilter = new ScanFilter();
+                ScanFilter secondscanFilter = new ScanFilter();
+                bool x;
 
-                    var CountFromFirstList = firstdocumentList.Count();
 
-                    if (CountFromFirstList > 0)
+                // int x = (Convert.ToInt32(CheckWithUSIDandEmail) );
+                if (!CheckWithUSIDandEmail.Contains("@"))
+                {
+                    firstscanFilter.AddCondition("USID", ScanOperator.Equal, Convert.ToInt64(CheckWithUSIDandEmail));
+                    x = true;
+                    ScanOperationConfig firstconfig = new ScanOperationConfig()
                     {
-                        // var x = CountFromFirstList;
-                        foreach (var FirstListElement in firstdocumentList)
+                        Filter = firstscanFilter,
+                        Select = SelectValues.AllAttributes,
+                    };
+                    Search firstsearch = table.Scan(firstconfig);
+                    List<Document> firstdocumentList = new List<Document>();
+                    do
+                    {
+                        firstdocumentList = firstsearch.GetNextSet();
+
+                        var CountFromFirstList = firstdocumentList.Count();
+
+                        if (CountFromFirstList > 0)
                         {
-                            TempData["USID"] = FirstListElement["USID"];
-                            TempData["PasswordFromDB"] = FirstListElement["Password"];
-                            TempData["VCodeFromDB"] = FirstListElement["Vcode"];
-                            TempData["RIDFromDB"] = FirstListElement["RID"];
-                            TempData["IsLoginActive"] = FirstListElement["IsLoginActive"];
+                            // var x = CountFromFirstList;
+                            foreach (var FirstListElement in firstdocumentList)
+                            {
+                                TempData["USID"] = FirstListElement["USID"];
+                                TempData["PasswordFromDB"] = FirstListElement["Password"];
+                                TempData["VCodeFromDB"] = FirstListElement["Vcode"];
+                                TempData["RIDFromDB"] = FirstListElement["RID"];
+                                TempData["IsLoginActive"] = FirstListElement["IsLoginActive"];
+                            }
                         }
-                    }
 
 
-                } while (!firstsearch.IsDone);
-            }
-            else if (CheckWithUSIDandEmail.Contains("@"))
-            {
-                secondscanFilter.AddCondition("Email", ScanOperator.Equal, Convert.ToString(CheckWithUSIDandEmail));
-                x = false;
-                ScanOperationConfig secondconfig = new ScanOperationConfig()
+                    } while (!firstsearch.IsDone);
+                }
+                else if (CheckWithUSIDandEmail.Contains("@"))
                 {
-                    Filter = secondscanFilter,
-                    Select = SelectValues.AllAttributes,
-                };
-
-                Search secondsearch = table.Scan(secondconfig);
-
-                List<Document> seconddocumentList = new List<Document>();
-
-
-                do
-                {
-                    seconddocumentList = secondsearch.GetNextSet();
-
-                    var CountFromSecondList = seconddocumentList.Count();
-
-
-                    //var x = CountFromSecondList;
-                    foreach (var SecondListElement in seconddocumentList)
+                    secondscanFilter.AddCondition("Email", ScanOperator.Equal, Convert.ToString(CheckWithUSIDandEmail));
+                    x = false;
+                    ScanOperationConfig secondconfig = new ScanOperationConfig()
                     {
-                        TempData["Email"] = SecondListElement["Email"];
-                        TempData["PasswordFromDB"] = SecondListElement["Password"];
-                        TempData["VCodeFromDB"] = SecondListElement["Vcode"];
-                        TempData["RIDFromDB"] = SecondListElement["RID"];
-                        TempData["IsLoginActive"] = SecondListElement["IsLoginActive"];
+                        Filter = secondscanFilter,
+                        Select = SelectValues.AllAttributes,
+                    };
+
+                    Search secondsearch = table.Scan(secondconfig);
+
+                    List<Document> seconddocumentList = new List<Document>();
+
+
+                    do
+                    {
+                        seconddocumentList = secondsearch.GetNextSet();
+
+                        var CountFromSecondList = seconddocumentList.Count();
+
+
+                        //var x = CountFromSecondList;
+                        foreach (var SecondListElement in seconddocumentList)
+                        {
+                            TempData["Email"] = SecondListElement["Email"];
+                            TempData["PasswordFromDB"] = SecondListElement["Password"];
+                            TempData["VCodeFromDB"] = SecondListElement["Vcode"];
+                            TempData["RIDFromDB"] = SecondListElement["RID"];
+                            TempData["IsLoginActive"] = SecondListElement["IsLoginActive"];
+                        }
+
+
+
+                    } while (!secondsearch.IsDone);
+                }
+                if (TempData["USID"] != null)
+                {
+                    string USID = Convert.ToString(TempData["USID"]);
+
+                    string Password = Convert.ToString(TempData["PasswordFromDB"]);
+                    var VCode = TempData["VCodeFromDB"];
+                    string RID = Convert.ToString(TempData["RIDFromDB"]);
+                    var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
+                    string IsLoginActive = Convert.ToString(TempData["IsLoginActive"]);
+
+                    if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(USID);
+                        TempData["LogUSID"] = model.USID;
+                        return RedirectToAction("OutreachAdmin", model);
+                    }
+                    else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(USID);
+                        return RedirectToAction("NationalLevelMember", model);
+                    }
+                    else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(USID);
+                        return RedirectToAction("RegionalLevelMember", model);
+                    }
+                    else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(USID);
+                        return RedirectToAction("ChapterLevelMember", model);
+                    }
+                    else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(USID);
+                        return RedirectToAction("SWEVolunteer", model);
                     }
 
 
+                }
+                else
+                {
+                    string Email = Convert.ToString(TempData["Email"]);
+                    string Password = Convert.ToString(TempData["PasswordFromDB"]);
+                    var VCode = TempData["VCodeFromDB"];
+                    string RID = Convert.ToString(TempData["RIDFromDB"]);
+                    var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
+                    string IsLoginActive = Convert.ToString(TempData["IsLoginActive"]);
 
-                } while (!secondsearch.IsDone);
+                    if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                        //TempData["LogUSID"] = model.USID;
+                        return RedirectToAction("OutreachAdmin", model);
+                    }
+                    else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                        return RedirectToAction("NationalLevelMember", model);
+                    }
+                    else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                        return RedirectToAction("RegionalLevelMember", model);
+                    }
+                    else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                        return RedirectToAction("ChapterLevelMember", model);
+                    }
+                    else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5" && IsLoginActive == "True")
+                    {
+                        model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
+                        return RedirectToAction("SWEVolunteer", model);
+                    }
+
+                }
+
+
+                return View("Error");
+
             }
-            if (TempData["USID"] != null)
+            catch (Exception e)
             {
-                string USID = Convert.ToString(TempData["USID"]);
-             
-                string Password = Convert.ToString(TempData["PasswordFromDB"]);
-                var VCode = TempData["VCodeFromDB"];
-                string RID = Convert.ToString(TempData["RIDFromDB"]);
-                var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
-                string IsLoginActive = Convert.ToString(TempData["IsLoginActive"]);
+                return View("Error");
 
-                if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(USID);
-                    TempData["LogUSID"] = model.USID;
-                    return RedirectToAction("OutreachAdmin", model);
-                }
-                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(USID);
-                    return RedirectToAction("NationalLevelMember", model);
-                }
-                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(USID);
-                    return RedirectToAction("RegionalLevelMember", model);
-                }
-                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(USID);
-                    return RedirectToAction("ChapterLevelMember", model);
-                }
-                else if (USID == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(USID);
-                    return RedirectToAction("SWEVolunteer", model);
-                }
             }
-            else
-            {
-                string Email = Convert.ToString(TempData["Email"]);
-                string Password = Convert.ToString(TempData["PasswordFromDB"]);
-                var VCode = TempData["VCodeFromDB"];
-                string RID = Convert.ToString(TempData["RIDFromDB"]);
-                var CheckPassword = Helper.EncodePassword(PasswordFromUser, Convert.ToString(VCode));
-                string IsLoginActive = Convert.ToString(TempData["IsLoginActive"]);
-
-                if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "1" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    //TempData["LogUSID"] = model.USID;
-                    return RedirectToAction("OutreachAdmin",model);
-                }
-                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "2" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return RedirectToAction("NationalLevelMember", model);
-                }
-                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "3" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return RedirectToAction("RegionalLevelMember", model);
-                }
-                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "4" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return RedirectToAction("ChapterLevelMember", model);
-                }
-                else if (Email == Convert.ToString(model.CheckWithUSIDandEmail) && CheckPassword == Password && RID == "5" && IsLoginActive == "True")
-                {
-                    model.USID = Convert.ToInt64(SWEN_DynamoUtilityClass.FetchUSIDfromEmail(Email));
-                    return RedirectToAction("SWEVolunteer", model);
-                }
-            }
-
-
-            return View(model);
-
-
         }
 
         public ActionResult Logout(LoginModel model)
