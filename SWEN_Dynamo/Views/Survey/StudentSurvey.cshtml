@@ -529,6 +529,7 @@
         $('[id^=O9]').attr('disabled', true)
         $('[id^=O10]').attr('disabled', true)
         $('[id^=O11]').attr('disabled', true)
+        $('[id^=CustomQuestion]').attr('disabled', true)
         $("#Objective1").click(function ()
         {
             if ($(this).is(":checked")) {
@@ -612,10 +613,10 @@
         });
         $("#Objective11").click(function () {
             if ($(this).is(":checked")) {
-                $('[id^=O11]').attr("disabled", false);
+                $('[id^=CustomQuestion]').attr("disabled", false);
             }
             else {
-                $('[id^=O11]').attr("disabled", true);
+                $('[id^=CustomQuestion]').attr("disabled", true);
             }
         });
 
