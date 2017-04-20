@@ -1269,9 +1269,10 @@ namespace SWEN_Dynamo.Controllers
                 if (!string.IsNullOrWhiteSpace(RT[i]))
                 {
                     SWEN_DynamoUtilityClass.DeploymentStepFinal(mod.SurveyID, RT[i]);
+                    SWEN_DynamoUtilityClass.SendEmail(RT[i]);
                 }
             }
-            return View(mod);
+            return View("DeploySurveyAck");
 
         }
 

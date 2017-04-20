@@ -7,8 +7,11 @@
 <h2>SurveyList</h2>
 
 <p>
-    @Html.ActionLink("Create New Survey", "SurveyStart")
+    @Html.ActionLink("Create New Survey", "SurveyStart")   <a class="col-lg-offset-8" href='javascript:history.go(-1)'>Go Back to your DashBoard</a>
 </p>
+
+
+
 <table class="table">
     <tr>
         <th>
@@ -67,3 +70,6 @@
     }
 
     </table>
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Log Out", "Logout", "Login")</li>
+</ul>

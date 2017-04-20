@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Outlook = Microsoft.Office.Interop.Outlook;
+
 
 
 namespace SWEN_Dynamo.App_Start
@@ -555,6 +557,44 @@ namespace SWEN_Dynamo.App_Start
 
         }
 
+        public static void SendEmail(string RecepientName)
+        {
+            try
+            {
+                // Create the Outlook application.
+                Outlook.Application oApp = new Outlook.Application();
+                // Create a new mail item.
+                Outlook.MailItem oMsg = (Outlook.MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
+                // Set HTMLBody. 
+                //add the body of the email
+                oMsg.HTMLBody = "Hello, You have a Survey waiting. Please Go to SWEN OAWP Web Site and then \"Take Survey\". \nProvide your this email address in response token.   ";
+                //Add an attachment.
+                // String sDisplayName = "MyAttachment";
+                int iPosition = (int)oMsg.Body.Length + 1;
+                //  int iAttachType = (int)Outlook.OlAttachmentType.olByValue;
+                //now attached the file
+                //Outlook.Attachment oAttach = oMsg.Attachments.Add(@"C:\\fileName.jpg", iAttachType, iPosition, sDisplayName);
+                //Subject line
+                oMsg.Subject = "Hey!! We have Questions. Do you have answers !!";
+                // Add a recipient.
+                Outlook.Recipients oRecips = (Outlook.Recipients)oMsg.Recipients;
+                // Change the recipient in the next line if necessary.
+                Outlook.Recipient oRecip = (Outlook.Recipient)oRecips.Add(RecepientName);
+                oRecip.Resolve();
+                // Send.
+                oMsg.Send();
+                // Clean up.
+                oRecip = null;
+                oRecips = null;
+                oMsg = null;
+                oApp = null;
+            }//end of try block
+            catch (Exception ex)
+            {
+            }//end of ca
+        }
+
+
     }
 
   
@@ -563,35 +603,5 @@ namespace SWEN_Dynamo.App_Start
 
 
 
-///////////////////////
 
 
-//public static string ScanKeysForExistence(string nameoftable, string attributename, string attributevalue)
-//{
-//    string Email;
-//    AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-//    Table table = Table.LoadTable(client, nameoftable);
-//    ScanFilter scanFilter = new ScanFilter();
-    
-//    scanFilter.AddCondition(attributename, ScanOperator.Contains, attributevalue);
-
-//    ScanOperationConfig config = new ScanOperationConfig()
-//    {
-//        Filter = scanFilter,
-//        Select = SelectValues.AllAttributes,
-//    };
-//    Search search = table.Scan(config);
-//   // List<string> EmailList = new List<string>();
-//    List<Document> documentList = new List<Document>();
-//    do
-//    {
-//        // people.Clear();
-//        documentList = search.GetNextSet();
-//        // Console.WriteLine(documentList);
-       
-
-//    } while (!search.IsDone);
-//   if(documentList.)
-
-
-//}

@@ -12,8 +12,15 @@
     <div class="form-horizontal">
 
         <div>
-            <h4>Give back a feed !!</h4>
+           
+                <h4>Give back a feed !! <a class="col-lg-offset-8" href='javascript:history.go(-1)'>Go Back to your DashBoard</a>   </h4>
+            
             <hr />
+            <p>
+              
+                <text class="col-lg-offset-11">@Html.ActionLink("Log Out", "Logout", "Login", new { id = Model.USID }, null)</text>
+
+            </p>
             <div class="jumbotron">
             <dl class="dl-horizontal">
                     <content class="col-lg-offset-5">  @Model.UserName's Information </content>
@@ -243,9 +250,7 @@
             </div>
             }
 
-<ul class="nav navbar-nav navbar-right">
-    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Model.USID }, null)</li>
-</ul>
+
 
 @section Scripts {
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>

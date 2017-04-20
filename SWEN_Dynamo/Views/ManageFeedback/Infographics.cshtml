@@ -7,8 +7,11 @@
 <h2>Infographics</h2>
 
 <p>
-    @Html.ActionLink("Create New Survey", "SurveyStart")
+    <a href='javascript:history.go(-1)'>Go Back to your DashBoard</a>
+     <text class="col-lg-offset-9">@Html.ActionLink("Log Out", "Logout", "Login", new { id = Model.USID }, null)</text>
+
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -85,12 +88,9 @@
 
 </table>
 
-<a href='javascript:history.go(-1)'>Go Back to your Main Page</a>
 
 
-<ul class="nav navbar-nav navbar-right">
-    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Model.USID }, null)</li>
-</ul>
+
 
 
 

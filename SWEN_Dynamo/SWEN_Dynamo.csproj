@@ -61,6 +61,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Outlook.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Outlook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Minion.Web.Amazon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Minion.Web.Amazon.1.1.5\lib\net45\Minion.Web.Amazon.dll</HintPath>
       <Private>True</Private>
@@ -499,6 +504,7 @@
     <Content Include="Views\ManageFeedback\Number.cshtml" />
     <Content Include="Views\ManageFeedback\Age.cshtml" />
     <Content Include="Scripts\pace.min.js.map" />
+    <Content Include="Views\Survey\DeploySurveyAck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
