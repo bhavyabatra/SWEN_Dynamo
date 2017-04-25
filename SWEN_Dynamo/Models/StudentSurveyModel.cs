@@ -284,6 +284,7 @@ namespace SWEN_Dynamo.Models
       
       //  [HiddenInput(DisplayValue = false)]
        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Display(Name = "Response ID")]
         public string ResponseToken { get; set; }
 
    }

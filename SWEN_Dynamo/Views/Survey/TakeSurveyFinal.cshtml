@@ -3,11 +3,9 @@
 @{
     ViewBag.Title = "TakeSurveyFinal";
 }
-<h2>TakeSurveyFinal</h2>
+<h2>Your are almost there. Fill it up !!</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 
 @using (Html.BeginForm())
 {
@@ -33,7 +31,7 @@
 
                 <td>
 
-                    @Html.DropDownListFor(model => model.answer, Model.AnswerOptions, "Please select your answer", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.answer, Model.AnswerOptions, "Please select your answer", new { @class = "form-control", id = "AnsCheck" })
                 </td>
             </tr>
 
@@ -68,11 +66,8 @@
 
         <div class="col-md-offset-2 col-md-10">
             @*<input type="submit" name="SaveSurvey" value="Save Survey" class="btn btn-default" />*@
-            <input type="submit" name="SubmitSurvey" value="Submit Survey" class="btn btn-default" />
+            <input type="submit" name="SubmitSurvey" value="Submit Survey" class="btn btn-default" id="cc" />
         </div>
     </div>
 }
-@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-@Html.ActionLink("Delete", "Delete", new { /* id=item.Primary,"Key */ })
 

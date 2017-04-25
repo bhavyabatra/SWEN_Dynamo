@@ -219,12 +219,15 @@ namespace SWEN_Dynamo.App_Start
                             UpdateExpression = "SET #FN = :FN, #EN = :EN"
 
                         };
-                        var res = client.UpdateItem(request);
-                        if (res != null)
-                        {
-                            client.UpdateItem(request);
-                        }
-                    }
+            if (!string.IsNullOrEmpty(answervalue))
+            {
+                var res = client.UpdateItem(request);
+                if (res != null)
+                {
+                    client.UpdateItem(request);
+                }
+            }
+            }
         public static void SetSurveyCompleteFlag(string SurveyID, string ResToken, string answervalue)
         {
              {

@@ -417,6 +417,8 @@
     <Content Include="Scripts\d3\CHANGES.md" />
     <Content Include="Scripts\d3\API.md" />
     <None Include=".bin\node.cmd" />
+    <Content Include="ClassDiagram7.cd" />
+    <Content Include="ClassDiagram8.cd" />
     <None Include="Properties\PublishProfiles\SWEN_Dynamo_TTUProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
