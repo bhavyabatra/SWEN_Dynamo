@@ -507,6 +507,9 @@
     <Content Include="Views\ManageFeedback\Age.cshtml" />
     <Content Include="Scripts\pace.min.js.map" />
     <Content Include="Views\Survey\DeploySurveyAck.cshtml" />
+    <Content Include="Views\Login\ResetPass.cshtml" />
+    <Content Include="Views\Login\PasswordEdited.cshtml" />
+    <Content Include="Views\Login\PasswordEditFailed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

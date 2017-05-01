@@ -64,6 +64,9 @@
                 <input type="submit" value="Login" class="btn btn-default" onclick="move()" />
             </div>
         </div>
+        <div class="col-md-10">
+            @Html.ActionLink("Reset Password", "ResetPass", "Login", new { id = Model.USID }, null)
+        </div>
         <div id="myProgress">
             <div id="myBar"></div>
         </div>

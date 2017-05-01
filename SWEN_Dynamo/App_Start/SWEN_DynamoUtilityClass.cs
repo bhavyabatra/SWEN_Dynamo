@@ -598,10 +598,45 @@ namespace SWEN_Dynamo.App_Start
         }
 
 
+        public static void ResetPass(string USID, string Pass, string Vcode)
+        {
+            {
+                AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+
+                var request = new UpdateItemRequest
+                {
+                    TableName = "User",
+                    Key = new Dictionary<string, AttributeValue>() { { "USID", new AttributeValue { N = Convert.ToString(USID) } }
+                     },
+                    ExpressionAttributeNames = new Dictionary<string, string>()
+
+                 {
+                    { "#PA", "Password"},
+                    { "#VC", "Vcode"}
+                    },
+                    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+    {
+        {":PA",new AttributeValue { S = Pass }},
+        {":VC",new AttributeValue { S = Vcode }}
+         },
+                    UpdateExpression = "SET #VC = :VC, #PA = :PA"
+
+                };
+                var res = client.UpdateItem(request);
+                if (res != null)
+                {
+                    client.UpdateItem(request);
+                }
+            }
+        }
+
+
+    }
+
     }
 
   
-}
+ 
 
 
 

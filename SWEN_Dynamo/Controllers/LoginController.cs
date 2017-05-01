@@ -242,5 +242,37 @@ namespace SWEN_Dynamo.Controllers
             mod.Name = SWEN_DynamoUtilityClass.FetchNamefromUSID(Convert.ToInt64(mod.USID));
             return View(mod); 
         }
-    }
+        public ActionResult ResetPass(LoginModel model)
+        {
+           
+            
+            
+            return View();
+        }
+        [HttpPost, ActionName("ResetPass")]
+        public ActionResult ResetPassConfirmed(LoginModel model)
+        {
+            long USID = SWEN_DynamoUtilityClass.FetchUSIDfromEmail(model.Email);
+            var client = new AmazonDynamoDBClient();
+            var table = Table.LoadTable(client, "User");
+            var PasswordChangeItem = table.GetItem(USID);
+            string vCode = PasswordChangeItem["Vcode"];
+            string PassfromDB = PasswordChangeItem["Password"];
+            string Userpassword = model.OldPassword;
+            string checkpass = Helper.EncodePassword(Userpassword, vCode);
+
+            if (checkpass == PassfromDB)
+            {
+                var keynew = Helper.GeneratePassword(10);
+                string newpass = model.NewPassword;
+                string setnewpass = Helper.EncodePassword(newpass, keynew);
+                SWEN_DynamoUtilityClass.ResetPass(Convert.ToString(USID), setnewpass, keynew);
+                return View("PasswordEdited");
+            }
+            else
+            {
+                return View("PasswordEditFailed");
+            }
+        }
+        }
 }

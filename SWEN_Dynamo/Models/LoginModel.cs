@@ -14,7 +14,15 @@ namespace SWEN_Dynamo.Models
         public long USID { get; set; }
 
         [DataType(DataType.Password)]
-        public string Password { get; set; } 
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Old Password")]
+        public string OldPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "New Password")]
+        public string NewPassword { get; set; }
 
         public string Vcode { get; set; } 
 
