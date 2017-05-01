@@ -242,36 +242,10 @@ namespace SWEN_Dynamo.Models
         public string SurveyID { get; set; } = "ABC";
 
 
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken0 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken1 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken2 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken3 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken4 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken5 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken6 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken7 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken8 { get; set; } = "444@44444.com";
-        [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ResponseToken9 { get; set; } = "444@44444.com";
+        [Display(Name = "Email Addresses Seperated with commas")]
+     
+        public string ResponseToken0 { get; set; } 
+       
 
         public string SurveyType { get; set; } = "None";
 

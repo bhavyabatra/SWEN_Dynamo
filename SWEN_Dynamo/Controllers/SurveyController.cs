@@ -1263,16 +1263,22 @@ namespace SWEN_Dynamo.Controllers
         public ActionResult DeploySurveyStartConfirmed(DeploySurveyStart mod)
         {
             mod.SurveyID = Convert.ToString(TempData["SurveyDeployID"]);
-            string[] RT = new string[10] { mod.ResponseToken0, mod.ResponseToken1, mod.ResponseToken2, mod.ResponseToken3, mod.ResponseToken4, mod.ResponseToken5, mod.ResponseToken6, mod.ResponseToken7, mod.ResponseToken8, mod.ResponseToken9 };
-            for (int i = 0; i < 10; i++)
+            string RT =  mod.ResponseToken0 ;
+            string TrimRT = RT.Trim();
+            string NewRT = TrimRT.Replace(" ", "");
+            List<string> mail = new List<string>();
+            string[] values = NewRT.Split(',');
+            for (int i = 0; i < values.Length; i++)
             {
-                if (!string.IsNullOrWhiteSpace(RT[i]))
-                {
-                    SWEN_DynamoUtilityClass.DeploymentStepFinal(mod.SurveyID, RT[i]);
-                    SWEN_DynamoUtilityClass.SendEmail(RT[i]);
-                }
+                values[i] = values[i].Trim();
+                 mail.Add(values[i]);
             }
-            return View("DeploySurveyAck");
+            foreach (var m in mail)
+            {
+                SWEN_DynamoUtilityClass.DeploymentStepFinal(mod.SurveyID, m);
+                SWEN_DynamoUtilityClass.SendEmail(m);
+            }
+           return View("DeploySurveyAck");
 
         }
 

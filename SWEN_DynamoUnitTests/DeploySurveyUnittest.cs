@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -258,22 +259,62 @@ namespace ConsoleApplication1
         }
         public static void Main(string[] args)
         {
-          
-          //  string[] s = new string[130];
-            for (int i = 1; i <= 130; i++)
-            {
-                Console.WriteLine(" new SelectListItem { Value = \""+i+ "\",  Text = \""+i+"\"},");
-            }
            
-           // public IEnumerable<SelectListItem> SectionN { get; set; }
-        //MF.SectionN = new List<SelectListItem>();
+            string abc = "Helle@h.com, x@x.xom, n@n.com, d@d.com";
+            string trimabc = abc.Trim();
+            string newabc = trimabc.Replace(" ", "");
+            Console.WriteLine(newabc);
+            List<string> mail = new List<string>();
+            string[] values = newabc.Split(',');
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i] = values[i].Trim();
+                Console.WriteLine(values[i]);
+                mail.Add(values[i]);
+            }
+            foreach(var id in mail)
+            {
+                Console.WriteLine(id);
+            }
+            // List<MailAddress> dr = new List<MailAddress>();
+            // var mail = new MailAddress(abc);
+            // dr.Add(mail);
 
-        //    {
+            //foreach (MailAddress id in dr)
+            // {
+            //     Console.WriteLine(id);
+            // }
+            // foreach (var id in dr)
+            // {
+            //     dr.Add
+            //     //List<string> email = mail.Address;
+            //     //Console.WriteLine(email);
+            //}
+            //List<string> teud = new List<string>();
+            //int abclen = abc.Length;
 
-        //        new SelectListItem { Value = s[130], Text = Convert.ToString(s[130]) };
+            //string.Format(" ", abc);
+            //Console.WriteLine(abclen);
+            //for (int i = 0; i <= abclen; i++)
+            //{
+            //    Console.WriteLine(string.(','));
+            //}
+            // teud x = abc.Intersect(',');
+            // foreach(string x in teud)
+            //string x = teud.Ad);
+            // Console.WriteLine(x);
+            //  string[] s = new string[130];
 
-        //    };
-        //    ///Console.WriteLine(EncodePassword("abcdef", "ghijkl"));
+
+            // public IEnumerable<SelectListItem> SectionN { get; set; }
+            //MF.SectionN = new List<SelectListItem>();
+
+            //    {
+
+            //        new SelectListItem { Value = s[130], Text = Convert.ToString(s[130]) };
+
+            //    };
+            //    ///Console.WriteLine(EncodePassword("abcdef", "ghijkl"));
             //AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             //Table t = Table.LoadTable(client, "User");
 
